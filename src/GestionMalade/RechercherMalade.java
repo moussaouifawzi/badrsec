@@ -323,8 +323,10 @@ public class RechercherMalade extends javax.swing.JFrame {
                 s.cAlphabet.setEnabled(false);
                 s.txtId_p3.setEditable(false);
                 s.txtInt.setEditable(false);
+                s.bAjouter.setEnabled(false);
+                s.bModifier.setEnabled(true);
             }
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

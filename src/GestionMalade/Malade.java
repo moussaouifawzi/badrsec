@@ -32,19 +32,20 @@ public class Malade extends javax.swing.JFrame {
     String Type_cancer;
     int id_maladi;
     char id;
+    
 
     public Malade() {
         initComponents();
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
-        
+        bModifier.setEnabled(false);
     }
      public Malade(char id) {
         initComponents();
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
         this.id=id;
-        
+        bModifier.setEnabled(false);
     }
 
     /**
@@ -125,6 +126,15 @@ public class Malade extends javax.swing.JFrame {
         cAlphabet.setBackground(new java.awt.Color(255, 255, 255));
         cAlphabet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
         cAlphabet.setSelectedIndex(-1);
+        cAlphabet.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                cAlphabetPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
         cAlphabet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cAlphabetActionPerformed(evt);
@@ -498,26 +508,23 @@ public class Malade extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
-
         this.dispose();
         this.setVisible(false);
-       
-          if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+
+        if (id == 'A') {
+            this.setVisible(false);
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+        } else if (id == 'D') {
+            this.setVisible(false);
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+        }
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed
@@ -587,33 +594,6 @@ public class Malade extends javax.swing.JFrame {
 
     private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed
 
-        //         rechercher le nbr de docier existant par dossier Alphabétique
-        String tableauCaractere[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"};
-        //        System.out.println("zz");
-        for (int i = 0; i < tableauCaractere.length; i++) {
-
-            if (cAlphabet.getSelectedItem().equals(tableauCaractere[i])) {
-                //                              System.out.println("fefze");
-                con = Connect.connect();
-                String sql = "SELECT COUNT(*)  count FROM malade WHERE id_m LIKE '" + tableauCaractere[i] + "%'";
-                //                               System.out.println("efzef");
-                try {
-                    pst = con.prepareStatement(sql);
-                    //                                        System.out.println("hghghgh");
-                    ResultSet rec2 = pst.executeQuery(sql);
-                    //                                       System.out.println("hfhghgh");
-                    rec2.next();
-                    int nb = rec2.getInt("count");
-                    String k = Integer.toString(nb + 1);
-                    txtInt.setText(k);
-                    
-                    //                                       System.out.println("jfjfg,bombng");
-
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-            }
-        }
     }//GEN-LAST:event_cAlphabetActionPerformed
 
     private void txtId_p3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId_p3ActionPerformed
@@ -634,6 +614,38 @@ public class Malade extends javax.swing.JFrame {
          s.setVisible(true);
 
     }//GEN-LAST:event_bPlusMaladieActionPerformed
+
+    private void cAlphabetPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cAlphabetPopupMenuWillBecomeInvisible
+        
+    //         rechercher le nbr de docier existant par dossier Alphabétique
+        String tableauCaractere[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"};
+        
+            for (int i = 0; i < tableauCaractere.length; i++) {
+                
+                if (cAlphabet.getSelectedItem().equals(tableauCaractere[i])) {
+                    //                              System.out.println("fefze");
+                    con = Connect.connect();
+                    String sql = "SELECT COUNT(*)  count FROM malade WHERE id_m LIKE '" + tableauCaractere[i] + "%'";
+                    //                               System.out.println("efzef");
+                    try {
+                        pst = con.prepareStatement(sql);
+                        //                                        System.out.println("hghghgh");
+                        ResultSet rec2 = pst.executeQuery(sql);
+                        //                                       System.out.println("hfhghgh");
+                        rec2.next();
+                        int nb = rec2.getInt("count");
+                        String k = Integer.toString(nb + 1);
+                        txtInt.setText(k);
+                        
+                        //                                       System.out.println("jfjfg,bombng");
+                        
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                }
+            }
+        
+    }//GEN-LAST:event_cAlphabetPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -671,22 +683,21 @@ public class Malade extends javax.swing.JFrame {
     }
 
     protected void reset() {
-        txtNom.setText("");
-        txtAdress.setText("");
+        cAlphabet.setSelectedIndex(-1);
         txtId_p3.setText("");
         txtInt.setText("");
-        txtMedecin.setText("");
         txtNom.setText("");
+        txtPrenom.setText("");
+        jDateNaiMalade.setCalendar(null);
+        cMaladie.setSelectedIndex(-1);
+        txtAdress.setText("");
+        txtVille.setText("");
+        cWillaya.setSelectedIndex(-1);
         txtNumTelFamille.setText("");
         txtNumTelMalade.setText("");
-        txtPrenom.setText("");
-        txtVille.setText("");
         cEtatSocial.setSelectedIndex(-1);
-        cAlphabet.setSelectedIndex(-1);
+        txtMedecin.setText("");     
         cSexe.setSelectedIndex(-1);
-        cWillaya.setSelectedIndex(-1);
-        cMaladie.setSelectedIndex(-1);
-        jDateNaiMalade.setCalendar(null);
     }
     
     private void Rechercher_id_Maladie() {
@@ -724,9 +735,9 @@ public class Malade extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAjouter;
+    protected javax.swing.JButton bAjouter;
     private javax.swing.JButton bCancel2;
-    private javax.swing.JButton bModifier;
+    protected javax.swing.JButton bModifier;
     private javax.swing.JButton bPlusMaladie;
     private javax.swing.JButton bRechercher;
     private javax.swing.JButton bReset;

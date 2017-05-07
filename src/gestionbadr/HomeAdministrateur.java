@@ -355,11 +355,16 @@ char id;
     }//GEN-LAST:event_bParametreActionPerformed
 
     private void bAjouterDonnation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterDonnation1ActionPerformed
-        // TODO add your handling code here:
+        
+        this.setVisible(false);
+        Beneficie s = new Beneficie(id);
+        s.setVisible(true);
     }//GEN-LAST:event_bAjouterDonnation1ActionPerformed
 
     private void bConsulterHistoriqueDonnation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterHistoriqueDonnation1ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        ConsulterHistoriqueDonnation s = new ConsulterHistoriqueDonnation(id);
+        s.setVisible(true);
     }//GEN-LAST:event_bConsulterHistoriqueDonnation1ActionPerformed
 
     /**

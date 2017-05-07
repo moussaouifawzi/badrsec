@@ -404,7 +404,7 @@ public class Benevole extends javax.swing.JFrame {
     }//GEN-LAST:event_bSaveActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        // TODO add your handling code here:
+        
         this.dispose();
         this.setVisible(false);
        

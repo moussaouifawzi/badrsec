@@ -52,21 +52,31 @@ char id;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         bAjouterMalade = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         bConsulterMalade = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         bAjouterArticle = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         bConsulterArticle = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         bAjouterRDV = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         bConsulterRDV = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         bAjouterMalade1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         bConsulterMalade1 = new javax.swing.JButton();
         bParametre = new javax.swing.JButton();
         bDeconnecter = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         bAjouterDonnation1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         bConsulterHistoriqueDonnation1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -80,6 +90,10 @@ char id;
         jPanel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel2.setLayout(null);
 
+        jLabel2.setText("Ajouter");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(60, 40, 100, 16);
+
         bAjouterMalade.setBorder(null);
         bAjouterMalade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +102,10 @@ char id;
         });
         jPanel2.add(bAjouterMalade);
         bAjouterMalade.setBounds(20, 30, 160, 40);
+
+        jLabel3.setText("Consulter");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(60, 90, 90, 16);
 
         bConsulterMalade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +122,10 @@ char id;
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Articles"));
         jPanel3.setLayout(null);
 
+        jLabel4.setText("Ajouter");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(70, 50, 41, 16);
+
         bAjouterArticle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterArticleActionPerformed(evt);
@@ -111,6 +133,10 @@ char id;
         });
         jPanel3.add(bAjouterArticle);
         bAjouterArticle.setBounds(16, 34, 160, 40);
+
+        jLabel5.setText("Consulter");
+        jPanel3.add(jLabel5);
+        jLabel5.setBounds(70, 90, 60, 16);
 
         bConsulterArticle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +153,10 @@ char id;
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des RDV"));
         jPanel4.setLayout(null);
 
+        jLabel10.setText("Ajouter");
+        jPanel4.add(jLabel10);
+        jLabel10.setBounds(60, 40, 41, 16);
+
         bAjouterRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterRDVActionPerformed(evt);
@@ -134,6 +164,10 @@ char id;
         });
         jPanel4.add(bAjouterRDV);
         bAjouterRDV.setBounds(18, 27, 160, 44);
+
+        jLabel11.setText("Consulter");
+        jPanel4.add(jLabel11);
+        jLabel11.setBounds(60, 90, 55, 16);
 
         bConsulterRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +184,10 @@ char id;
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Benevole"));
         jPanel6.setLayout(null);
 
+        jLabel6.setText("Ajouter");
+        jPanel6.add(jLabel6);
+        jLabel6.setBounds(70, 50, 41, 16);
+
         bAjouterMalade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterMalade1ActionPerformed(evt);
@@ -157,6 +195,10 @@ char id;
         });
         jPanel6.add(bAjouterMalade1);
         bAjouterMalade1.setBounds(16, 36, 160, 40);
+
+        jLabel7.setText("Consulter");
+        jPanel6.add(jLabel7);
+        jLabel7.setBounds(60, 100, 70, 16);
 
         bConsulterMalade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,6 +233,10 @@ char id;
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des donnations"));
         jPanel7.setLayout(null);
 
+        jLabel8.setText("Ajouter");
+        jPanel7.add(jLabel8);
+        jLabel8.setBounds(60, 40, 41, 16);
+
         bAjouterDonnation1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterDonnation1ActionPerformed(evt);
@@ -198,6 +244,10 @@ char id;
         });
         jPanel7.add(bAjouterDonnation1);
         bAjouterDonnation1.setBounds(18, 27, 160, 44);
+
+        jLabel9.setText("Consulter");
+        jPanel7.add(jLabel9);
+        jLabel9.setBounds(70, 90, 70, 16);
 
         bConsulterHistoriqueDonnation1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,6 +412,16 @@ char id;
     private javax.swing.JButton bDeconnecter;
     private javax.swing.JButton bParametre;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

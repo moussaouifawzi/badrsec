@@ -43,7 +43,9 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
         bOk = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         bCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -69,6 +71,10 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(txtPassword);
         txtPassword.setBounds(250, 160, 190, 40);
 
+        jLabel2.setText("Ok");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(240, 230, 16, 16);
+
         bOk.setBackground(new java.awt.Color(42, 135, 227));
         bOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +83,10 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(bOk);
         bOk.setBounds(220, 220, 100, 40);
+
+        jLabel6.setText("Cancel");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(350, 230, 39, 16);
 
         bCancel.setBackground(new java.awt.Color(42, 135, 227));
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -267,9 +277,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton bCancel;
     private javax.swing.JButton bOk;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;

@@ -340,6 +340,7 @@ char id;
         this.setVisible(false);
         Malade h = new Malade(id);
         h.setVisible(true);
+        
     }//GEN-LAST:event_bAjouterMaladeActionPerformed
 
     private void bDeconnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeconnecterActionPerformed

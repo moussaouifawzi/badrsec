@@ -45,7 +45,7 @@ public class Malade extends javax.swing.JFrame {
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
         this.id=id;
-        
+        bModifier.setEnabled(false);
     }
 
     /**
@@ -508,26 +508,23 @@ public class Malade extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
-
         this.dispose();
         this.setVisible(false);
-       
-          if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+
+        if (id == 'A') {
+            this.setVisible(false);
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+        } else if (id == 'D') {
+            this.setVisible(false);
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+        }
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed

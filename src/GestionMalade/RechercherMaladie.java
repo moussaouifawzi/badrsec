@@ -212,6 +212,8 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 s2.txtMaladie.setText(Type_cancer);
                 
                 s2.id_maladi = rs.getInt("id_maladi");
+                s2.bModifier.setEnabled(true);
+                s2.bAjouter.setEnabled(false);
             }
 
         } catch (Exception e) {

@@ -26,7 +26,7 @@ public class RechercherBenevole extends javax.swing.JFrame {
 
     public RechercherBenevole() {
         initComponents();
-        Initialiser_Tableau_Benevole();
+        //Initialiser_Tableau_Benevole();
     }
 
     /**
@@ -40,7 +40,11 @@ public class RechercherBenevole extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tBenevole = new javax.swing.JTable();
+        tBenevole = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -237,6 +241,8 @@ public class RechercherBenevole extends javax.swing.JFrame {
                 s.cSexeB.setSelectedItem(sexe_b);
                 s.id_b = rst.getInt("id_b");
                 
+                s.bModifier.setEnabled(true);
+                s.bSave.setEnabled(false);
             }
 
         } catch (Exception e) {

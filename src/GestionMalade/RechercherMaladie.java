@@ -47,7 +47,11 @@ public class RechercherMaladie extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tUser = new javax.swing.JTable();
+        tUser = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jPanel3 = new javax.swing.JPanel();
         bRechercher = new javax.swing.JButton();
         bCancel = new javax.swing.JButton();
@@ -212,6 +216,8 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 s2.txtMaladie.setText(Type_cancer);
                 
                 s2.id_maladi = rs.getInt("id_maladi");
+                s2.bModifier.setEnabled(true);
+                s2.bAjouter.setEnabled(false);
             }
 
         } catch (Exception e) {

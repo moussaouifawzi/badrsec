@@ -26,11 +26,11 @@ public class ConsulterBenevole extends javax.swing.JFrame {
 
     public ConsulterBenevole() {
         initComponents();
-        Initialiser_Tableau_Benevole();
+       // Initialiser_Tableau_Benevole();
     }
      public ConsulterBenevole(char id) {
         initComponents();
-        Initialiser_Tableau_Benevole();
+      //  Initialiser_Tableau_Benevole();
         this.id=id;
     }
 
@@ -45,7 +45,11 @@ public class ConsulterBenevole extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tBenevole = new javax.swing.JTable();
+        tBenevole = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -211,21 +215,21 @@ public class ConsulterBenevole extends javax.swing.JFrame {
     }//GEN-LAST:event_tBenevoleMouseClicked
 
     private void Initialiser_Tableau_Benevole(){
-         DefaultTableModel md = new DefaultTableModel();
-        md.setColumnIdentifiers(new String[]{"Nom benevole", "Prenom", "Willaya"});
-        try {
-            con = Connect.connect();
-            st = con.createStatement();
-            rs = st.executeQuery("select * from  benevole ");
-            while (rs.next()) {
-                md.addRow(new Object[]{rs.getObject("nom_b"), rs.getObject("Prenom_b"), rs.getObject("willaya_b")});
-            }
-            tBenevole.setModel(md);
-
-            setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+//         DefaultTableModel md = new DefaultTableModel();
+//        md.setColumnIdentifiers(new String[]{"Nom benevole", "Prenom", "Willaya"});
+//        try {
+//            con = Connect.connect();
+//            st = con.createStatement();
+//            rs = st.executeQuery("select * from  benevole ");
+//            while (rs.next()) {
+//                md.addRow(new Object[]{rs.getObject("nom_b"), rs.getObject("Prenom_b"), rs.getObject("willaya_b")});
+//            }
+//            tBenevole.setModel(md);
+//
+//            setVisible(true);
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
     }
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
        con = Connect.connect();

@@ -39,6 +39,7 @@ public class Malade extends javax.swing.JFrame {
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
         bModifier.setEnabled(false);
+        txtInt.setEditable(false);
     }
      public Malade(char id) {
         initComponents();
@@ -494,6 +495,7 @@ public class Malade extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Ok");
+                reset();
 
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -580,7 +582,14 @@ public class Malade extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
-
+                reset();
+                
+                // rétablire l'interface pour un ajout éventuelle
+                cAlphabet.setEnabled(true);
+                txtId_p3.setEditable(true);
+                txtInt.setEditable(false);
+                bAjouter.setEnabled(true);
+                bModifier.setEnabled(false);
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }

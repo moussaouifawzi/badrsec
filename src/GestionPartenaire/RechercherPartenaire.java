@@ -48,7 +48,11 @@ public class RechercherPartenaire extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tPartenaire = new javax.swing.JTable();
+        tPartenaire = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jPanel3 = new javax.swing.JPanel();
         bRechercher = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -155,7 +159,7 @@ public class RechercherPartenaire extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(bRechercher)
@@ -280,6 +284,9 @@ public class RechercherPartenaire extends javax.swing.JFrame {
                 String willaya_p = rs.getString("willaya_p");
                 s1.cWillayaPartenaire.setSelectedItem(willaya_p);
                 s1.id_p = rs.getInt("id_p");
+                
+                s1.bModifierPartenaire.setEnabled(true);
+                s1.bSavePartenaire.setEnabled(false);
             }
 
         } catch (Exception e) {

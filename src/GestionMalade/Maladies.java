@@ -24,6 +24,8 @@ public class Maladies extends javax.swing.JFrame {
    
     public Maladies() {
         initComponents();
+        bModifier.setEnabled(false);
+        
     }
 
     /**
@@ -167,6 +169,7 @@ public class Maladies extends javax.swing.JFrame {
                    pst = con.prepareStatement(sql2);
                     pst.execute();
                     JOptionPane.showMessageDialog(null, "Ok");
+                    reset();
 
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -192,8 +195,8 @@ public class Maladies extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed
-int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
-if (val == 0) {
+        int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
+        if (val == 0) {
         try {
                 con = Connect.connect();
                 String sql = "update maladies set Type_cancer='" + txtMaladie.getText()
@@ -203,12 +206,18 @@ if (val == 0) {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                
+                reset();
+                bModifier.setEnabled(false);
+                bAjouter.setEnabled(true);
+                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }}
     }//GEN-LAST:event_bModifierActionPerformed
 
+    
    
     /**
      * @param args the command line arguments
@@ -251,9 +260,9 @@ if (val == 0) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAjouter;
+    protected javax.swing.JButton bAjouter;
     private javax.swing.JButton bCancel;
-    private javax.swing.JButton bModifier;
+    protected javax.swing.JButton bModifier;
     private javax.swing.JButton bRechercher;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

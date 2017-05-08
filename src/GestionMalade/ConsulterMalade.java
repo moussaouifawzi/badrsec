@@ -42,7 +42,11 @@ char id;
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tMalade = new javax.swing.JTable();
+        tMalade = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jLabel10 = new javax.swing.JLabel();
         cAlphabet = new javax.swing.JComboBox();
         txtInt = new javax.swing.JTextField();

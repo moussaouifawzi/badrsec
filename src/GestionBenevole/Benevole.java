@@ -47,6 +47,7 @@ public class Benevole extends javax.swing.JFrame {
 
     public Benevole() {
         initComponents();
+        bModifier.setEnabled(false);
         addWindowListener (new WindowAdapter(){
 			public void windowClosing (WindowEvent e){
                             RetoureCancel();
@@ -57,6 +58,7 @@ public class Benevole extends javax.swing.JFrame {
          
         initComponents();
        this.id=id;
+       
     }
 
     private void RetoureCancel(){
@@ -71,6 +73,9 @@ public class Benevole extends javax.swing.JFrame {
         txtNumTelB.setText("");
         txtNomb.setText("");
         txtPrenom.setText("");
+        cSexeB.setSelectedIndex(-1);
+        cWillayaBenevole.setSelectedIndex(-1);
+        jDateNaissance.setCalendar(null);
     }
 
     /**
@@ -395,6 +400,7 @@ public class Benevole extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Successfully registred");
+                reset();
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -463,6 +469,10 @@ public class Benevole extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                
+                reset();
+                bModifier.setEnabled(false);
+                bSave.setEnabled(true);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -476,21 +486,21 @@ public class Benevole extends javax.swing.JFrame {
         this.setVisible(false);
         RechercherBenevole s = new RechercherBenevole();
         s.setVisible(true);
-        DefaultTableModel md = new DefaultTableModel();
-        md.setColumnIdentifiers(new String[]{"numero", "nom", "prenom"});
-        try {
-            con = Connect.connect();
-            st = con.createStatement();
-            rs = st.executeQuery("select * from employer ");
-            while (rs.next()) {
-                md.addRow(new Object[]{rs.getObject("employerId"), rs.getObject("Prenom_e"), rs.getObject("Nom_e")});
-            }
-            s.tBenevole.setModel(md);
-
-            s.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+//        DefaultTableModel md = new DefaultTableModel();
+//        md.setColumnIdentifiers(new String[]{"numero", "nom", "prenom"});
+//        try {
+//            con = Connect.connect();
+//            st = con.createStatement();
+//            rs = st.executeQuery("select * from employer ");
+//            while (rs.next()) {
+//                md.addRow(new Object[]{rs.getObject("employerId"), rs.getObject("Prenom_e"), rs.getObject("Nom_e")});
+//            }
+//            s.tBenevole.setModel(md);
+//
+//            s.setVisible(true);
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
     }//GEN-LAST:event_bRechercherActionPerformed
 
     /**
@@ -530,9 +540,9 @@ public class Benevole extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel;
-    private javax.swing.JButton bModifier;
+    protected javax.swing.JButton bModifier;
     private javax.swing.JButton bRechercher;
-    private javax.swing.JButton bSave;
+    protected javax.swing.JButton bSave;
     protected javax.swing.JComboBox cSexeB;
     protected javax.swing.JComboBox cWillayaBenevole;
     protected com.toedter.calendar.JDateChooser jDateNaissance;

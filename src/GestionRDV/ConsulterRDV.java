@@ -59,7 +59,11 @@ public class ConsulterRDV extends javax.swing.JFrame {
         cEtatValidation = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tRDV = new javax.swing.JTable();
+        tRDV = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter RDV");

@@ -28,12 +28,14 @@ public class partenaire extends javax.swing.JFrame {
 
     public partenaire() {
         initComponents();
+        bModifierPartenaire.setEnabled(false);
     }
 
     protected void reset() {
         txtNomPartenaire.setText("");
         txtTelPartenaire.setText("");
         cTypePartenaire.setSelectedIndex(-1);
+        cWillayaPartenaire.setSelectedIndex(-1);
     }
 
     /**
@@ -190,7 +192,7 @@ public class partenaire extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,6 +246,7 @@ public class partenaire extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Successfully registred");
+                reset();
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -273,6 +276,9 @@ public class partenaire extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                reset();
+                bModifierPartenaire.setEnabled(false);
+                bSavePartenaire.setEnabled(true);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -323,9 +329,9 @@ public class partenaire extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancelPartenaire;
-    private javax.swing.JButton bModifierPartenaire;
+    protected javax.swing.JButton bModifierPartenaire;
     private javax.swing.JButton bRechercherBenevole;
-    private javax.swing.JButton bSavePartenaire;
+    protected javax.swing.JButton bSavePartenaire;
     protected javax.swing.JComboBox cTypePartenaire;
     protected javax.swing.JComboBox cWillayaPartenaire;
     private javax.swing.JLabel jLabel1;

@@ -24,6 +24,8 @@ public class Maladies extends javax.swing.JFrame {
    
     public Maladies() {
         initComponents();
+        bModifier.setEnabled(false);
+        
     }
 
     /**
@@ -203,12 +205,15 @@ if (val == 0) {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                bModifier.setEnabled(false);
+                bAjouter.setEnabled(true);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }}
     }//GEN-LAST:event_bModifierActionPerformed
 
+    
    
     /**
      * @param args the command line arguments
@@ -251,9 +256,9 @@ if (val == 0) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAjouter;
+    protected javax.swing.JButton bAjouter;
     private javax.swing.JButton bCancel;
-    private javax.swing.JButton bModifier;
+    protected javax.swing.JButton bModifier;
     private javax.swing.JButton bRechercher;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

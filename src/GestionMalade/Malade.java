@@ -582,6 +582,13 @@ public class Malade extends javax.swing.JFrame {
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
                 reset();
+                
+                // rétablire l'interface pour un ajout éventuelle
+                cAlphabet.setEnabled(true);
+                txtId_p3.setEditable(true);
+                txtInt.setEditable(false);
+                bAjouter.setEnabled(true);
+                bModifier.setEnabled(false);
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }

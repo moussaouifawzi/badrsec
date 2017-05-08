@@ -26,7 +26,7 @@ public class RechercherBenevole extends javax.swing.JFrame {
 
     public RechercherBenevole() {
         initComponents();
-        Initialiser_Tableau_Benevole();
+        //Initialiser_Tableau_Benevole();
     }
 
     /**
@@ -241,6 +241,8 @@ public class RechercherBenevole extends javax.swing.JFrame {
                 s.cSexeB.setSelectedItem(sexe_b);
                 s.id_b = rst.getInt("id_b");
                 
+                s.bModifier.setEnabled(true);
+                s.bSave.setEnabled(false);
             }
 
         } catch (Exception e) {

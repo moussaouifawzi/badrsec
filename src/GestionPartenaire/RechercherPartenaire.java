@@ -284,6 +284,9 @@ public class RechercherPartenaire extends javax.swing.JFrame {
                 String willaya_p = rs.getString("willaya_p");
                 s1.cWillayaPartenaire.setSelectedItem(willaya_p);
                 s1.id_p = rs.getInt("id_p");
+                
+                s1.bModifierPartenaire.setEnabled(true);
+                s1.bSavePartenaire.setEnabled(false);
             }
 
         } catch (Exception e) {

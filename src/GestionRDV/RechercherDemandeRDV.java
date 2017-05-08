@@ -68,7 +68,11 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
         txtInt = new javax.swing.JTextField();
         txtId_p3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tDemandeRDV = new javax.swing.JTable();
+        tDemandeRDV = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Demande RDV");

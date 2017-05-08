@@ -56,7 +56,11 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cUnite = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tConvontion = new javax.swing.JTable();
+        tConvontion = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Convontion RDV");

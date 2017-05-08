@@ -39,6 +39,7 @@ public class Malade extends javax.swing.JFrame {
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
         bModifier.setEnabled(false);
+        txtInt.setEditable(false);
     }
      public Malade(char id) {
         initComponents();

@@ -169,6 +169,7 @@ public class Maladies extends javax.swing.JFrame {
                    pst = con.prepareStatement(sql2);
                     pst.execute();
                     JOptionPane.showMessageDialog(null, "Ok");
+                    reset();
 
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -194,8 +195,8 @@ public class Maladies extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed
-int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
-if (val == 0) {
+        int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
+        if (val == 0) {
         try {
                 con = Connect.connect();
                 String sql = "update maladies set Type_cancer='" + txtMaladie.getText()
@@ -205,8 +206,11 @@ if (val == 0) {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                
+                reset();
                 bModifier.setEnabled(false);
                 bAjouter.setEnabled(true);
+                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());

@@ -39,7 +39,11 @@ public class RechercherMalade extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tMalade = new javax.swing.JTable();
+        tMalade = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         txtInt = new javax.swing.JTextField();
         txtId_p3 = new javax.swing.JTextField();
         cAlphabet = new javax.swing.JComboBox();

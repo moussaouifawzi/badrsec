@@ -250,6 +250,8 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 s1.id_conv = rs.getInt("id_conv");
                 s1.Rechercher_nom_Partenaire();
                 
+                s1.bModifierPartenaire.setEnabled(true);
+                s1.bSavePartenaire.setEnabled(false);
             }
 
         } catch (Exception e) {

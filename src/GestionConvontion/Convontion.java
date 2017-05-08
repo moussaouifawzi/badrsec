@@ -37,6 +37,7 @@ public class Convontion extends javax.swing.JFrame {
         Remplir_Combo_Partenaire();
         cPartenaire.setSelectedIndex(-1);
         txtType.setVisible(false);
+        bModifierPartenaire.setEnabled(false);
     }
 
     /**
@@ -298,6 +299,7 @@ public class Convontion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomConvontionActionPerformed
 
+    
     public Boolean getB() {
         return b;
     }
@@ -306,6 +308,21 @@ public class Convontion extends javax.swing.JFrame {
         this.b = b;
     }
 
+    protected void reset() {
+        txtNomConvontion.setText("");
+        txtNombre.setText("");
+        txtType.setText("");
+        
+        cEtatConvontion.setSelectedIndex(-1);
+        cInjection.setSelectedIndex(-1);
+        cPartenaire.setSelectedIndex(-1);
+        cUnite.setSelectedIndex(-1);
+        
+        chIRM.setSelected(false);
+        chMamographie.setSelected(false);
+        chScaner.setSelected(false);
+           
+    }
 
     private void bSavePartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSavePartenaireActionPerformed
         String r = "";
@@ -338,7 +355,7 @@ public class Convontion extends javax.swing.JFrame {
             pst = con.prepareStatement(sql2);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Successfully registred");
-
+            reset();
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -398,6 +415,7 @@ public class Convontion extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                reset();
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -521,9 +539,9 @@ public class Convontion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancelPartenaire;
-    private javax.swing.JButton bModifierPartenaire;
+    protected javax.swing.JButton bModifierPartenaire;
     private javax.swing.JButton bRechercherBenevole;
-    private javax.swing.JButton bSavePartenaire;
+    protected javax.swing.JButton bSavePartenaire;
     protected javax.swing.JComboBox cEtatConvontion;
     protected javax.swing.JComboBox cInjection;
     protected javax.swing.JComboBox cPartenaire;

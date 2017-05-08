@@ -494,6 +494,7 @@ public class Malade extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Ok");
+                reset();
 
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -580,7 +581,7 @@ public class Malade extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
-
+                reset();
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }

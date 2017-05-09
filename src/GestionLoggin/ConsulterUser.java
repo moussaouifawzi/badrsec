@@ -60,7 +60,11 @@ public class ConsulterUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tUser = new javax.swing.JTable();
+        tUser = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jPanel3 = new javax.swing.JPanel();
         bRechercher = new javax.swing.JButton();
         cFunction = new javax.swing.JComboBox();

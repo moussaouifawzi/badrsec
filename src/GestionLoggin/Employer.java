@@ -45,6 +45,7 @@ public class Employer extends javax.swing.JFrame {
 
     public Employer() {
         initComponents();
+        bModifier.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -82,7 +83,7 @@ public class Employer extends javax.swing.JFrame {
 
         jLabel1.setText("User Name");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 73, 63, 16);
+        jLabel1.setBounds(0, 73, 110, 16);
 
         jLabel2.setText("Password");
         jPanel1.add(jLabel2);
@@ -114,7 +115,7 @@ public class Employer extends javax.swing.JFrame {
 
         jLabel5.setText("Nom :");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(17, 3, 32, 16);
+        jLabel5.setBounds(10, 10, 50, 16);
 
         jLabel6.setText("Prenom:");
         jPanel1.add(jLabel6);
@@ -147,7 +148,7 @@ public class Employer extends javax.swing.JFrame {
         jPanel2.add(bCancel);
         bCancel.setBounds(10, 40, 169, 32);
 
-        bNew.setText("New");
+        bNew.setText("Reset");
         bNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bNewActionPerformed(evt);
@@ -242,6 +243,7 @@ public class Employer extends javax.swing.JFrame {
                     pst = con.prepareStatement(sql3);
                     pst.execute();
                     JOptionPane.showMessageDialog(null, "Successfully registred");
+                    reset();
 
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -272,6 +274,8 @@ public class Employer extends javax.swing.JFrame {
                     pst = con.prepareStatement(sql3);
                     pst.execute();
                     JOptionPane.showMessageDialog(null, "Successfully registred");
+                    
+                    reset();
 
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -301,6 +305,8 @@ public class Employer extends javax.swing.JFrame {
                     pst = con.prepareStatement(sql3);
                     pst.execute();
                     JOptionPane.showMessageDialog(null, "Successfully registred");
+                    
+                    reset();
 
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -364,6 +370,11 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                
+                reset();
+                bModifier.setEnabled(false);
+                bSave.setEnabled(true);
+                cSpecialisation.setEnabled(true);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -430,10 +441,10 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel;
-    private javax.swing.JButton bModifier;
+    protected javax.swing.JButton bModifier;
     private javax.swing.JButton bNew;
     private javax.swing.JButton bRechercher;
-    private javax.swing.JButton bSave;
+    protected javax.swing.JButton bSave;
     protected javax.swing.JComboBox cSpecialisation;
     private javax.swing.JPasswordField jConfirmePassword;
     private javax.swing.JLabel jLabel1;

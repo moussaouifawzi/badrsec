@@ -1077,8 +1077,11 @@ public class RDV extends javax.swing.JFrame {
                 jTabbedPane1.setEnabledAt(1, true);
                 jTabbedPane1.setSelectedIndex(1);
                 bAjouterDemandeRDV.setEnabled(false);
-                bModifierDemandeRDV.setEnabled(true);
+                bModifierDemandeRDV.setEnabled(false);
+                cEtatDemandeRDV.setEnabled(false);
+                jDateDepot.setEnabled(false);
                 Configurer_Partie_Malade();
+                
 
             } else if (b == true && cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
                 Reset_Demande_RDV();

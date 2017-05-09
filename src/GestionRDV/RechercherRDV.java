@@ -318,6 +318,11 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.jTabbedPane1.setEnabledAt(2, false);
                 s1.jTabbedPane1.setEnabledAt(3, true);
                 s1.jTabbedPane1.setSelectedIndex(3);
+                s1.bRechercherMalade.setEnabled(false);
+                s1.bResetID.setEnabled(false);
+                s1.bRechercherMaladeRDV.setEnabled(false);
+                s1.bRechercherRDV.setEnabled(false);
+                s1.bRechercherDemandeRDV.setEnabled(false);
             }
 
         } catch (Exception e) {

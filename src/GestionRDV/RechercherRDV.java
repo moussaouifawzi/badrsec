@@ -303,6 +303,8 @@ public class RechercherRDV extends javax.swing.JFrame {
                 }
                 String Remarque = rs.getString("Remarque");
                 s1.textRemarque.setText(Remarque);
+                String Examen = rs.getString("Examen");
+                s1.textExamen.setText(Examen);
 
                 s1.id_rdv = rs.getInt("id_rdv");
                 s1.id_conv = rs.getInt("convontion_id_conv");

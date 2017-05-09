@@ -2246,7 +2246,7 @@ public class RDV extends javax.swing.JFrame {
     private javax.swing.JTable tConvontion;
     private javax.swing.JScrollPane tDateParConvontion;
     private javax.swing.JTable tRDVchoix1;
-    private javax.swing.JTextArea textExamen;
+    protected javax.swing.JTextArea textExamen;
     protected javax.swing.JTextArea textRemarque;
     protected javax.swing.JTextField txtAdress;
     protected javax.swing.JTextField txtId_p3;

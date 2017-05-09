@@ -35,6 +35,10 @@ public class HomeAdministrateur extends javax.swing.JFrame {
 char id;
     public HomeAdministrateur() {
         initComponents();
+        bConsulterArticle.setEnabled(false);
+        bConsulterHistoriqueDonnation1.setEnabled(false);
+        bAjouterArticle.setEnabled(false);
+        bAjouterDonnation1.setEnabled(false);
     }
      public HomeAdministrateur(char id) {
         initComponents();

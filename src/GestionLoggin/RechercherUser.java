@@ -47,7 +47,11 @@ public class RechercherUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tUser = new javax.swing.JTable();
+        tUser = new javax.swing.JTable(){
+            public boolean isCellEditable(int d, int c){
+                return false;
+            }
+        };
         jPanel3 = new javax.swing.JPanel();
         bRechercher = new javax.swing.JButton();
         cFunction = new javax.swing.JComboBox();
@@ -261,6 +265,9 @@ public class RechercherUser extends javax.swing.JFrame {
                     }
                     s2.cSpecialisation.setEnabled(false);
                 s2.idEmployer = rs.getString("employerId");
+                
+                s2.bModifier.setEnabled(true);
+                s2.bSave.setEnabled(false);
             }
 
         } catch (Exception e) {

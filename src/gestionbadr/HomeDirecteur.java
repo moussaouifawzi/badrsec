@@ -35,6 +35,10 @@ public class HomeDirecteur extends javax.swing.JFrame {
 
     public HomeDirecteur() {
         initComponents();
+        bConsulterArticle.setEnabled(false);
+        bConsulterHistoriqueDonnation.setEnabled(false);
+        bAjouterArticle.setEnabled(false);
+        bAjouterDonnation.setEnabled(false);
     }
      public HomeDirecteur(char id) {
          this.id=id;

@@ -303,6 +303,8 @@ public class RechercherRDV extends javax.swing.JFrame {
                 }
                 String Remarque = rs.getString("Remarque");
                 s1.textRemarque.setText(Remarque);
+                String Examen = rs.getString("Examen");
+                s1.textExamen.setText(Examen);
 
                 s1.id_rdv = rs.getInt("id_rdv");
                 s1.id_conv = rs.getInt("convontion_id_conv");
@@ -318,6 +320,11 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.jTabbedPane1.setEnabledAt(2, false);
                 s1.jTabbedPane1.setEnabledAt(3, true);
                 s1.jTabbedPane1.setSelectedIndex(3);
+                s1.bRechercherMalade.setEnabled(false);
+                s1.bResetID.setEnabled(false);
+                s1.bRechercherMaladeRDV.setEnabled(false);
+                s1.bRechercherRDV.setEnabled(false);
+                s1.bRechercherDemandeRDV.setEnabled(false);
             }
 
         } catch (Exception e) {

@@ -40,7 +40,8 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
 
     public RechercherDemandeRDV() {
         initComponents();
-
+        cEtatRDV.setSelectedIndex(1);
+        cEtatRDV.setEnabled(false);
     }
 
     public RechercherDemandeRDV(char id) {
@@ -302,6 +303,11 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
 
                 s1.bModifierDemandeRDV.setEnabled(true);
                 s1.bAjouterDemandeRDV.setEnabled(false);
+                s1.bRechercherMalade.setEnabled(false);
+                s1.bResetID.setEnabled(false);
+                s1.bRechercherMaladeRDV.setEnabled(false);
+                s1.bRechercherRDV.setEnabled(false);
+                s1.bRechercherDemandeRDV.setEnabled(false);
             }
 
         } catch (Exception e) {

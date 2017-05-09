@@ -146,7 +146,7 @@ public class Employer extends javax.swing.JFrame {
             }
         });
         jPanel2.add(bCancel);
-        bCancel.setBounds(10, 40, 169, 32);
+        bCancel.setBounds(10, 130, 169, 32);
 
         bNew.setText("Reset");
         bNew.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +164,7 @@ public class Employer extends javax.swing.JFrame {
             }
         });
         jPanel2.add(bModifier);
-        bModifier.setBounds(10, 69, 169, 32);
+        bModifier.setBounds(10, 40, 169, 32);
 
         bRechercher.setText("Rechercher");
         bRechercher.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +173,7 @@ public class Employer extends javax.swing.JFrame {
             }
         });
         jPanel2.add(bRechercher);
-        bRechercher.setBounds(10, 127, 169, 32);
+        bRechercher.setBounds(10, 70, 169, 32);
 
         jPanel3.add(jPanel2);
         jPanel2.setBounds(380, 100, 189, 169);

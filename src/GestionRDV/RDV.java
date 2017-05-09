@@ -1107,6 +1107,11 @@ public class RDV extends javax.swing.JFrame {
     private void Reset_RDV_Pris() {
         //        Vider les champs des RDV pris
         Reset_Demande_RDV();
+        
+        bRechercherMalade.setEnabled(true);
+        bRechercherMaladeRDV.setEnabled(true);
+        bRechercherDemandeRDV.setEnabled(true);
+        bRechercherRDV.setEnabled(true);
 
         jDateValidation.setDate(null);
         jDateRecuperation.setDate(null);

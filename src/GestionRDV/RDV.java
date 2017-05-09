@@ -1093,6 +1093,9 @@ public class RDV extends javax.swing.JFrame {
                 jDateDepot.setEnabled(false);
                 Configurer_Partie_Malade();
                 
+                bResetID.setEnabled(false);
+                bRechercherRDV.setEnabled(false);
+                bRechercherMaladeRDV.setEnabled(false);
 
             } else if (b == true && cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
                 Reset_Demande_RDV();
@@ -1124,6 +1127,9 @@ public class RDV extends javax.swing.JFrame {
         
         cEtatDemandeRDV.setEnabled(true);
         jDateDepot.setEnabled(true);
+        bResetID.setEnabled(true);
+        bRechercherRDV.setEnabled(true);
+        bRechercherMaladeRDV.setEnabled(true);
         
         bRechercherMalade.setEnabled(true);
         bRechercherMaladeRDV.setEnabled(true);
@@ -2009,6 +2015,7 @@ public class RDV extends javax.swing.JFrame {
         txtId_p3.setText("");
         txtInt.setText("");
         cAlphabet.setSelectedIndex(-1);
+        bResetID.setEnabled(true);
     }//GEN-LAST:event_bResetIDActionPerformed
 
     private void bPasDeReponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPasDeReponseActionPerformed

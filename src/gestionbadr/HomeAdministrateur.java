@@ -43,6 +43,10 @@ char id;
      public HomeAdministrateur(char id) {
         initComponents();
         this.id=id;
+        bConsulterArticle.setEnabled(false);
+        bConsulterHistoriqueDonnation1.setEnabled(false);
+        bAjouterArticle.setEnabled(false);
+        bAjouterDonnation1.setEnabled(false);
     }
 
     /**

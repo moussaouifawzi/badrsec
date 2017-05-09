@@ -40,7 +40,8 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
 
     public RechercherDemandeRDV() {
         initComponents();
-
+        cEtatRDV.setSelectedIndex(1);
+        cEtatRDV.setEnabled(false);
     }
 
     public RechercherDemandeRDV(char id) {

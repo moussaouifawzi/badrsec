@@ -273,6 +273,7 @@ public class RDV extends javax.swing.JFrame {
     bRechercherRDV = new javax.swing.JButton();
     bResetID = new javax.swing.JButton();
     jSeparator1 = new javax.swing.JSeparator();
+    bannuler = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Ajouter RDV");
@@ -900,6 +901,13 @@ public class RDV extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE))
     );
 
+    bannuler.setText("Anuler");
+    bannuler.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            bannulerActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -912,6 +920,8 @@ public class RDV extends javax.swing.JFrame {
             .addContainerGap())
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bannuler)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(35, 35, 35))
     );
@@ -923,7 +933,9 @@ public class RDV extends javax.swing.JFrame {
             .addGap(18, 18, 18)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(bCancel)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(bCancel)
+                .addComponent(bannuler))
             .addGap(20, 20, 20))
     );
 
@@ -1096,6 +1108,7 @@ public class RDV extends javax.swing.JFrame {
                 bResetID.setEnabled(false);
                 bRechercherRDV.setEnabled(false);
                 bRechercherMaladeRDV.setEnabled(false);
+                bannuler.setEnabled(false);
 
             } else if (b == true && cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
                 Reset_Demande_RDV();
@@ -1706,6 +1719,7 @@ public class RDV extends javax.swing.JFrame {
 
         if (b == true) {
             Reset_RDV_Pris();
+            bannuler.setEnabled(true);
         }
     }//GEN-LAST:event_bAjouterValidationActionPerformed
 
@@ -1719,7 +1733,7 @@ public class RDV extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_bRechercherCotaParMoisActionPerformed
-//
+
     private void cConvontionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cConvontionActionPerformed
         String a = (String) cConvontion.getSelectedItem();
         txtNomConvontion.setText(a);
@@ -2046,6 +2060,11 @@ public class RDV extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tRDVchoix1MouseEntered
 
+    private void bannulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bannulerActionPerformed
+        //        reset tout les champs
+        Reset_RDV_Pris();
+    }//GEN-LAST:event_bannulerActionPerformed
+
     private void Remplir_Tableau_Convontion() {
 //            Remplir le Tableau tConvontion des Convontion par Raport au Cota des mois d'une annee
 
@@ -2178,11 +2197,12 @@ public class RDV extends javax.swing.JFrame {
     private javax.swing.JButton bPasDeReponse;
     private javax.swing.JButton bRechercherCotaParAns;
     private javax.swing.JButton bRechercherCotaParMois;
-    private javax.swing.JButton bRechercherDemandeRDV;
-    private javax.swing.JButton bRechercherMalade;
-    private javax.swing.JButton bRechercherMaladeRDV;
-    private javax.swing.JButton bRechercherRDV;
-    private javax.swing.JButton bResetID;
+    protected javax.swing.JButton bRechercherDemandeRDV;
+    protected javax.swing.JButton bRechercherMalade;
+    protected javax.swing.JButton bRechercherMaladeRDV;
+    protected javax.swing.JButton bRechercherRDV;
+    protected javax.swing.JButton bResetID;
+    private javax.swing.JButton bannuler;
     protected javax.swing.JComboBox cAlphabet;
     private javax.swing.JComboBox cConvontion;
     protected javax.swing.JComboBox cEtatDemandeRDV;

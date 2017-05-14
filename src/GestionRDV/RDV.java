@@ -2001,9 +2001,9 @@ public class RDV extends javax.swing.JFrame {
             String l; // l'etat du comobobox cEtatValidation
             l = (String) cEtatValidation.getSelectedItem();
 
-            if (l.equals("Pris") || l.equals("En Attente")) {
+            if (l.equals("Pris") ) {
                 jDateRecuperation.setEnabled(true);
-            } else if (l.equals("Annuler") || l.equals("Reporter")) {
+            } else if (l.equals("Annuler") || l.equals("Reporter") || l.equals("En Attente")) {
                 jDateRecuperation.setDate(null);
                 jDateRecuperation.setEnabled(false);
             }

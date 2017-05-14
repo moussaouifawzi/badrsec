@@ -279,6 +279,9 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 this.setVisible(false);
                 RDV s1 = new RDV();
                 s1.setVisible(true);
+                
+                int demande_RDV = rs.getInt("id_date_depot");
+                s1.id_demande_rdv = demande_RDV;
 
                 String id_m = rs.getString("id_m");
                 String p1 = id_m.substring(0, 1);
@@ -308,6 +311,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 s1.bRechercherMaladeRDV.setEnabled(false);
                 s1.bRechercherRDV.setEnabled(false);
                 s1.bRechercherDemandeRDV.setEnabled(false);
+                s1.jDateDepot.setEnabled(false);
             }
 
         } catch (Exception e) {

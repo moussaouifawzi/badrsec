@@ -62,6 +62,7 @@ public class RDV extends javax.swing.JFrame {
     int id_p;
     String nom_p;
     protected String id_m;
+    //protected int id_demande_RDV;
     boolean t = false; // etat de la date si prise = true  "Verifier_date_rdv()"
 
     public int getId_demande_rdv() {
@@ -954,7 +955,7 @@ public class RDV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIntActionPerformed
 
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
-        
+
         if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 || cAlphabet.getSelectedIndex() == -1 || txtId_p3.getText().equals("") || txtInt.getText().equals("")
                 || txtId_p3.getText().equals("") && txtInt.getText().equals("")
@@ -962,45 +963,46 @@ public class RDV extends javax.swing.JFrame {
 //            si aucun malade n'est choisit
             JOptionPane.showMessageDialog(null, "Il faut choisir un Malade");
         } else {
-        DecimalFormat myFormatter = new DecimalFormat("0000");
-        String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-        String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-        id_m = cAlphabet.getSelectedItem() + output + output2;
+            DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+            id_m = cAlphabet.getSelectedItem() + output + output2;
 
-        String sql = "Select id_m, prenom_m, nom_m, adr_m, num_tel_m from malade where id_m='" + id_m + "'";
-        con = Connect.connect();
-        try {
-            //1er requete pour identifier une erreur de redendence
-            pst = con.prepareStatement(sql);
-            ResultSet rec2 = pst.executeQuery(sql);
-            //            next() passe au autre tuple de la table
-            rec2.next();
-            String id_m1 = rec2.getString("id_m");
-            String prenom = rec2.getString("prenom_m");
-            String nom = rec2.getString("nom_m");
-            String adr_m = rec2.getString("adr_m");
-            String num_tel_m = rec2.getString("num_tel_m");
+            String sql = "Select id_m, prenom_m, nom_m, adr_m, num_tel_m from malade where id_m='" + id_m + "'";
+            con = Connect.connect();
+            try {
+                //1er requete pour identifier une erreur de redendence
+                pst = con.prepareStatement(sql);
+                ResultSet rec2 = pst.executeQuery(sql);
+                //            next() passe au autre tuple de la table
+                rec2.next();
+                String id_m1 = rec2.getString("id_m");
+                String prenom = rec2.getString("prenom_m");
+                String nom = rec2.getString("nom_m");
+                String adr_m = rec2.getString("adr_m");
+                String num_tel_m = rec2.getString("num_tel_m");
 
-            //            Envoie des Donnée au textField
-            txtNom.setText(adr_m);
-            txtPrenom.setText(prenom);
-            txtNumTel.setText(nom);
-            txtAdress.setText(num_tel_m);
+                //            Envoie des Donnée au textField
+                txtNom.setText(adr_m);
+                txtPrenom.setText(prenom);
+                txtNumTel.setText(nom);
+                txtAdress.setText(num_tel_m);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        } finally {
-            /*This block should be added to your code
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } finally {
+                /*This block should be added to your code
              * You need to release the resources like connections
-             */
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
-        }}
+        }
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     public void Rechercher_Malade(String id_malade) {
@@ -1104,7 +1106,7 @@ public class RDV extends javax.swing.JFrame {
                 cEtatDemandeRDV.setEnabled(false);
                 jDateDepot.setEnabled(false);
                 Configurer_Partie_Malade();
-                
+
                 bResetID.setEnabled(false);
                 bRechercherRDV.setEnabled(false);
                 bRechercherMaladeRDV.setEnabled(false);
@@ -1137,13 +1139,13 @@ public class RDV extends javax.swing.JFrame {
     private void Reset_RDV_Pris() {
         //        Vider les champs des RDV pris
         Reset_Demande_RDV();
-        
+
         cEtatDemandeRDV.setEnabled(true);
         jDateDepot.setEnabled(true);
         bResetID.setEnabled(true);
         bRechercherRDV.setEnabled(true);
         bRechercherMaladeRDV.setEnabled(true);
-        
+
         bRechercherMalade.setEnabled(true);
         bRechercherMaladeRDV.setEnabled(true);
         bRechercherDemandeRDV.setEnabled(true);
@@ -1184,7 +1186,44 @@ public class RDV extends javax.swing.JFrame {
     }
 
     private void bModifierDemandeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierDemandeRDVActionPerformed
+        date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
+        System.out.println("id demonde = " + id_demande_rdv);
+        
+        DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+            id_m = cAlphabet.getSelectedItem() + output + output2;
+        System.out.println("id m " + id_m);
+        
+        if (cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
+            JOptionPane.showMessageDialog(null, "Changer l'etat");
+        } else {
+            try {
+                con = Connect.connect();
+                String sql = "update demande_de_rdv set Etat_Demande='" + cEtatDemandeRDV.getSelectedItem()
+                        + "' WHERE id_date_depot = '" + id_demande_rdv + "' And id_m ='" + id_m + "'";
 
+                pst = con.prepareStatement(sql);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Update Successfully");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            
+            jTabbedPane1.setEnabledAt(1, true);
+                jTabbedPane1.setSelectedIndex(1);
+                bAjouterDemandeRDV.setEnabled(false);
+                bModifierDemandeRDV.setEnabled(false);
+                cEtatDemandeRDV.setEnabled(false);
+                jDateDepot.setEnabled(false);
+                Configurer_Partie_Malade();
+
+                bResetID.setEnabled(false);
+                bRechercherRDV.setEnabled(false);
+                bRechercherMaladeRDV.setEnabled(false);
+                bannuler.setEnabled(false);
+        }
     }//GEN-LAST:event_bModifierDemandeRDVActionPerformed
 
     private void afficher_la_date_dun_mois() throws ParseException {
@@ -1610,9 +1649,7 @@ public class RDV extends javax.swing.JFrame {
                     }
                 }
             }
-        }
-
-        else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
             System.out.println("6");
@@ -1645,7 +1682,7 @@ public class RDV extends javax.swing.JFrame {
                     }
                 }
             }
-        }else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && textRemarque.getText().equals("") && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque et l'examen sont vide
@@ -1822,7 +1859,7 @@ public class RDV extends javax.swing.JFrame {
         jYearChooser1.setYear(Integer.parseInt(Annee));
         int Month = Integer.parseInt(Mois) - 1;
         jMonthChooser1.setMonth(Month);
-        
+
         if (Integer.parseInt(quantite_rdv) == 0) {  // Si quantite de RDV = 0 alors ERREUR
             JOptionPane.showMessageDialog(null, "Erreur: La Quantite est = 0. ");
         } else {
@@ -1881,7 +1918,7 @@ public class RDV extends javax.swing.JFrame {
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierValidationActionPerformed
-        
+
     }//GEN-LAST:event_bModifierValidationActionPerformed
 
     private void Configurer_Partie_Malade() {

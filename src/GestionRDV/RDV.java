@@ -1752,6 +1752,41 @@ public class RDV extends javax.swing.JFrame {
                     }
                 }
             }
+        } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                && textRemarque.getText().equals("") && !(textExamen.getText().equals(""))) {
+            // Inserer la date de rdv pris si les 4 champs sont remplit
+            System.out.println("6");
+            try {
+                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                Rechercher_Unite_Convontion(); // id_p et id_c
+
+                con = Connect.connect();
+                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
+                        + " convontion_partenaire_id_p,  date_recuperation, examen) values ('"
+                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                        + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                        + id_conv + "','" + id_p + "','" + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                        + "','" + textExamen.getText() + "')";
+                pst = con.prepareStatement(sql2);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Ok");
+                b = true;
+
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } finally {
+                /*This block should be added to your code
+                 * You need to release the resources like connections
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
         }
 
         if (b == true) {

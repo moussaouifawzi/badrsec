@@ -183,7 +183,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
         } else if ( cEtatConvontion.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -193,7 +193,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
         } else if (cUnite.getSelectedIndex() == -1 ) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -203,7 +203,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
                         +"' AND unite = '"+cUnite.getSelectedItem() +"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -223,7 +223,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
         n = tConvontion.getModel().getValueAt(row, 0).toString();
          
         try {
-            String sql = "SELECT * FROM convontion WHERE id_conv = '" + n + "'";            
+            String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE id_conv = '" + n + "'";            
             pst = con.prepareStatement(sql);         
             rs = pst.executeQuery(sql);
          

@@ -177,7 +177,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL 
             try {
-                String sql = "select * from maladies";
+                String sql = "select type_cancer from maladies";
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));

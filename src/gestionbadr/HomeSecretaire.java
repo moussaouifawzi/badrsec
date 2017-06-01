@@ -56,6 +56,8 @@ public class HomeSecretaire extends javax.swing.JFrame {
     
       public HomeSecretaire( char id) {
           this.id=id;
+          bConsulterHistoriqueDonnation.setEnabled(false);
+        bAjouterDonnation.setEnabled(false);
         initComponents();
     }
 

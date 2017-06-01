@@ -176,7 +176,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // alphabet
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where id_m LIKE '" + cAlphabet.getSelectedItem() + "%'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m LIKE '" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -188,7 +188,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where willaya_m='" + cWillaya.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -200,7 +200,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // etat social
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -212,7 +212,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // alpha + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -225,7 +225,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // alpha + willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where willaya_m ='" + cWillaya.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m ='" + cWillaya.getSelectedItem()
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
 
                 pst = con.prepareStatement(sql);
@@ -242,7 +242,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where id_m='" + id_m + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m='" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -254,7 +254,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // willaya + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -266,7 +266,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // willaya + etat + Alphabet
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() 
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);

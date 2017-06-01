@@ -35,6 +35,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
     Connection con = null;
     Statement st = null;
     char id;
+   
 
     public HomeSecretaire() {
         initComponents();
@@ -57,6 +58,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
       public HomeSecretaire( char id) {
            initComponents();
           this.id=id;
+          
           bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
        

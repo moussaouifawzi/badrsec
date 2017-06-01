@@ -219,8 +219,8 @@ public class ConsulterPartenaire extends javax.swing.JFrame {
         if (cTypePartenaire.getSelectedIndex() == -1 && cWillayaPartenaire.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
                     + "\n     - Type Partenaire."
-                    + "\n     - Nom Partenaire."
-            + "\n     - Type Partenaire + Nom Partenaire.");
+                    + "\n     - Willaya Partenaire."
+            + "\n     - Type Partenaire + Willaya Partenaire.");
 
         } else if ( cWillayaPartenaire.getSelectedIndex() == -1) {
             try {

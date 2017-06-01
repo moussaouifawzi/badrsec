@@ -223,7 +223,7 @@ public class RechercherRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM rdv WHERE 	id_m = '" + id_m + "'";
+                String sql = "SELECT malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande FROM rdv INNER JOIN malade ON rdv.id_m = malade.id_m INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot WHERE rdv.id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -234,7 +234,7 @@ public class RechercherRDV extends javax.swing.JFrame {
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM rdv WHERE Etat_RDV='" + cEtatValidation.getSelectedItem() + "'";
+                String sql = "SELECT malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande FROM rdv INNER JOIN malade ON rdv.id_m = malade.id_m INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot WHERE Etat_RDV='" + cEtatValidation.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -249,8 +249,8 @@ public class RechercherRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM rdv WHERE  Etat_RDV='" + cEtatValidation.getSelectedItem()
-                        + "' AND id_m = '" + id_m + "'";
+                String sql = "SELECT malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande FROM rdv INNER JOIN malade ON rdv.id_m = malade.id_m INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot WHERE  Etat_RDV='" + cEtatValidation.getSelectedItem()
+                        + "' AND rdv.id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));

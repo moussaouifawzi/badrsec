@@ -5,7 +5,6 @@
  */
 package GestionBenevole;
 
-
 import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
@@ -48,25 +47,48 @@ public class Benevole extends javax.swing.JFrame {
     public Benevole() {
         initComponents();
         bModifier.setEnabled(false);
-        addWindowListener (new WindowAdapter(){
-			public void windowClosing (WindowEvent e){
-                            RetoureCancel();
-			}
-		});
-    }
-     public Benevole(char id) {
-         
-        initComponents();
-       this.id=id;
-       
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                
+                
+            }
+        });
     }
 
-    private void RetoureCancel(){
-         this.dispose();
-        this.setVisible(false);
-                HomeSecretaire s1 = new HomeSecretaire();
-                s1.setVisible(true);
+    public Benevole(char id) {
+
+        initComponents();
+        this.id = id;
+
     }
+
+    private void RetoureCancel() {
+
+        this.dispose();
+        this.setVisible(false);
+        System.out.println(id);
+        if (id == 'A') {
+            this.setVisible(false);
+
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+            System.out.println("1");
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+            System.out.println("2");
+        } else if (id == 'D') {
+            this.setVisible(false);
+
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+            System.out.println("3");
+        }
+        System.out.println("4");
+    }
+
     protected void reset() {
         txtEmail.setText("");
         txtFonction.setText("");
@@ -376,7 +398,7 @@ public class Benevole extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter le Sexe");
         } else if (cWillayaBenevole.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Enter le Willaya");
-        }else if (txtEmail.getText().equals("")) {
+        } else if (txtEmail.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "enter l'email");
 
         } else if (txtFonction.getText().equals("")) {
@@ -395,7 +417,7 @@ public class Benevole extends javax.swing.JFrame {
                         + txtNomb.getText() + "','" + txtPrenom.getText() + "','" + txtNumTelB.getText() + "','"
                         + txtEmail.getText() + "','" + txtFonction.getText() + "','"
                         + ((JTextField) jDateNaissance.getDateEditor().getUiComponent()).getText()
-                        + "','" + cSexeB.getSelectedItem() + "','"+ cWillayaBenevole.getSelectedItem()
+                        + "','" + cSexeB.getSelectedItem() + "','" + cWillayaBenevole.getSelectedItem()
                         + "')";
                 pst = con.prepareStatement(sql2);
                 pst.execute();
@@ -410,32 +432,13 @@ public class Benevole extends javax.swing.JFrame {
     }//GEN-LAST:event_bSaveActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        
-        this.dispose();
-        this.setVisible(false);
-       
-          if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+        RetoureCancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed
         //        Condition
         int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
-        
+
         if (txtNomb.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "enter le Nom");
 
@@ -449,7 +452,7 @@ public class Benevole extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter le Sexe");
         } else if (cWillayaBenevole.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Enter le willaya");
-        }else if (txtEmail.getText().equals("")) {
+        } else if (txtEmail.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "enter l'email");
 
         } else if (txtFonction.getText().equals("")) {
@@ -457,26 +460,26 @@ public class Benevole extends javax.swing.JFrame {
 
         } else {
             if (val == 0) {
-            try {
-                con = Connect.connect();
-                String sql = "update benevole set Nom_b='" + txtNomb.getText()
-                        + "',prenom_b='" + txtPrenom.getText()
-                        + "',num_tel_b='" + txtNumTelB.getText() + "',email_b='" + txtEmail.getText()
-                        + "',fonction='" + txtFonction.getText() + "', sexe_b ='" + cSexeB.getSelectedItem() 
-                        +"', willaya_b	='"+ cWillayaBenevole.getSelectedItem() 
-                        + "' WHERE id_b='" + id_b + "'";
+                try {
+                    con = Connect.connect();
+                    String sql = "update benevole set Nom_b='" + txtNomb.getText()
+                            + "',prenom_b='" + txtPrenom.getText()
+                            + "',num_tel_b='" + txtNumTelB.getText() + "',email_b='" + txtEmail.getText()
+                            + "',fonction='" + txtFonction.getText() + "', sexe_b ='" + cSexeB.getSelectedItem()
+                            + "', willaya_b	='" + cWillayaBenevole.getSelectedItem()
+                            + "' WHERE id_b='" + id_b + "'";
 
-                pst = con.prepareStatement(sql);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Update Successfully");
-                
-                reset();
-                bModifier.setEnabled(false);
-                bSave.setEnabled(true);
+                    pst = con.prepareStatement(sql);
+                    pst.execute();
+                    JOptionPane.showMessageDialog(null, "Update Successfully");
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+                    reset();
+                    bModifier.setEnabled(false);
+                    bSave.setEnabled(true);
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
             }
         }
 

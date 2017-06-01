@@ -777,7 +777,7 @@ Remplir_le_tableau();
 
     
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        Cancel;
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed

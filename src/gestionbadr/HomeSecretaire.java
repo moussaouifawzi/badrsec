@@ -55,10 +55,11 @@ public class HomeSecretaire extends javax.swing.JFrame {
     }
     
       public HomeSecretaire( char id) {
+           initComponents();
           this.id=id;
           bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
-        initComponents();
+       
     }
 
     /**

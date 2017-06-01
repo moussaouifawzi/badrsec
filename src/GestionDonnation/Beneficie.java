@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import gestionbadr.Login;
 import java.awt.HeadlessException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -49,7 +51,34 @@ public class Beneficie extends javax.swing.JFrame {
     public Beneficie() {
         this.id_e = e.id;
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+        if ( id == 'A' ){
+                        this.setVisible(false);
+                       
+                        HomeAdministrateur h = new HomeAdministrateur(id);
+                        h.setVisible(true);
+                    } else if ( id == 'S' ){
+                        this.setVisible(false);
+                      
+                        HomeSecretaire h = new HomeSecretaire(id);
+                        h.setVisible(true);
+                    } else if ( id == 'D' ){
+                        this.setVisible(false);
+                        
+                        HomeDirecteur h = new HomeDirecteur(id);
+                        h.setVisible(true);
+                    }
+    }
+    
     public Beneficie(char id) {
        
         initComponents();
@@ -748,24 +777,7 @@ Remplir_le_tableau();
 
     
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-        if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+        Cancel;
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed

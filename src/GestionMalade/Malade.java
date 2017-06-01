@@ -11,6 +11,8 @@ import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +42,33 @@ public class Malade extends javax.swing.JFrame {
         cMaladie.setSelectedIndex(-1);
         bModifier.setEnabled(false);
         txtInt.setEditable(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+
+        if (id == 'A') {
+            this.setVisible(false);
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+        } else if (id == 'D') {
+            this.setVisible(false);
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+        }
+    }
+    
      public Malade(char id) {
         initComponents();
         Remplir_Combo_Maladie();
@@ -510,23 +538,7 @@ public class Malade extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
-        this.dispose();
-        this.setVisible(false);
-
-        if (id == 'A') {
-            this.setVisible(false);
-            HomeAdministrateur h = new HomeAdministrateur(id);
-            h.setVisible(true);
-        } else if (id == 'S') {
-            this.setVisible(false);
-
-            HomeSecretaire h = new HomeSecretaire(id);
-            h.setVisible(true);
-        } else if (id == 'D') {
-            this.setVisible(false);
-            HomeDirecteur h = new HomeDirecteur(id);
-            h.setVisible(true);
-        }
+        Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed

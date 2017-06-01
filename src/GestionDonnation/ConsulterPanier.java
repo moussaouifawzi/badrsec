@@ -5,6 +5,8 @@
  */
 package GestionDonnation;
 import gestionbadr.Connect;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,6 +32,15 @@ public class ConsulterPanier extends javax.swing.JFrame {
      */
     public ConsulterPanier() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+        this.dispose();
     }
 
     /**
@@ -181,7 +192,7 @@ public class ConsulterPanier extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
+        Cancel();
        
     }//GEN-LAST:event_bCancelActionPerformed
 

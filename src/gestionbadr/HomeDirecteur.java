@@ -16,6 +16,8 @@ import GestionDonnation.Beneficie;
 import GestionDonnation.ConsulterHistoriqueDonnation;
 import GestionMalade.ConsulterMalade;
 import gestionArticle.ConsulterArticle;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -39,7 +41,18 @@ public class HomeDirecteur extends javax.swing.JFrame {
         bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterArticle.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
+    private void Cancel(){
+        this.setVisible(false);
+        Login h = new Login();
+        h.setVisible(true);
+    }
+    
      public HomeDirecteur(char id) {
          this.id=id;
         initComponents();

@@ -6,6 +6,8 @@
 package GestionMalade;
 
 import gestionbadr.Connect;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +27,19 @@ public class Maladies extends javax.swing.JFrame {
     public Maladies() {
         initComponents();
         bModifier.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
         
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        
+        Malade s= new Malade();
+        s.setVisible(true);
     }
 
     /**
@@ -182,10 +196,7 @@ public class Maladies extends javax.swing.JFrame {
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        
-        Malade s= new Malade();
-        s.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed

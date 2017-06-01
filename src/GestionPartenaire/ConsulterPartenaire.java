@@ -10,6 +10,8 @@ import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
 import gestionbadr.Parametre;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +36,19 @@ public class ConsulterPartenaire extends javax.swing.JFrame {
 
     public ConsulterPartenaire() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+    
+    private void Cancel(){
+         this.dispose();
+        this.setVisible(false);
+                Parametre s1 = new Parametre();
+                s1.setVisible(true);
     }
 
     /**
@@ -294,10 +308,7 @@ public class ConsulterPartenaire extends javax.swing.JFrame {
     }//GEN-LAST:event_tPartenaireMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-                Parametre s1 = new Parametre();
-                s1.setVisible(true);
+       Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void cTypePartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cTypePartenaireActionPerformed

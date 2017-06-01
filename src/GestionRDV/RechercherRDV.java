@@ -13,6 +13,8 @@ import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,7 +45,18 @@ public class RechercherRDV extends javax.swing.JFrame {
 
     public RechercherRDV() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        RDV s1 = new RDV();
+        s1.setVisible(true);
     }
 
     public RechercherRDV(char id) {
@@ -334,9 +347,7 @@ public class RechercherRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_tRDVMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        RDV s1 = new RDV();
-        s1.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed

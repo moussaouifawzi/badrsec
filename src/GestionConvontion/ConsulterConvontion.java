@@ -11,6 +11,8 @@ import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
 import gestionbadr.Parametre;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +37,18 @@ public class ConsulterConvontion extends javax.swing.JFrame {
 
     public ConsulterConvontion() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
 
+    private void Cancel() {
+        this.dispose();
+        this.setVisible(false);
+        Parametre s1 = new Parametre();
+        s1.setVisible(true);
     }
 
     /**
@@ -95,7 +108,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
+                .addContainerGap(253, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(cUnite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,7 +183,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
                 .addGap(200, 200, 200))
         );
 
-        setSize(new java.awt.Dimension(856, 373));
+        setSize(new java.awt.Dimension(868, 389));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,22 +192,22 @@ public class ConsulterConvontion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
                     + "\n     - L'unite."
                     + "\n     - Etat de la convontion."
-            + "\n     - L'unite + Etat de la convontion.");
+                    + "\n     - L'unite + Etat de la convontion.");
 
-        } else if ( cEtatConvontion.getSelectedIndex() == -1) {
+        } else if (cEtatConvontion.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '" + cUnite.getSelectedItem().toString() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        } else if (cUnite.getSelectedIndex() == -1 ) {
+        } else if (cUnite.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -204,8 +217,8 @@ public class ConsulterConvontion extends javax.swing.JFrame {
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
-                        +"' AND unite = '"+cUnite.getSelectedItem() +"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem()
+                        + "' AND unite = '" + cUnite.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -213,19 +226,16 @@ public class ConsulterConvontion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-         
+
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void tConvontionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tConvontionMouseClicked
-        
-        
+
+
     }//GEN-LAST:event_tConvontionMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-                Parametre s1 = new Parametre();
-                s1.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     /**

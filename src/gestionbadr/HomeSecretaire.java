@@ -17,6 +17,8 @@ import GestionDonnation.ConsulterHistoriqueDonnation;
 import GestionMalade.ConsulterMalade;
 import GestionRDV.RDV;
 import gestionArticle.ConsulterArticle;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -38,8 +40,20 @@ public class HomeSecretaire extends javax.swing.JFrame {
         initComponents();
         bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
         
     }
+    
+    private void Cancel(){
+        this.setVisible(false);
+        Login h = new Login();
+        h.setVisible(true);
+    }
+    
       public HomeSecretaire( char id) {
           this.id=id;
         initComponents();

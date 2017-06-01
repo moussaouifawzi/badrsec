@@ -12,6 +12,8 @@ import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
 import gestionbadr.Parametre;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +38,15 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
 
     public ConsulterConvontionRDV() {
         initComponents();
-
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+        this.dispose();
     }
 
     /**
@@ -223,7 +233,7 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_tConvontionMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
+        Cancel();
         
     }//GEN-LAST:event_bCancelActionPerformed
 

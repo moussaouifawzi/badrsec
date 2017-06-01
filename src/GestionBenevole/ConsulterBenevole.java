@@ -6,6 +6,8 @@
 package GestionBenevole;
 
 import gestionbadr.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +29,36 @@ public class ConsulterBenevole extends javax.swing.JFrame {
     public ConsulterBenevole() {
         initComponents();
        // Initialiser_Tableau_Benevole();
+       addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
     }
+    
+    private void Cancel(){
+          // TODO add your handling code here:
+        this.dispose();
+        this.setVisible(false);
+       if ( id == 'A' ){
+                        this.setVisible(false);
+                       
+                        HomeAdministrateur h = new HomeAdministrateur(id);
+                        h.setVisible(true);
+                    } else if ( id == 'S' ){
+                        this.setVisible(false);
+                      
+                        HomeSecretaire h = new HomeSecretaire(id);
+                        h.setVisible(true);
+                    } else if ( id == 'D' ){
+                        this.setVisible(false);
+                        
+                        HomeDirecteur h = new HomeDirecteur(id);
+                        h.setVisible(true);
+                    }
+        
+    }
+    
      public ConsulterBenevole(char id) {
         initComponents();
       //  Initialiser_Tableau_Benevole();
@@ -291,25 +322,7 @@ public class ConsulterBenevole extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        this.setVisible(false);
-       if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+       Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     /**

@@ -7,6 +7,8 @@ package GestionRDV;
 
 import GestionMalade.*;
 import gestionbadr.Connect;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +29,17 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
 
     public RechercherMaladeRDV() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+         this.dispose();
+        RDV s = new RDV();
+        s.setVisible(true);
     }
 
     /**
@@ -338,9 +351,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
     }
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
 
-        this.dispose();
-        RDV s = new RDV();
-        s.setVisible(true);
+       Cancel();
         
     }//GEN-LAST:event_bCancel2ActionPerformed
 

@@ -6,6 +6,8 @@
 package GestionMalade;
 
 import gestionbadr.Connect;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +28,18 @@ public class RechercherMalade extends javax.swing.JFrame {
 
     public RechercherMalade() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+        Malade s = new Malade();
+        s.setVisible(true);
     }
 
     /**
@@ -351,10 +365,7 @@ public class RechercherMalade extends javax.swing.JFrame {
     }
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
 
-        this.dispose();
-        this.setVisible(false);
-        Malade s = new Malade();
-        s.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     /**

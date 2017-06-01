@@ -11,6 +11,8 @@ import GestionLoggin.*;
 import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +39,19 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
 
     public ConsulterDemandeRDV() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+        RDV s1 = new RDV();
+        s1.setVisible(true);
     }
 
     /**
@@ -301,10 +315,7 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_tDemandeRDVMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-        RDV s1 = new RDV();
-        s1.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed

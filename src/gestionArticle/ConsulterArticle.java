@@ -10,6 +10,8 @@ import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +33,35 @@ public class ConsulterArticle extends javax.swing.JFrame {
 
     public ConsulterArticle() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
+    
+    private void Cancel (){
+        this.dispose();
+        this.setVisible(false);
+       
+          if ( id == 'A' ){
+                        this.setVisible(false);
+                       
+                        HomeAdministrateur h = new HomeAdministrateur(id);
+                        h.setVisible(true);
+                    } else if ( id == 'S' ){
+                        this.setVisible(false);
+                      
+                        HomeSecretaire h = new HomeSecretaire(id);
+                        h.setVisible(true);
+                    } else if ( id == 'D' ){
+                        this.setVisible(false);
+                        
+                        HomeDirecteur h = new HomeDirecteur(id);
+                        h.setVisible(true);
+                    }
+    }
+    
      public ConsulterArticle(char id) {
         initComponents();
         this.id=id;
@@ -212,25 +242,7 @@ public class ConsulterArticle extends javax.swing.JFrame {
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
 
-        this.dispose();
-        this.setVisible(false);
-       
-          if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+        Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     /**

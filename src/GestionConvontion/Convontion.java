@@ -10,6 +10,8 @@ import GestionRDV.RDV;
 import gestionbadr.Connect;
 import gestionbadr.Parametre;
 import java.awt.HeadlessException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +40,24 @@ public class Convontion extends javax.swing.JFrame {
         cPartenaire.setSelectedIndex(-1);
         txtType.setVisible(false);
         bModifierPartenaire.setEnabled(false);
+        addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+        if (b == true) {
+            RDV s = new RDV();
+            s.setVisible(true);
+
+        } else {
+            Parametre s = new Parametre();
+            s.setVisible(true);
+        }
     }
 
     /**
@@ -364,17 +384,7 @@ public class Convontion extends javax.swing.JFrame {
     }//GEN-LAST:event_bSavePartenaireActionPerformed
 
     private void bCancelPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelPartenaireActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        this.setVisible(false);
-        if (b == true) {
-            RDV s = new RDV();
-            s.setVisible(true);
-
-        } else {
-            Parametre s = new Parametre();
-            s.setVisible(true);
-        }
+        Cancel();
     }//GEN-LAST:event_bCancelPartenaireActionPerformed
 
     private void bModifierPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierPartenaireActionPerformed

@@ -24,6 +24,7 @@ public class RechercherMalade extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rst = null;
     int a;
+    char id;
     String Type_cancer;
 
     public RechercherMalade() {
@@ -34,11 +35,18 @@ public class RechercherMalade extends javax.swing.JFrame {
             }
         });
     }
+
+    public RechercherMalade(char id) {
+     
+      initComponents();
+        this.id=id;
+    }
     
-    private void Cancel(){
+    
+    private void Cancel( ){
         this.dispose();
         this.setVisible(false);
-        Malade s = new Malade();
+        Malade s = new Malade(id);
         s.setVisible(true);
     }
 
@@ -364,7 +372,7 @@ public class RechercherMalade extends javax.swing.JFrame {
 
     }
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
-
+        System.out.println(" kwd");
         Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 

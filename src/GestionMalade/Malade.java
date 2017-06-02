@@ -18,9 +18,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 
 /**
  *
@@ -34,7 +35,6 @@ public class Malade extends javax.swing.JFrame {
     String Type_cancer;
     int id_maladi;
     char id;
-    
 
     public Malade() {
         initComponents();
@@ -48,8 +48,9 @@ public class Malade extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void Cancel(){
+
+    private void Cancel() {
+        System.out.println(" id "+id);
         this.dispose();
         this.setVisible(false);
 
@@ -68,12 +69,12 @@ public class Malade extends javax.swing.JFrame {
             h.setVisible(true);
         }
     }
-    
-     public Malade(char id) {
+
+    public Malade(char id) {
         initComponents();
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
-        this.id=id;
+        this.id = id;
         bModifier.setEnabled(false);
     }
 
@@ -128,7 +129,6 @@ public class Malade extends javax.swing.JFrame {
         bAjouter = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         bRechercher = new javax.swing.JButton();
-        jLabel28 = new javax.swing.JLabel();
         bCancel2 = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         bReset = new javax.swing.JButton();
@@ -343,10 +343,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel1.add(bRechercher);
         bRechercher.setBounds(490, 200, 110, 30);
 
-        jLabel28.setText("Cancel");
-        jPanel1.add(jLabel28);
-        jLabel28.setBounds(520, 310, 39, 16);
-
+        bCancel2.setText("cancel");
         bCancel2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancel2ActionPerformed(evt);
@@ -424,86 +421,86 @@ public class Malade extends javax.swing.JFrame {
             txtAdress.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Adress");
-        }  
-            if (cAlphabet.getSelectedIndex() == -1) {
-                cAlphabet.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Alphabet");
-        } 
-            if (txtId_p3.getText().equals("")) {
-            txtId_p3.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter id p3");
-        } 
-            if (txtInt.getText().equals("")) {
-            txtInt.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Le numero du docier");
-        } 
-            if (txtMedecin.getText().equals("")) {
-            txtMedecin.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Medecin");
-        } 
-            if (txtNom.getText().equals("")) {
-            txtNom.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Nom");
-        } 
-            if (txtNumTelFamille.getText().equals("")) {
-            txtNumTelFamille.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Num tel de famille");
-        } 
-            if (txtNumTelMalade.getText().equals("")) {
-            txtNumTelMalade.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Num Tel du Malade");
-        } 
-            if (txtPrenom.getText().equals("")) {
-            txtPrenom.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Prenom");
-        } 
-            if (txtVille.getText().equals("")) {
-            txtVille.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Ville");
-        } 
-                        if (((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText().equals("")) {
-            jDateNaiMalade.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Ville");
-        } 
-            if (cAlphabet.getSelectedIndex() == -1) {
+        }
+        if (cAlphabet.getSelectedIndex() == -1) {
             cAlphabet.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Alphabet");
-        } 
-            if (cEtatSocial.getSelectedIndex() == -1) {
+        }
+        if (txtId_p3.getText().equals("")) {
+            txtId_p3.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter id p3");
+        }
+        if (txtInt.getText().equals("")) {
+            txtInt.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Le numero du docier");
+        }
+        if (txtMedecin.getText().equals("")) {
+            txtMedecin.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Medecin");
+        }
+        if (txtNom.getText().equals("")) {
+            txtNom.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Nom");
+        }
+        if (txtNumTelFamille.getText().equals("")) {
+            txtNumTelFamille.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Num tel de famille");
+        }
+        if (txtNumTelMalade.getText().equals("")) {
+            txtNumTelMalade.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Num Tel du Malade");
+        }
+        if (txtPrenom.getText().equals("")) {
+            txtPrenom.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Prenom");
+        }
+        if (txtVille.getText().equals("")) {
+            txtVille.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Ville");
+        }
+        if (((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText().equals("")) {
+            jDateNaiMalade.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Ville");
+        }
+        if (cAlphabet.getSelectedIndex() == -1) {
+            cAlphabet.setBackground(Color.red);
+            v = false;
+//            JOptionPane.showMessageDialog(null, "Enter Alphabet");
+        }
+        if (cEtatSocial.getSelectedIndex() == -1) {
             cEtatSocial.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter EtatSocial");
-        } 
-            if (cWillaya.getSelectedIndex() == -1) {
+        }
+        if (cWillaya.getSelectedIndex() == -1) {
             cWillaya.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Willaya");
-        } 
-            if (cMaladie.getSelectedIndex() == -1) {
+        }
+        if (cMaladie.getSelectedIndex() == -1) {
             cMaladie.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Willaya");
-        } 
-            if (cSexe.getSelectedIndex() == -1) {
+        }
+        if (cSexe.getSelectedIndex() == -1) {
             cSexe.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Willaya");
-        } 
-            
-            if( v == false) {
-                JOptionPane.showMessageDialog(null, "un champ est vide");
-            }else{
+        }
+
+        if (v == false) {
+            JOptionPane.showMessageDialog(null, "un champ est vide");
+        } else {
             try {
                 Rechercher_id_Maladie();
                 DecimalFormat myFormatter = new DecimalFormat("0000");
@@ -513,12 +510,12 @@ public class Malade extends javax.swing.JFrame {
                 String sql2 = "insert into malade (id_m, prenom_m, nom_m, adr_m,  ville_m,willaya_m , num_tel_m"
                         + ", tel_famille_m, Etat_social, Medecin_m, maladies_id_maladi1, date_n_m,sexe_m) values ('"
                         + cAlphabet.getSelectedItem() + output + output2 + "','" + txtPrenom.getText()
-                        + "','" + txtNom.getText() + "','" + txtAdress.getText() + "','" + txtVille.getText() 
-                        + "','"+cWillaya.getSelectedItem()+"','" + txtNumTelMalade.getText() 
-                        + "','" + txtNumTelFamille.getText() + "','"+ cEtatSocial.getSelectedItem() + "','" 
-                        + txtMedecin.getText() + "','"+ id_maladi + "','"
+                        + "','" + txtNom.getText() + "','" + txtAdress.getText() + "','" + txtVille.getText()
+                        + "','" + cWillaya.getSelectedItem() + "','" + txtNumTelMalade.getText()
+                        + "','" + txtNumTelFamille.getText() + "','" + cEtatSocial.getSelectedItem() + "','"
+                        + txtMedecin.getText() + "','" + id_maladi + "','"
                         + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
-                        +"','" + cSexe.getSelectedItem() +"')";
+                        + "','" + cSexe.getSelectedItem() + "')";
 
                 pst = con.prepareStatement(sql2);
                 pst.execute();
@@ -533,12 +530,18 @@ public class Malade extends javax.swing.JFrame {
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
         this.dispose();
-        RechercherMalade s = new RechercherMalade();
+        this.setVisible(false);
+        System.out.println("  kwwwwwwwd" + id);
+
+        RechercherMalade s = new RechercherMalade(id);
         s.setVisible(true);
+        System.out.println("rechercher malade function");
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
+        System.out.println(" idiidii    <<<<< " + id);
         Cancel();
+//        RetoureCancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed
@@ -576,35 +579,35 @@ public class Malade extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter Willaya");
         } else {
             if (val == 0) {
-            try {
-                Rechercher_id_Maladie();
-                con = Connect.connect();
-                 DecimalFormat myFormatter = new DecimalFormat("0000");
-                String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-                String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-                String sql = "update malade set prenom_m='" + txtPrenom.getText()  
-                        + "',nom_m='" + txtNom.getText() + "',adr_m='" + txtAdress.getText()
-                        + "',ville_m='" + txtVille.getText() + "',num_tel_m='" + txtNumTelMalade.getText()
-                        + "',tel_famille_m='" + txtNumTelFamille.getText() + "',Etat_social='" + cEtatSocial.getSelectedItem()
-                        + "',Medecin_m='" + txtMedecin.getText() + "',maladies_id_maladi1='" + id_maladi
-                        + "',date_n_m='" + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
-                        + "',sexe_m='" + cSexe.getSelectedItem()
-                        + "' WHERE id_m='" + cAlphabet.getSelectedItem() + output + output2 + "'";
+                try {
+                    Rechercher_id_Maladie();
+                    con = Connect.connect();
+                    DecimalFormat myFormatter = new DecimalFormat("0000");
+                    String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+                    String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+                    String sql = "update malade set prenom_m='" + txtPrenom.getText()
+                            + "',nom_m='" + txtNom.getText() + "',adr_m='" + txtAdress.getText()
+                            + "',ville_m='" + txtVille.getText() + "',num_tel_m='" + txtNumTelMalade.getText()
+                            + "',tel_famille_m='" + txtNumTelFamille.getText() + "',Etat_social='" + cEtatSocial.getSelectedItem()
+                            + "',Medecin_m='" + txtMedecin.getText() + "',maladies_id_maladi1='" + id_maladi
+                            + "',date_n_m='" + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
+                            + "',sexe_m='" + cSexe.getSelectedItem()
+                            + "' WHERE id_m='" + cAlphabet.getSelectedItem() + output + output2 + "'";
 
-                pst = con.prepareStatement(sql);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Update Successfully");
-                reset();
-                
-                // rétablire l'interface pour un ajout éventuelle
-                cAlphabet.setEnabled(true);
-                txtId_p3.setEditable(true);
-                txtInt.setEditable(false);
-                bAjouter.setEnabled(true);
-                bModifier.setEnabled(false);
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+                    pst = con.prepareStatement(sql);
+                    pst.execute();
+                    JOptionPane.showMessageDialog(null, "Update Successfully");
+                    reset();
+
+                    // rétablire l'interface pour un ajout éventuelle
+                    cAlphabet.setEnabled(true);
+                    txtId_p3.setEditable(true);
+                    txtInt.setEditable(false);
+                    bAjouter.setEnabled(true);
+                    bModifier.setEnabled(false);
+                } catch (SQLException | HeadlessException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
             }
         }
     }//GEN-LAST:event_bModifierActionPerformed
@@ -619,53 +622,77 @@ public class Malade extends javax.swing.JFrame {
 
     private void txtId_p3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId_p3ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtId_p3ActionPerformed
 
     private void txtId_p3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtId_p3MouseClicked
         // TODO add your handling code here:
-         
+
     }//GEN-LAST:event_txtId_p3MouseClicked
 
-    private void bPlusMaladieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlusMaladieActionPerformed
-        
-       
+    private void RetoureCancel() {
+
+        this.dispose();
         this.setVisible(false);
-         Maladies s = new Maladies();
-         s.setVisible(true);
+        System.out.println(id);
+        if (id == 'A') {
+            this.setVisible(false);
+
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+            System.out.println("1");
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+            System.out.println("2");
+        } else if (id == 'D') {
+            this.setVisible(false);
+
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+            System.out.println("3");
+        }
+        System.out.println("4");
+    }
+    private void bPlusMaladieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlusMaladieActionPerformed
+
+        this.setVisible(false);
+        Maladies s = new Maladies();
+        s.setVisible(true);
 
     }//GEN-LAST:event_bPlusMaladieActionPerformed
 
     private void cAlphabetPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cAlphabetPopupMenuWillBecomeInvisible
-        
-    //         rechercher le nbr de docier existant par dossier Alphabétique
+
+        //         rechercher le nbr de docier existant par dossier Alphabétique
         String tableauCaractere[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"};
-        
-            for (int i = 0; i < tableauCaractere.length; i++) {
-                
-                if (cAlphabet.getSelectedItem().equals(tableauCaractere[i])) {
-                    //                              System.out.println("fefze");
-                    con = Connect.connect();
-                    String sql = "SELECT COUNT(*)  count FROM malade WHERE id_m LIKE '" + tableauCaractere[i] + "%'";
-                    //                               System.out.println("efzef");
-                    try {
-                        pst = con.prepareStatement(sql);
-                        //                                        System.out.println("hghghgh");
-                        ResultSet rec2 = pst.executeQuery(sql);
-                        //                                       System.out.println("hfhghgh");
-                        rec2.next();
-                        int nb = rec2.getInt("count");
-                        String k = Integer.toString(nb + 1);
-                        txtInt.setText(k);
-                        
-                        //                                       System.out.println("jfjfg,bombng");
-                        
-                    } catch (Exception e) {
-                        System.err.println(e);
-                    }
+
+        for (int i = 0; i < tableauCaractere.length; i++) {
+
+            if (cAlphabet.getSelectedItem().equals(tableauCaractere[i])) {
+                //                              System.out.println("fefze");
+                con = Connect.connect();
+                String sql = "SELECT COUNT(*)  count FROM malade WHERE id_m LIKE '" + tableauCaractere[i] + "%'";
+                //                               System.out.println("efzef");
+                try {
+                    pst = con.prepareStatement(sql);
+                    //                                        System.out.println("hghghgh");
+                    ResultSet rec2 = pst.executeQuery(sql);
+                    //                                       System.out.println("hfhghgh");
+                    rec2.next();
+                    int nb = rec2.getInt("count");
+                    String k = Integer.toString(nb + 1);
+                    txtInt.setText(k);
+
+                    //                                       System.out.println("jfjfg,bombng");
+                } catch (Exception e) {
+                    System.err.println(e);
                 }
             }
-        
+        }
+
     }//GEN-LAST:event_cAlphabetPopupMenuWillBecomeInvisible
 
     /**
@@ -717,10 +744,10 @@ public class Malade extends javax.swing.JFrame {
         txtNumTelFamille.setText("");
         txtNumTelMalade.setText("");
         cEtatSocial.setSelectedIndex(-1);
-        txtMedecin.setText("");     
+        txtMedecin.setText("");
         cSexe.setSelectedIndex(-1);
     }
-    
+
     private void Rechercher_id_Maladie() {
         String sql = "select 	id_maladi from   maladies where Type_cancer ='" + cMaladie.getSelectedItem() + "'";
         con = Connect.connect();
@@ -730,15 +757,15 @@ public class Malade extends javax.swing.JFrame {
             ResultSet rec2 = pst.executeQuery(sql);
             rec2.next();
             id_maladi = Integer.parseInt(rec2.getString("id_maladi"));
-            
+
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
 
     }
+
     @SuppressWarnings("unchecked")
-    private void  Remplir_Combo_Maladie() {
+    private void Remplir_Combo_Maladie() {
         con = Connect.connect();
         String requete = "select * from maladies";
         try {
@@ -753,7 +780,6 @@ public class Malade extends javax.swing.JFrame {
         }
     }
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton bAjouter;
@@ -788,7 +814,6 @@ public class Malade extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -57,6 +57,8 @@ char id;
      public HomeAdministrateur(char id) {
         initComponents();
         this.id=id;
+         System.out.println("id "+id);
+                
         bConsulterArticle.setEnabled(false);
         bConsulterHistoriqueDonnation1.setEnabled(false);
         bAjouterArticle.setEnabled(false);
@@ -359,7 +361,9 @@ char id;
     }//GEN-LAST:event_bConsulterMaladeActionPerformed
 
     private void bAjouterMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterMaladeActionPerformed
+        this.dispose();
         this.setVisible(false);
+        
         Malade h = new Malade(id);
         h.setVisible(true);
         

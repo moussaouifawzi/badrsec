@@ -37,7 +37,8 @@ import org.apache.log4j.Logger;
  * @author FAWZI
  */
 public class Benevole extends javax.swing.JFrame {
-static Logger log = Logger.getLogger(Benevole.class.getName());
+
+    static Logger log = Logger.getLogger(Benevole.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -53,14 +54,15 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 
-                
             }
         });
     }
 
     public Benevole(char id) {
+       
         log.trace("Constructeure Surcharger de Benevole ");
-        initComponents();
+         initComponents();
+        bModifier.setEnabled(false);
         this.id = id;
         log.debug("Id Admin= " + id);
     }
@@ -68,7 +70,7 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
     private void RetoureCancel() {
 //        log.trace("Constructeure Surcharger de Benevole ");
 //        log.debug("Id Admin= " + id);
-        
+
         this.dispose();
         this.setVisible(false);
         System.out.println(id);
@@ -427,12 +429,12 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Successfully registred");
-             //   log.info("Successfully registred");
+                //   log.info("Successfully registred");
                 reset();
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.info("Erreur",e);
+                log.info("Erreur", e);
             }
 
         }
@@ -494,7 +496,7 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
         log.trace("Open bRechercherActionPerformed ");
-                
+
         this.setVisible(false);
         RechercherBenevole s = new RechercherBenevole();
         s.id = id;

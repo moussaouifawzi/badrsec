@@ -7,30 +7,24 @@ package gestionbadr;
 
 import GestionBenevole.Benevole;
 import GestionBenevole.ConsulterBenevole;
-import GestionLoggin.ConsulterUser;
-import GestionLoggin.Employer;
 import GestionMalade.Malade;
-import GestionMalade.RechercherMalade;
-import gestionArticle.AjouterArticle;
 import GestionDonnation.Beneficie;
 import GestionDonnation.ConsulterHistoriqueDonnation;
 import GestionMalade.ConsulterMalade;
 import GestionRDV.RDV;
-import gestionArticle.ConsulterArticle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class HomeSecretaire extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
     ResultSet rs = null;
     Connection con = null;
     Statement st = null;
@@ -99,6 +93,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -295,6 +290,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
 
     private void bDeconnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeconnecterActionPerformed
         this.setVisible(false);
+        log.info("User is Deconnected");
         Login h = new Login();
         h.setVisible(true);
     }//GEN-LAST:event_bDeconnecterActionPerformed

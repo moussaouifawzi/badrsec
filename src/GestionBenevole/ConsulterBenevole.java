@@ -11,14 +11,14 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 public class ConsulterBenevole extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(ConsulterBenevole.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -94,6 +94,7 @@ public class ConsulterBenevole extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter les benevoles");
+        setResizable(false);
 
         tBenevole.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -279,8 +280,9 @@ public class ConsulterBenevole extends javax.swing.JFrame {
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cWillayaBenevole.getSelectedIndex() == -1 && txtPrenom.getText().equals("")) {
             try {
@@ -291,8 +293,9 @@ public class ConsulterBenevole extends javax.swing.JFrame {
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
         } else if (txtNom.getText().equals("") && txtPrenom.getText().equals("")) {
             try {
@@ -303,8 +306,9 @@ public class ConsulterBenevole extends javax.swing.JFrame {
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
        } else if (cWillayaBenevole.getSelectedIndex() == -1) {
             try {
@@ -316,8 +320,9 @@ public class ConsulterBenevole extends javax.swing.JFrame {
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }}
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 

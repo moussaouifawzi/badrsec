@@ -5,23 +5,24 @@
  */
 package gestionArticle;
 
-import GestionDonnation.*;
 import gestionbadr.Connect;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherArticle extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(RechercherArticle.class.getName());
     ResultSet rst = null;
     Connection con = null;
     Statement st = null;
@@ -203,8 +204,9 @@ public class RechercherArticle extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tArticleHistorique.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
         else if ((cType.getSelectedItem() == "pret" || cType.getSelectedItem() == "consomable") 
@@ -216,8 +218,9 @@ public class RechercherArticle extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tArticleHistorique.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } 
 
@@ -260,8 +263,9 @@ public class RechercherArticle extends javax.swing.JFrame {
                 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
        
     }//GEN-LAST:event_tArticleHistoriqueMouseClicked

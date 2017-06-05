@@ -5,26 +5,24 @@
  */
 package GestionMalade;
 
-import GestionLoggin.*;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
-import gestionbadr.HomeSecretaire;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherMaladie extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(RechercherMaladie.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -72,6 +70,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Maladies");
+        setResizable(false);
 
         tUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,8 +194,9 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         
         
@@ -234,8 +234,9 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 s2.bAjouter.setEnabled(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
        
     }//GEN-LAST:event_tUserMouseClicked

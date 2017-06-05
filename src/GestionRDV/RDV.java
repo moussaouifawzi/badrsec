@@ -316,6 +316,7 @@ addWindowListener(new WindowAdapter() {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Ajouter RDV");
+    setResizable(false);
 
     bCancel.setText("Cancel");
     bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -1028,6 +1029,7 @@ addWindowListener(new WindowAdapter() {
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
              * You need to release the resources like connections
@@ -1036,7 +1038,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1068,8 +1070,8 @@ addWindowListener(new WindowAdapter() {
             txtNumTel.setText(nom);
             txtAdress.setText(num_tel_m);
 
-        } catch (Exception e) {
-            System.out.println("erreur");
+        } catch (SQLException e) {
+            log.error(e);
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             /*This block should be added to your code
@@ -1079,7 +1081,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1120,6 +1122,7 @@ addWindowListener(new WindowAdapter() {
                 System.out.println("b1 =" + b);
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
                 b = false;
             } finally {
                 /*This block should be added to your code
@@ -1129,7 +1132,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1245,8 +1248,9 @@ addWindowListener(new WindowAdapter() {
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
             
             jTabbedPane1.setEnabledAt(1, true);
@@ -1338,6 +1342,7 @@ addWindowListener(new WindowAdapter() {
             unite_c = rec2.getString("unite");
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1346,7 +1351,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1365,6 +1370,7 @@ addWindowListener(new WindowAdapter() {
 
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1373,7 +1379,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1409,6 +1415,7 @@ addWindowListener(new WindowAdapter() {
                 tableau_resultat_rdv_mois_par_annee[m] = i;
             } catch (SQLException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1417,7 +1424,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1452,6 +1459,7 @@ addWindowListener(new WindowAdapter() {
             }
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1460,7 +1468,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1494,6 +1502,7 @@ addWindowListener(new WindowAdapter() {
             }
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1502,7 +1511,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1546,6 +1555,7 @@ addWindowListener(new WindowAdapter() {
             }
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1554,7 +1564,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1603,6 +1613,7 @@ addWindowListener(new WindowAdapter() {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1611,7 +1622,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1638,6 +1649,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1646,7 +1658,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1675,6 +1687,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1683,7 +1696,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1708,6 +1721,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1716,7 +1730,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1742,6 +1756,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1750,7 +1765,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1778,6 +1793,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1786,7 +1802,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1812,6 +1828,7 @@ addWindowListener(new WindowAdapter() {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1820,7 +1837,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1877,7 +1894,7 @@ addWindowListener(new WindowAdapter() {
                     jDateValidation.setDate(dateValidation);
                     v = true;
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    log.error(e);
                     v = false;
                 } finally {
                     /*This block should be added to your code
@@ -1887,7 +1904,7 @@ addWindowListener(new WindowAdapter() {
                         try {
                             con.close();
                         } catch (SQLException ex) {
-                            log.error("Erreure ", ex);
+                            log.error(ex);
                         }
                     }
                 }
@@ -1940,7 +1957,7 @@ addWindowListener(new WindowAdapter() {
                 afficher_la_date_dun_mois();
                 b = true;
             } catch (ParseException ex) {
-                log.error("Erreure ", ex);
+                log.error(ex);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1949,7 +1966,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -2098,8 +2115,9 @@ addWindowListener(new WindowAdapter() {
             pst = con.prepareStatement(sql);
             rst = pst.executeQuery(sql);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -2108,7 +2126,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error( ex);
                 }
             }
         }
@@ -2158,8 +2176,9 @@ addWindowListener(new WindowAdapter() {
 //                id_conv = rst.getString("id_conv");
                 cConvontion.addItem(nom_convontion);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -2168,7 +2187,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }

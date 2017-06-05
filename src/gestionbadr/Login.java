@@ -9,9 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    static Logger log = Logger.getLogger(Login.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -54,6 +54,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification");
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -140,7 +141,7 @@ public class Login extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL
             String sql = "select employerId from employer where username ='" + txtUserName.getText()
-            + "'and Password='" + txtPassword.getText() + "'";
+                    + "'and Password='" + txtPassword.getText() + "'";
             //try et catch verifie ke l'app ne va pa sarété en cas d'erreur
             try {
                 pst = con.prepareStatement(sql);
@@ -154,38 +155,40 @@ public class Login extends javax.swing.JFrame {
                         ResultSet rec2 = pst.executeQuery(sql);
                         rec2.next();
                         id = rec2.getString("employerId");
-                    } catch (Exception e) {
-                        System.err.println(e);
+                        log.info("User is Connecter = " + txtUserName.getText());
+                    } catch (SQLException e) {
+                        log.error(e);
                     }
 
                     char charAt = id.charAt(0);
 
-                    if ( charAt == 'A' ){
+                    if (charAt == 'A') {
                         this.setVisible(false);
-                       
+
                         HomeAdministrateur h = new HomeAdministrateur(charAt);
                         h.setVisible(true);
-                    } else if ( charAt == 'S' ){
+                    } else if (charAt == 'S') {
                         this.setVisible(false);
-                      
+
                         HomeSecretaire h = new HomeSecretaire(charAt);
                         h.setVisible(true);
-                    } else if ( charAt == 'D' ){
+                    } else if (charAt == 'D') {
                         this.setVisible(false);
-                        
+
                         HomeDirecteur h = new HomeDirecteur(charAt);
                         h.setVisible(true);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "error");
                 }
-                else {JOptionPane.showMessageDialog(null, "error");}
             } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                log.error(ex);
             }
         }
     }//GEN-LAST:event_bOkActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
- //confirmation si le user name et password ne sont pas vide
+        //confirmation si le user name et password ne sont pas vide
         if (txtUserName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter UserName");
         } else if (txtPassword.getText().equals("")) {
@@ -195,7 +198,7 @@ public class Login extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL
             String sql = "select employerId from employer where username ='" + txtUserName.getText()
-            + "'and Password='" + txtPassword.getText() + "'";
+                    + "'and Password='" + txtPassword.getText() + "'";
             //try et catch verifie ke l'app ne va pa sarété en cas d'erreur
             try {
                 pst = con.prepareStatement(sql);
@@ -209,32 +212,33 @@ public class Login extends javax.swing.JFrame {
                         ResultSet rec2 = pst.executeQuery(sql);
                         rec2.next();
                         id = rec2.getString("employerId");
-                    } catch (Exception e) {
-                        System.err.println(e);
+                    } catch (SQLException e) {
+                        log.error(e);
                     }
 
                     char charAt = id.charAt(0);
 
-                    if ( charAt == 'A' ){
+                    if (charAt == 'A') {
                         this.setVisible(false);
-                       
+
                         HomeAdministrateur h = new HomeAdministrateur(charAt);
                         h.setVisible(true);
-                    } else if ( charAt == 'S' ){
+                    } else if (charAt == 'S') {
                         this.setVisible(false);
-                      
+
                         HomeSecretaire h = new HomeSecretaire(charAt);
                         h.setVisible(true);
-                    } else if ( charAt == 'D' ){
+                    } else if (charAt == 'D') {
                         this.setVisible(false);
-                        
+
                         HomeDirecteur h = new HomeDirecteur(charAt);
                         h.setVisible(true);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "error");
                 }
-                else {JOptionPane.showMessageDialog(null, "error");}
             } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                log.error(ex);
             }
         }    }//GEN-LAST:event_txtPasswordActionPerformed
 

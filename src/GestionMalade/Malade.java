@@ -18,17 +18,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class Malade extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(Malade.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -524,6 +523,7 @@ public class Malade extends javax.swing.JFrame {
 
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
     }//GEN-LAST:event_bAjouterActionPerformed
@@ -607,6 +607,7 @@ public class Malade extends javax.swing.JFrame {
                     bModifier.setEnabled(false);
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                    log.error(e);
                 }
             }
         }
@@ -687,8 +688,9 @@ public class Malade extends javax.swing.JFrame {
                     txtInt.setText(k);
 
                     //                                       System.out.println("jfjfg,bombng");
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     System.err.println(e);
+                    log.error(e);
                 }
             }
         }
@@ -760,6 +762,7 @@ public class Malade extends javax.swing.JFrame {
 
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("Rechercher_id_Maladie : ", e);
         }
 
     }
@@ -775,8 +778,9 @@ public class Malade extends javax.swing.JFrame {
                 Type_cancer = rst.getString("Type_cancer");
                 cMaladie.addItem(Type_cancer);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("Remplir_Combo_Maladie : ", e);
         }
     }
 

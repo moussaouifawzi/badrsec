@@ -5,7 +5,6 @@
  */
 package gestionArticle;
 
-import GestionDonnation.*;
 import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
@@ -15,16 +14,18 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class ConsulterArticle extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(ConsulterArticle.class.getName());
     ResultSet rst = null;
     Connection con = null;
     Statement st = null;
@@ -220,8 +221,9 @@ public class ConsulterArticle extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tArticleHistorique.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
         else if ((cType.getSelectedItem() == "pret" || cType.getSelectedItem() == "consomable") 
@@ -233,8 +235,9 @@ public class ConsulterArticle extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tArticleHistorique.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } 
 

@@ -5,29 +5,18 @@
  */
 package GestionBenevole;
 
-import static GestionBenevole.Log4j.log;
 import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
-import gestionbadr.JoptionopanePerso;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import org.apache.log4j.Logger;
@@ -53,7 +42,7 @@ public class Benevole extends javax.swing.JFrame {
         log.info("Interface Benevole");
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                
+                RetoureCancel();
             }
         });
     }
@@ -142,6 +131,7 @@ public class Benevole extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajouter Benevole");
+        setResizable(false);
 
         jLabel1.setText("Nom :");
 
@@ -434,7 +424,7 @@ public class Benevole extends javax.swing.JFrame {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.info("Erreur", e);
+                log.error("Erreur bSaveActionPerformed : ", e);
             }
 
         }
@@ -486,8 +476,9 @@ public class Benevole extends javax.swing.JFrame {
                     bModifier.setEnabled(false);
                     bSave.setEnabled(true);
 
-                } catch (Exception e) {
+                } catch (HeadlessException | SQLException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                    log.error("Erreur bModifierActionPerformed : ", e);
                 }
             }
         }

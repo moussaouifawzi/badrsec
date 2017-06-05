@@ -6,7 +6,6 @@
 package GestionLoggin;
 
 import gestionbadr.Connect;
-import gestionbadr.HomeSecretaire;
 import gestionbadr.Parametre;
 import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
@@ -18,13 +17,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class Employer extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(Employer.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -89,6 +89,7 @@ public class Employer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajouter utilisateur");
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jPanel3.setLayout(null);
@@ -261,6 +262,7 @@ public class Employer extends javax.swing.JFrame {
 
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                    log.error("bSaveActionPerformed : ", e);
                 }
 
             } else if (cSpecialisation.getSelectedItem().equals("Administrateur")) {
@@ -293,6 +295,7 @@ public class Employer extends javax.swing.JFrame {
 
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                    log.error("bSaveActionPerformed : ", e);
                 }
             } else if (cSpecialisation.getSelectedItem().equals("Secretaire")) {
                 c = "S";
@@ -324,6 +327,7 @@ public class Employer extends javax.swing.JFrame {
 
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                    log.error("bSaveActionPerformed : ", e);
                 }
             }
         }
@@ -387,8 +391,9 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
                 bSave.setEnabled(true);
                 cSpecialisation.setEnabled(true);
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bModifierActionPerformed : ", e);
             }}
     }//GEN-LAST:event_bModifierActionPerformed
 
@@ -407,8 +412,9 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
             s.tUser.setModel(md);
 
             s.setVisible(true);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("bRechercherActionPerformed : ", e);
         }
     }//GEN-LAST:event_bRechercherActionPerformed
 

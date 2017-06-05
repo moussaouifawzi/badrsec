@@ -5,29 +5,24 @@
  */
 package GestionRDV;
 
-import GestionConvontion.*;
-import GestionPartenaire.*;
-import GestionLoggin.*;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
-import gestionbadr.HomeSecretaire;
-import gestionbadr.Parametre;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class ConsulterConvontionRDV extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -74,6 +69,7 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Convontion RDV");
+        setResizable(false);
 
         bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -199,8 +195,9 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cUnite.getSelectedIndex() == -1 ) {
             try {
@@ -209,8 +206,9 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
@@ -220,8 +218,9 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
          

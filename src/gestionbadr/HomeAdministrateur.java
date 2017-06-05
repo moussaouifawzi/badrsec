@@ -7,10 +7,7 @@ package gestionbadr;
 
 import GestionBenevole.Benevole;
 import GestionBenevole.ConsulterBenevole;
-import GestionLoggin.ConsulterUser;
-import GestionLoggin.Employer;
 import GestionMalade.Malade;
-import GestionMalade.RechercherMalade;
 import gestionArticle.AjouterArticle;
 import GestionDonnation.Beneficie;
 import GestionDonnation.ConsulterHistoriqueDonnation;
@@ -21,16 +18,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class HomeAdministrateur extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(HomeAdministrateur.class.getName());
     ResultSet rs = null;
     Connection con = null;
     Statement st = null;
@@ -106,6 +105,7 @@ char id;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -330,8 +330,9 @@ char id;
             s.tArticleHistorique.setModel(md);
 
             s.setVisible(true);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
     }//GEN-LAST:event_bConsulterArticleActionPerformed
 
@@ -371,8 +372,10 @@ char id;
 
     private void bDeconnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeconnecterActionPerformed
         this.setVisible(false);
+        log.info("User is Deconnected");
         Login h = new Login();
         h.setVisible(true);
+        
     }//GEN-LAST:event_bDeconnecterActionPerformed
 
     private void bParametreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bParametreActionPerformed

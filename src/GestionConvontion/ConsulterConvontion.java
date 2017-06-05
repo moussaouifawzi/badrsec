@@ -16,17 +16,19 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class ConsulterConvontion extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(ConsulterConvontion.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -76,6 +78,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Convontion");
+        setResizable(false);
 
         bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -201,8 +204,9 @@ public class ConsulterConvontion extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         } else if (cUnite.getSelectedIndex() == -1) {
             try {
@@ -211,8 +215,9 @@ public class ConsulterConvontion extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
@@ -222,8 +227,9 @@ public class ConsulterConvontion extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         }
 

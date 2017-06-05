@@ -15,12 +15,14 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 public class ConsulterMalade extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(ConsulterMalade.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -91,6 +93,7 @@ char id;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Malade");
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -221,8 +224,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("") && cEtatSocial.getSelectedIndex() == -1) {
@@ -233,8 +237,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("") && cWillaya.getSelectedIndex() == -1) {
@@ -245,8 +250,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         } else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 && cWillaya.getSelectedIndex() == -1) {
@@ -258,8 +264,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         } else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 && cEtatSocial.getSelectedIndex() == -1) {
@@ -272,8 +279,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cEtatSocial.getSelectedIndex() == -1 && cWillaya.getSelectedIndex() == -1) {
             // id malade
@@ -287,8 +295,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("")) {
@@ -300,8 +309,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         }else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             // willaya + etat + Alphabet
@@ -313,8 +323,9 @@ char id;
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherMaladeActionPerformed : ", e);
             }
         }
       

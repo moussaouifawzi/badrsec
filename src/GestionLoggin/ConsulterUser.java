@@ -18,13 +18,14 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class ConsulterUser extends javax.swing.JFrame {
-    
+    static Logger log = Logger.getLogger(ConsulterUser.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -73,6 +74,7 @@ public class ConsulterUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Utilisateur");
+        setResizable(false);
 
         tUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

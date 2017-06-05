@@ -17,13 +17,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class Convontion extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(Convontion.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -96,6 +97,7 @@ public class Convontion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajouter Convontion");
+        setResizable(false);
 
         jLabel1.setText("Nom Convontion :");
 
@@ -378,6 +380,7 @@ public class Convontion extends javax.swing.JFrame {
             reset();
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("bSavePartenaireActionPerformed", e);
         }
 
 
@@ -427,8 +430,9 @@ public class Convontion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Update Successfully");
                 reset();
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bModifierPartenaireActionPerformed ", e);
             }
         }
     }//GEN-LAST:event_bModifierPartenaireActionPerformed
@@ -471,8 +475,9 @@ public class Convontion extends javax.swing.JFrame {
                 nom_p = rst.getString("nom_p");
                 cPartenaire.addItem(nom_p);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("Remplir_Combo_Partenaire ", e);
         }
     }
 
@@ -489,8 +494,9 @@ public class Convontion extends javax.swing.JFrame {
             type_p = rec2.getString("type_p");
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("Rechercher_id_Partenaire ", e);
         }
-        System.out.println(id_p + " /// " + type_p);
+//        System.out.println(id_p + " /// " + type_p);
     }
 
     protected void Rechercher_nom_Partenaire() {
@@ -506,6 +512,7 @@ public class Convontion extends javax.swing.JFrame {
             nom_pr = rec2.getString("nom_p");
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("Rechercher_nom_Partenaire : ", e);
         }
 
 //        System.out.println( id_p +" /// " + nom_pr);

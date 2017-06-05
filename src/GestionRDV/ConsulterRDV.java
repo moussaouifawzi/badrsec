@@ -5,30 +5,26 @@
  */
 package GestionRDV;
 
-import GestionConvontion.*;
-import GestionPartenaire.*;
-import GestionLoggin.*;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
-import gestionbadr.HomeSecretaire;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class ConsulterRDV extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(ConsulterRDV.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -81,6 +77,7 @@ public class ConsulterRDV extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter RDV");
+        setResizable(false);
 
         bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -228,8 +225,9 @@ public class ConsulterRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
@@ -239,8 +237,9 @@ public class ConsulterRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (!(cEtatValidation.getSelectedIndex() == -1) && !(cAlphabet.getSelectedIndex() == -1)
                 && !(txtId_p3.getText().equals("")) && !(txtInt.getText().equals(""))) {
@@ -255,8 +254,9 @@ public class ConsulterRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
 
@@ -315,8 +315,9 @@ con = Connect.connect();
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
 
     }//GEN-LAST:event_tRDVMouseClicked

@@ -5,7 +5,6 @@
  */
 package GestionRDV;
 
-import GestionMalade.*;
 import gestionbadr.Connect;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,16 +14,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
+
 
 public class RechercherMaladeRDV extends javax.swing.JFrame {
+    static Logger log = Logger.getLogger(RechercherDemandeRDV.class.getName());
 
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
     int a;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
     String Type_cancer;
 
     public RechercherMaladeRDV() {
@@ -36,10 +38,16 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
         });
     }
     
+    
+    
     private void Cancel(){
-         this.dispose();
+        log.trace("DEBUT Cancel");
+        this.dispose();
         RDV s = new RDV();
+        log.debug("id Admin = "+ id);
+        s.id = id;
         s.setVisible(true);
+        log.trace("FIN Cancel");
     }
 
     /**
@@ -294,6 +302,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     private void tMaladeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMaladeMouseClicked
+        log.trace("DEBUT tMaladeMouseClicked");
         int row = tMalade.getSelectedRow();
         String n;
         n = tMalade.getModel().getValueAt(row, 0).toString();
@@ -305,6 +314,8 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 this.setVisible(false);
                 RDV s = new RDV();
                 s.setVisible(true);
+                log.debug("id Admin = "+ id);
+                s.id= id;
                 
                 String adr_m = rst.getString("adr_m");
                 s.txtAdress.setText(adr_m);
@@ -328,6 +339,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 s.txtId_p3.setEditable(false);
                 s.txtInt.setEditable(false);
             }
+            log.trace("FIN tMaladeMouseClicked");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());

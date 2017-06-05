@@ -5,6 +5,7 @@
  */
 package GestionBenevole;
 
+import static GestionBenevole.Log4j.log;
 import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
@@ -29,24 +30,26 @@ import javax.swing.table.DefaultTableModel;
 import gestionbadr.JoptionopanePerso;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class Benevole extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(Benevole.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
     Statement st = null;
     ResultSet rs = null;
     protected int id_b;
-    char id;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public Benevole() {
         initComponents();
         bModifier.setEnabled(false);
+        log.info("Interface Benevole");
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 
@@ -56,15 +59,16 @@ public class Benevole extends javax.swing.JFrame {
     }
 
     public Benevole(char id) {
-
+        log.trace("Constructeure Surcharger de Benevole ");
         initComponents();
         this.id = id;
-
+        log.debug("Id Admin= " + id);
     }
 
     private void RetoureCancel() {
-
-
+//        log.trace("Constructeure Surcharger de Benevole ");
+//        log.debug("Id Admin= " + id);
+        
         this.dispose();
         this.setVisible(false);
         System.out.println(id);
@@ -423,10 +427,12 @@ public class Benevole extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Successfully registred");
+             //   log.info("Successfully registred");
                 reset();
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.info("Erreur",e);
             }
 
         }
@@ -487,9 +493,14 @@ public class Benevole extends javax.swing.JFrame {
     }//GEN-LAST:event_bModifierActionPerformed
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
+        log.trace("Open bRechercherActionPerformed ");
+                
         this.setVisible(false);
         RechercherBenevole s = new RechercherBenevole();
+        s.id = id;
+        log.debug("Id Envoyer a Rechercher" + id);
         s.setVisible(true);
+        log.trace("Close bRechercherActionPerformed");
 //        DefaultTableModel md = new DefaultTableModel();
 //        md.setColumnIdentifiers(new String[]{"numero", "nom", "prenom"});
 //        try {

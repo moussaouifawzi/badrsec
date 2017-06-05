@@ -54,6 +54,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
     private void Cancel(){
         this.dispose();
         RDV s1 = new RDV();
+        s1.id = id;
         s1.setVisible(true);
     }
 
@@ -238,7 +239,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_m = '" + id_m + "'";
+                String sql = "SELECT id_date_depot,datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -249,7 +250,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
+                String sql = "SELECT id_date_depot,datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -264,7 +265,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
+                String sql = "SELECT id_date_depot,datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
                         + "' AND id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -281,10 +282,10 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
         con = Connect.connect();
         int row = tDemandeRDV.getSelectedRow();
         String n;
-        n = tDemandeRDV.getModel().getValueAt(row, 2).toString();
+        n = tDemandeRDV.getModel().getValueAt(row, 0).toString();
 
         try {
-            String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_date_depot = '" + n + "'";
+            String sql = "SELECT id_date_depot, malade.id_m, DateDepot, Etat_Demande, nom_m, prenom_m  FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_date_depot = '" + n + "'";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
 
@@ -295,8 +296,8 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 
                 int demande_RDV = rs.getInt("id_date_depot");
                 s1.id_demande_rdv = demande_RDV;
-
-                String id_m = rs.getString("id_m");
+                s1.id = id;
+                String id_m = rs.getString("malade.id_m");
                 String p1 = id_m.substring(0, 1);
                 s1.cAlphabet.setSelectedItem(p1);
                 s1.cAlphabet.setEditable(false);

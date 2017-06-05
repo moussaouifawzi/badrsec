@@ -24,7 +24,7 @@ public class RechercherMalade extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rst = null;
     int a;
-    char id;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
     String Type_cancer;
 
     public RechercherMalade() {
@@ -40,6 +40,7 @@ public class RechercherMalade extends javax.swing.JFrame {
      
       initComponents();
         this.id=id;
+        
     }
     
     
@@ -309,7 +310,7 @@ public class RechercherMalade extends javax.swing.JFrame {
             rst = pst.executeQuery(sql);
             if (rst.next()) {
                 this.setVisible(false);
-                Malade s = new Malade();
+                Malade s = new Malade(id);
                 s.setVisible(true);
                 String adr_m = rst.getString("adr_m");
                 s.txtAdress.setText(adr_m);

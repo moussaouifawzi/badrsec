@@ -34,7 +34,7 @@ public class Malade extends javax.swing.JFrame {
     ResultSet rst = null;
     String Type_cancer;
     int id_maladi;
-    char id;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public Malade() {
         initComponents();

@@ -7,6 +7,8 @@ package gestionArticle;
 
 import GestionDonnation.*;
 import gestionbadr.Connect;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,6 +30,18 @@ public class RechercherArticle extends javax.swing.JFrame {
 
     public RechercherArticle() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel (){
+        this.dispose();
+        this.setVisible(false);
+        AjouterArticle s = new AjouterArticle();
+        s.setVisible(true);
     }
 
     /**
@@ -211,10 +225,7 @@ public class RechercherArticle extends javax.swing.JFrame {
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
 
-        this.dispose();
-        this.setVisible(false);
-        AjouterArticle s = new AjouterArticle();
-        s.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     private void tArticleHistoriqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tArticleHistoriqueMouseClicked

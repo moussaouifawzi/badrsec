@@ -6,27 +6,49 @@
 package GestionBenevole;
 
 import gestionbadr.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 public class RechercherBenevole extends javax.swing.JFrame {
+static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
+
+
 
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
-    
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
     Statement st = null;
     ResultSet rs = null;
 
     public RechercherBenevole() {
+        
         initComponents();
         //Initialiser_Tableau_Benevole();
+        addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
+    }
+    
+    private void Cancel(){
+         // TODO add your handling code here:
+        this.dispose();
+        this.setVisible(false);
+        Benevole s = new Benevole();
+        s.id = id;
+        s.setVisible(true);
     }
 
     /**
@@ -211,6 +233,8 @@ public class RechercherBenevole extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tBenevoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tBenevoleMouseClicked
+        log.trace("Open Methode tBenevoleMouseClicked ");
+        log.debug("Id Admin Avant modification = " + id);
         int row = tBenevole.getSelectedRow();
         String n;
         n = tBenevole.getModel().getValueAt(row, 0).toString();
@@ -220,7 +244,8 @@ public class RechercherBenevole extends javax.swing.JFrame {
             rst = pst.executeQuery(sql);
             if (rst.next()) {
                 this.setVisible(false);
-                Benevole s = new Benevole();
+                log.debug("Id Admin= " + id);
+                Benevole s = new Benevole(id);
                 s.setVisible(true);
 
                 String Nom_b = rst.getString("Nom_b");
@@ -244,9 +269,10 @@ public class RechercherBenevole extends javax.swing.JFrame {
                 s.bModifier.setEnabled(true);
                 s.bSave.setEnabled(false);
             }
-
-        } catch (Exception e) {
+            log.trace("Close Methode tBenevoleMouseClicked ");
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("Erreur : ", e);
         }
     }//GEN-LAST:event_tBenevoleMouseClicked
 
@@ -328,11 +354,7 @@ public class RechercherBenevole extends javax.swing.JFrame {
         }
     }
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        this.setVisible(false);
-        Benevole s = new Benevole();
-        s.setVisible(true);
+       Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     /**

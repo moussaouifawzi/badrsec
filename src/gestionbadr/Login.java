@@ -130,6 +130,7 @@ public class Login extends javax.swing.JFrame {
 
     private void bOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOkActionPerformed
         //confirmation si le user name et password ne sont pas vide
+        System.out.println(" kwd");
         if (txtUserName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter UserName");
         } else if (txtPassword.getText().equals("")) {

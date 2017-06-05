@@ -10,6 +10,8 @@ import GestionLoggin.*;
 import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +36,19 @@ public class RechercherConvontion extends javax.swing.JFrame {
 
     public RechercherConvontion() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+
+    private void Cancel() {
+        this.dispose();
+        this.setVisible(false);
+        Convontion s1 = new Convontion();
+        s1.setVisible(true);
     }
 
     /**
@@ -169,7 +183,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 .addGap(200, 200, 200))
         );
 
-        setSize(new java.awt.Dimension(922, 373));
+        setSize(new java.awt.Dimension(922, 387));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -178,22 +192,22 @@ public class RechercherConvontion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
                     + "\n     - L'unite."
                     + "\n     - Etat de la convontion."
-            + "\n     - L'unite + Etat de la convontion.");
+                    + "\n     - L'unite + Etat de la convontion.");
 
-        } else if ( cEtatConvontion.getSelectedIndex() == -1) {
+        } else if (cEtatConvontion.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
+                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '" + cUnite.getSelectedItem().toString() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        } else if (cUnite.getSelectedIndex() == -1 ) {
+        } else if (cUnite.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
+                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -203,8 +217,8 @@ public class RechercherConvontion extends javax.swing.JFrame {
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
-                        +"' AND unite = '"+cUnite.getSelectedItem() +"'";
+                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem()
+                        + "' AND unite = '" + cUnite.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -212,34 +226,34 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-         
+
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void tConvontionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tConvontionMouseClicked
-        
+
         con = Connect.connect();
-        int row = tConvontion.getSelectedRow();    
-        String n;     
+        int row = tConvontion.getSelectedRow();
+        String n;
         n = tConvontion.getModel().getValueAt(row, 0).toString();
-         
+
         try {
-            String sql = "SELECT * FROM convontion WHERE id_conv = '" + n + "'";            
-            pst = con.prepareStatement(sql);         
+            String sql = "SELECT id_conv, partenaire_id_p, nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE id_conv = '" + n + "'";
+            pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
-         
-            if (rs.next()) {               
+
+            if (rs.next()) {
                 this.setVisible(false);
                 Convontion s1 = new Convontion();
                 s1.setVisible(true);
-                
+
                 int nbr_RDv = rs.getInt("nbr_RDv");
-                s1.txtNombre.setText(Integer.toString(nbr_RDv));            
+                s1.txtNombre.setText(Integer.toString(nbr_RDv));
                 String unite = rs.getString("unite");
                 s1.cUnite.setSelectedItem(unite);
-                String 	type_radiologie = rs.getString("type_radiologie");
+                String type_radiologie = rs.getString("type_radiologie");
                 s1.txtType.setVisible(true);
                 s1.txtType.setEditable(false);
-                s1.txtType.setText(type_radiologie);             
+                s1.txtType.setText(type_radiologie);
                 String nom_convontion = rs.getString("nom_convontion");
                 s1.txtNomConvontion.setText(nom_convontion);
                 String injection = rs.getString("injection");
@@ -249,7 +263,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 s1.id_p = rs.getInt("partenaire_id_p");
                 s1.id_conv = rs.getInt("id_conv");
                 s1.Rechercher_nom_Partenaire();
-                
+
                 s1.bModifierPartenaire.setEnabled(true);
                 s1.bSavePartenaire.setEnabled(false);
             }
@@ -257,15 +271,12 @@ public class RechercherConvontion extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-       
-       
+
+
     }//GEN-LAST:event_tConvontionMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-                Convontion s1 = new Convontion();
-                s1.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     /**

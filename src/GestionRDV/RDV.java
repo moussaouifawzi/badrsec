@@ -5,18 +5,15 @@
  */
 package GestionRDV;
 
-import GestionConvontion.ConsulterConvontion;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
-import gestionbadr.Parametre;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +21,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,16 +28,14 @@ import java.util.Calendar;
 import static java.util.Calendar.*;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableRowSorter;
-import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
+
 
 /**
  *
@@ -49,6 +43,8 @@ import net.proteanit.sql.DbUtils;
  */
 public class RDV extends javax.swing.JFrame {
 
+    static Logger log = Logger.getLogger(RDV.class.getName());
+    
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -62,6 +58,7 @@ public class RDV extends javax.swing.JFrame {
     int id_p;
     String nom_p;
     protected String id_m;
+    //protected int id_demande_RDV;
     boolean t = false; // etat de la date si prise = true  "Verifier_date_rdv()"
 
     public int getId_demande_rdv() {
@@ -103,17 +100,59 @@ public class RDV extends javax.swing.JFrame {
         jYearChooser1.setEnabled(false);
         bRechercherCotaParMois.setEnabled(false);
 //        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
+
+addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+         this.dispose();
+        this.setVisible(false);
+
+        if (id == 'A') {
+            this.setVisible(false);
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+        } else if (id == 'D') {
+            this.setVisible(false);
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+        }
     }
 
     public RDV(char id) {
+        log.trace("Constructeure Surcharger de RDV ");
         initComponents();
         Remplir_Combo_Type_Convontion();
-        cConvontion.setSelectedIndex(-1);
+         cConvontion.setSelectedIndex(-1);
+        txtNom.setEditable(false);
+        txtPrenom.setEditable(false);
+        txtAdress.setEditable(false);
+        txtAdress.setEditable(false);
+        txtNumTel.setEditable(false);
+
         jTabbedPane1.setEnabledAt(1, false);
         jTabbedPane1.setEnabledAt(2, false);
         jTabbedPane1.setEnabledAt(3, false);
+        bModifierValidation.setEnabled(false);
+        bModifierDemandeRDV.setEnabled(false);
+        jDateRecuperation.setEnabled(false);
+
+        jMonthChooser1.setEnabled(false);
+        jYearChooser1.setEnabled(false);
+        bRechercherCotaParMois.setEnabled(false);
 //        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
+        log.debug("id Admin = "+ id);
         this.id = id;
+        log.trace("FIN Constructeure Surcharger de RDV ");
     }
 
     public int getId_rdv() {
@@ -327,7 +366,7 @@ public class RDV extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addGap(26, 26, 26)
                     .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cEtatDemandeRDV, 0, 238, Short.MAX_VALUE)
+                        .addComponent(cEtatDemandeRDV, 0, 222, Short.MAX_VALUE)
                         .addComponent(jDateDepot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGap(411, 411, 411))
     );
@@ -340,7 +379,7 @@ public class RDV extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addGap(18, 18, Short.MAX_VALUE))
                 .addGroup(pDemandeRDVLayout.createSequentialGroup()
-                    .addContainerGap(18, Short.MAX_VALUE)
+                    .addContainerGap(195, Short.MAX_VALUE)
                     .addComponent(jDateDepot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(32, 32, 32)
                     .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -350,7 +389,7 @@ public class RDV extends javax.swing.JFrame {
             .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(bAjouterDemandeRDV)
                 .addComponent(bModifierDemandeRDV))
-            .addContainerGap(28, Short.MAX_VALUE))
+            .addContainerGap(206, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Demande de RDV", pDemandeRDV);
@@ -433,15 +472,14 @@ public class RDV extends javax.swing.JFrame {
                     .addGap(52, 52, 52)
                     .addComponent(bRechercherCotaParAns)))
             .addGap(18, 18, 18)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(117, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     pChoisirRDVLayout.setVerticalGroup(
         pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(pChoisirRDVLayout.createSequentialGroup()
             .addGap(18, 18, 18)
             .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pChoisirRDVLayout.createSequentialGroup()
                     .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(pChoisirRDVLayout.createSequentialGroup()
@@ -454,8 +492,9 @@ public class RDV extends javax.swing.JFrame {
                     .addGap(29, 29, 29)
                     .addComponent(bRechercherCotaParAns)
                     .addGap(18, 18, 18)
-                    .addComponent(jButton3)))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(186, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Choisir une Convontion", pChoisirRDV);
@@ -521,22 +560,18 @@ public class RDV extends javax.swing.JFrame {
                 .addGroup(pChoisirDateLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-            .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(tDateParConvontion, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
             .addGap(28, 28, 28))
     );
     pChoisirDateLayout.setVerticalGroup(
         pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pChoisirDateLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pChoisirDateLayout.createSequentialGroup()
             .addGap(22, 22, 22)
             .addComponent(jLabel16)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
             .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -547,6 +582,10 @@ public class RDV extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bRechercherCotaParMois)
             .addGap(48, 48, 48))
+        .addGroup(pChoisirDateLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Choisir une Date", pChoisirDate);
@@ -708,7 +747,7 @@ public class RDV extends javax.swing.JFrame {
                 .addGroup(pValidationRDVLayout.createSequentialGroup()
                     .addGap(18, 18, 18)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(54, Short.MAX_VALUE))))
+                    .addContainerGap(38, Short.MAX_VALUE))))
     );
     pValidationRDVLayout.setVerticalGroup(
         pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -892,13 +931,13 @@ public class RDV extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bRechercherMalade)
                         .addComponent(bRechercherMaladeRDV))))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(bRechercherDemandeRDV)
                 .addComponent(bRechercherRDV))
-            .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 5, Short.MAX_VALUE))
     );
 
     bannuler.setText("Anuler");
@@ -923,23 +962,23 @@ public class RDV extends javax.swing.JFrame {
             .addComponent(bannuler)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(35, 35, 35))
+            .addGap(40, 40, 40))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jTabbedPane1)
             .addGap(18, 18, 18)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(bCancel)
                 .addComponent(bannuler))
-            .addGap(20, 20, 20))
+            .addGap(14, 14, 14))
     );
 
-    setSize(new java.awt.Dimension(816, 557));
+    setSize(new java.awt.Dimension(800, 912));
     setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -954,7 +993,7 @@ public class RDV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIntActionPerformed
 
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
-        
+
         if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 || cAlphabet.getSelectedIndex() == -1 || txtId_p3.getText().equals("") || txtInt.getText().equals("")
                 || txtId_p3.getText().equals("") && txtInt.getText().equals("")
@@ -962,45 +1001,46 @@ public class RDV extends javax.swing.JFrame {
 //            si aucun malade n'est choisit
             JOptionPane.showMessageDialog(null, "Il faut choisir un Malade");
         } else {
-        DecimalFormat myFormatter = new DecimalFormat("0000");
-        String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-        String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-        id_m = cAlphabet.getSelectedItem() + output + output2;
+            DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+            id_m = cAlphabet.getSelectedItem() + output + output2;
 
-        String sql = "Select id_m, prenom_m, nom_m, adr_m, num_tel_m from malade where id_m='" + id_m + "'";
-        con = Connect.connect();
-        try {
-            //1er requete pour identifier une erreur de redendence
-            pst = con.prepareStatement(sql);
-            ResultSet rec2 = pst.executeQuery(sql);
-            //            next() passe au autre tuple de la table
-            rec2.next();
-            String id_m1 = rec2.getString("id_m");
-            String prenom = rec2.getString("prenom_m");
-            String nom = rec2.getString("nom_m");
-            String adr_m = rec2.getString("adr_m");
-            String num_tel_m = rec2.getString("num_tel_m");
+            String sql = "Select id_m, prenom_m, nom_m, adr_m, num_tel_m from malade where id_m='" + id_m + "'";
+            con = Connect.connect();
+            try {
+                //1er requete pour identifier une erreur de redendence
+                pst = con.prepareStatement(sql);
+                ResultSet rec2 = pst.executeQuery(sql);
+                //            next() passe au autre tuple de la table
+                rec2.next();
+                String id_m1 = rec2.getString("id_m");
+                String prenom = rec2.getString("prenom_m");
+                String nom = rec2.getString("nom_m");
+                String adr_m = rec2.getString("adr_m");
+                String num_tel_m = rec2.getString("num_tel_m");
 
-            //            Envoie des Donnée au textField
-            txtNom.setText(adr_m);
-            txtPrenom.setText(prenom);
-            txtNumTel.setText(nom);
-            txtAdress.setText(num_tel_m);
+                //            Envoie des Donnée au textField
+                txtNom.setText(adr_m);
+                txtPrenom.setText(prenom);
+                txtNumTel.setText(nom);
+                txtAdress.setText(num_tel_m);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        } finally {
-            /*This block should be added to your code
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } finally {
+                /*This block should be added to your code
              * You need to release the resources like connections
-             */
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        log.error("Erreure ", ex);
+                    }
                 }
             }
-        }}
+        }
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     public void Rechercher_Malade(String id_malade) {
@@ -1039,7 +1079,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -1089,7 +1129,7 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
@@ -1104,7 +1144,7 @@ public class RDV extends javax.swing.JFrame {
                 cEtatDemandeRDV.setEnabled(false);
                 jDateDepot.setEnabled(false);
                 Configurer_Partie_Malade();
-                
+
                 bResetID.setEnabled(false);
                 bRechercherRDV.setEnabled(false);
                 bRechercherMaladeRDV.setEnabled(false);
@@ -1137,13 +1177,13 @@ public class RDV extends javax.swing.JFrame {
     private void Reset_RDV_Pris() {
         //        Vider les champs des RDV pris
         Reset_Demande_RDV();
-        
+
         cEtatDemandeRDV.setEnabled(true);
         jDateDepot.setEnabled(true);
         bResetID.setEnabled(true);
         bRechercherRDV.setEnabled(true);
         bRechercherMaladeRDV.setEnabled(true);
-        
+
         bRechercherMalade.setEnabled(true);
         bRechercherMaladeRDV.setEnabled(true);
         bRechercherDemandeRDV.setEnabled(true);
@@ -1184,7 +1224,44 @@ public class RDV extends javax.swing.JFrame {
     }
 
     private void bModifierDemandeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierDemandeRDVActionPerformed
+        date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
+        System.out.println("id demonde = " + id_demande_rdv);
+        
+        DecimalFormat myFormatter = new DecimalFormat("0000");
+            String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+            id_m = cAlphabet.getSelectedItem() + output + output2;
+        System.out.println("id m " + id_m);
+        
+        if (cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
+            JOptionPane.showMessageDialog(null, "Changer l'etat");
+        } else {
+            try {
+                con = Connect.connect();
+                String sql = "update demande_de_rdv set Etat_Demande='" + cEtatDemandeRDV.getSelectedItem()
+                        + "' WHERE id_date_depot = '" + id_demande_rdv + "' And id_m ='" + id_m + "'";
 
+                pst = con.prepareStatement(sql);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Update Successfully");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            
+            jTabbedPane1.setEnabledAt(1, true);
+                jTabbedPane1.setSelectedIndex(1);
+                bAjouterDemandeRDV.setEnabled(false);
+                bModifierDemandeRDV.setEnabled(false);
+                cEtatDemandeRDV.setEnabled(false);
+                jDateDepot.setEnabled(false);
+                Configurer_Partie_Malade();
+
+                bResetID.setEnabled(false);
+                bRechercherRDV.setEnabled(false);
+                bRechercherMaladeRDV.setEnabled(false);
+                bannuler.setEnabled(false);
+        }
     }//GEN-LAST:event_bModifierDemandeRDVActionPerformed
 
     private void afficher_la_date_dun_mois() throws ParseException {
@@ -1269,7 +1346,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -1296,7 +1373,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -1340,7 +1417,7 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
@@ -1383,7 +1460,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -1425,7 +1502,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -1477,7 +1554,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -1534,7 +1611,7 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
@@ -1569,7 +1646,7 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
@@ -1606,13 +1683,11 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
-        }
-
-        else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
             System.out.println("6");
@@ -1641,11 +1716,11 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
-        }else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && textRemarque.getText().equals("") && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque et l'examen sont vide
@@ -1675,7 +1750,7 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
@@ -1711,10 +1786,45 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
+        } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                && textRemarque.getText().equals("") && !(textExamen.getText().equals(""))) {
+            // Inserer la date de rdv pris si les 4 champs sont remplit
+            System.out.println("6");
+            try {
+                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                Rechercher_Unite_Convontion(); // id_p et id_c
+
+                con = Connect.connect();
+                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
+                        + " convontion_partenaire_id_p,  date_recuperation, examen) values ('"
+                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                        + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                        + id_conv + "','" + id_p + "','" + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                        + "','" + textExamen.getText() + "')";
+                pst = con.prepareStatement(sql2);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Ok");
+                b = true;
+
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } finally {
+                /*This block should be added to your code
+                 * You need to release the resources like connections
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        log.error("Erreure ", ex);
+                    }
+                }
+            }
+
         }
 
         if (b == true) {
@@ -1728,7 +1838,7 @@ public class RDV extends javax.swing.JFrame {
             afficher_la_date_dun_mois();
 
         } catch (ParseException ex) {
-            Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("Erreure ", ex);
         }
 
 
@@ -1777,7 +1887,7 @@ public class RDV extends javax.swing.JFrame {
                         try {
                             con.close();
                         } catch (SQLException ex) {
-                            Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                            log.error("Erreure ", ex);
                         }
                     }
                 }
@@ -1822,7 +1932,7 @@ public class RDV extends javax.swing.JFrame {
         jYearChooser1.setYear(Integer.parseInt(Annee));
         int Month = Integer.parseInt(Mois) - 1;
         jMonthChooser1.setMonth(Month);
-        
+
         if (Integer.parseInt(quantite_rdv) == 0) {  // Si quantite de RDV = 0 alors ERREUR
             JOptionPane.showMessageDialog(null, "Erreur: La Quantite est = 0. ");
         } else {
@@ -1830,7 +1940,7 @@ public class RDV extends javax.swing.JFrame {
                 afficher_la_date_dun_mois();
                 b = true;
             } catch (ParseException ex) {
-                Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Erreure ", ex);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1839,7 +1949,7 @@ public class RDV extends javax.swing.JFrame {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                        log.error("Erreure ", ex);
                     }
                 }
             }
@@ -1861,150 +1971,11 @@ public class RDV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-
-        if (id == 'A') {
-            this.setVisible(false);
-            HomeAdministrateur h = new HomeAdministrateur(id);
-            h.setVisible(true);
-        } else if (id == 'S') {
-            this.setVisible(false);
-
-            HomeSecretaire h = new HomeSecretaire(id);
-            h.setVisible(true);
-        } else if (id == 'D') {
-            this.setVisible(false);
-            HomeDirecteur h = new HomeDirecteur(id);
-            h.setVisible(true);
-        }
+       Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierValidationActionPerformed
-        boolean b = false;
-        if ((cEtatValidation.getSelectedItem().equals("Annuler")
-                || cEtatValidation.getSelectedItem().equals("Reporter"))) {
-//                     si l'Etat du RDV est Annuler ou Reporter et une date de récupération est déclarer 
-//                    il affiche une erreur.
-//            JOptionPane.showMessageDialog(null, "Erreur");
-                
-        } else {
-//            Sinon un message de confirmation
-            int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
-            Date dNow = new Date( );
-            SimpleDateFormat ft = 
-            new SimpleDateFormat ("E 0000.00.00");
 
-            if (val == 0) {
-//            si Val = 0 alors il a choisit OUI
-                System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
-                
-//                if ((cEtatValidation.getSelectedItem().equals("Annuler")
-//                || cEtatValidation.getSelectedItem().equals("Reporter"))) {
-////                     si l'Etat du RDV est Annuler ou Reporter et une date de récupération est déclarer 
-////                    il affiche une erreur.
-////            JOptionPane.showMessageDialog(null, "Erreur");
-//                try {
-//                        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
-//                        System.out.println("kkk " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
-//                        
-//                        con = Connect.connect();
-//                        String sql = "update rdv set Etat_RDV ='" + cEtatValidation.getSelectedItem()
-//                                + "',date_rdv ='" + ft
-//                                + "',Remarque ='" + textRemarque.getText()
-//                                + "',Examen ='" + textExamen.getText()
-//                                + "' WHERE id_RDV='" + id_rdv + "'";
-//
-//                        pst = con.prepareStatement(sql);
-//                        pst.executeUpdate();
-//                        JOptionPane.showMessageDialog(null, "Update Successfully");
-//                        b = true;
-//                    } catch (SQLException | HeadlessException e) {
-//                        JOptionPane.showMessageDialog(null, e.getMessage());
-//                    } finally {
-//                        /*This block should be added to your code
-//                         * You need to release the resources like connections
-//                         */
-//                        if (con != null) {
-//                            try {
-//                                con.close();
-//                            } catch (SQLException ex) {
-//                                Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                
-//        } }
-//                else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")) {
-////                Si la date de récupération est vide alors
-//                    System.out.println("modification date de recuperation est vide");
-//                    try {
-//                        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
-//                        System.out.println("kkk " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
-//
-//                        con = Connect.connect();
-//                        String sql = "update rdv set Etat_RDV ='" + cEtatValidation.getSelectedItem()
-//                                + "',Remarque ='" + textRemarque.getText()
-//                                + "',Examen ='" + textExamen.getText()
-//                                + "' WHERE id_RDV='" + id_rdv + "'";
-//
-//                        pst = con.prepareStatement(sql);
-//                        pst.executeUpdate();
-//                        JOptionPane.showMessageDialog(null, "Update Successfully");
-//                        b = true;
-//                    } catch (SQLException | HeadlessException e) {
-//                        JOptionPane.showMessageDialog(null, e.getMessage());
-//                    } finally {
-//                        /*This block should be added to your code
-//                         * You need to release the resources like connections
-//                         */
-//                        if (con != null) {
-//                            try {
-//                                con.close();
-//                            } catch (SQLException ex) {
-//                                Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                    }
-//                } 
-//else {
-//                    System.out.println("modification les 4 sont plein");
-////            si les 4 champs sont plein
-//
-//                    try {
-//                        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
-//                        System.out.println("kkk " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
-//
-//                        con = Connect.connect();
-//                        String sql = "update rdv set Etat_RDV ='" + cEtatValidation.getSelectedItem()
-//                                + "',Remarque ='" + textRemarque.getText()
-//                                + "',date_recuperation ='" + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-//                                + "',Examen ='" + textExamen.getText()
-//                                + "' WHERE id_RDV = '" + id_rdv + "'";
-//
-//                        pst = con.prepareStatement(sql);
-//                        pst.executeUpdate();
-//                        JOptionPane.showMessageDialog(null, "Update Successfully");
-//                        b = true;
-//                    } catch (SQLException | HeadlessException e) {
-//                        JOptionPane.showMessageDialog(null, e.getMessage());
-//                    } finally {
-//                        /*This block should be added to your code
-//                         * You need to release the resources like connections
-//                         */
-//                        if (con != null) {
-//                            try {
-//                                con.close();
-//                            } catch (SQLException ex) {
-//                                Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                    }
-//                }
-            }
-        }
-        if (b == true) {
-            Reset_RDV_Pris();
-        }
     }//GEN-LAST:event_bModifierValidationActionPerformed
 
     private void Configurer_Partie_Malade() {
@@ -2022,21 +1993,32 @@ public class RDV extends javax.swing.JFrame {
     }
 
     private void bRechercherMaladeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeRDVActionPerformed
+        log.trace("DEBUT bRechercherMaladeRDVActionPerformed ");
         this.dispose();
         RechercherMaladeRDV s = new RechercherMaladeRDV();
+                log.debug("id Admin = "+ id);
+        s.id = id;
         s.setVisible(true);
+                log.trace("FIN bRechercherMaladeRDVActionPerformed ");
+
     }//GEN-LAST:event_bRechercherMaladeRDVActionPerformed
 
     private void bRechercherDemandeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherDemandeRDVActionPerformed
         this.dispose();
         RechercherDemandeRDV s = new RechercherDemandeRDV();
+        s.id = this.id;
         s.setVisible(true);
     }//GEN-LAST:event_bRechercherDemandeRDVActionPerformed
 
     private void bRechercherRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherRDVActionPerformed
+                log.trace("DEBUT bRechercherRDVActionPerformed ");
+
         this.dispose();
         RechercherRDV s = new RechercherRDV();
+        log.debug("id ADMIN = "+ id);
+        s.id = id;
         s.setVisible(true);
+        log.trace("FIN bRechercherRDVActionPerformed ");
     }//GEN-LAST:event_bRechercherRDVActionPerformed
 
     private void cEtatValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cEtatValidationActionPerformed
@@ -2052,9 +2034,9 @@ public class RDV extends javax.swing.JFrame {
             String l; // l'etat du comobobox cEtatValidation
             l = (String) cEtatValidation.getSelectedItem();
 
-            if (l.equals("Pris") || l.equals("En Attente")) {
+            if (l.equals("Pris") ) {
                 jDateRecuperation.setEnabled(true);
-            } else if (l.equals("Annuler") || l.equals("Reporter")) {
+            } else if (l.equals("Annuler") || l.equals("Reporter") || l.equals("En Attente")) {
                 jDateRecuperation.setDate(null);
                 jDateRecuperation.setEnabled(false);
             }
@@ -2126,7 +2108,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }
@@ -2186,7 +2168,7 @@ public class RDV extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Erreure ", ex);
                 }
             }
         }

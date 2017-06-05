@@ -9,6 +9,8 @@ import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
 import gestionbadr.Parametre;
 import java.awt.HeadlessException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,6 +48,18 @@ public class Employer extends javax.swing.JFrame {
     public Employer() {
         initComponents();
         bModifier.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+                Parametre s = new Parametre();
+                s.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -345,10 +359,7 @@ public class Employer extends javax.swing.JFrame {
         }
     }
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-                Parametre s = new Parametre();
-                s.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
 

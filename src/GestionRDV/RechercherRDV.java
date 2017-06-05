@@ -5,6 +5,7 @@
  */
 package GestionRDV;
 
+import GestionBenevole.Log4j;
 import GestionConvontion.*;
 import GestionPartenaire.*;
 import GestionLoggin.*;
@@ -13,6 +14,8 @@ import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -32,6 +34,7 @@ import net.proteanit.sql.DbUtils;
  */
 public class RechercherRDV extends javax.swing.JFrame {
 
+    static org.apache.log4j.Logger log = Logger.getLogger(RechercherRDV.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -43,7 +46,22 @@ public class RechercherRDV extends javax.swing.JFrame {
 
     public RechercherRDV() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+    
+    private void Cancel(){
+        log.trace("DEBUT Cancel");
+        this.dispose();
+        RDV s1 = new RDV();
+        log.debug("id ADMIN = " + id);
+                s1.id = id;
+        s1.setVisible(true);
+        log.trace("FIN Cancel");
     }
 
     public RechercherRDV(char id) {
@@ -121,7 +139,7 @@ public class RechercherRDV extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
+                .addContainerGap(869, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,13 +201,13 @@ public class RechercherRDV extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bCancel)
-                .addGap(14, 14, 14))
+                .addGap(16, 16, 16))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,13 +215,13 @@ public class RechercherRDV extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bCancel)
-                .addGap(200, 200, 200))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(696, 373));
+        setSize(new java.awt.Dimension(1421, 458));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -223,7 +241,13 @@ public class RechercherRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM rdv WHERE 	id_m = '" + id_m + "'";
+                String sql = "SELECT id_rdv, malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande "
+                        + "FROM rdv "
+                        + "INNER JOIN malade ON rdv.id_m = malade.id_m "
+                        + "INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv "
+                        + "INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p "
+                        + "INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot "
+                        + "WHERE rdv.id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -234,7 +258,13 @@ public class RechercherRDV extends javax.swing.JFrame {
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM rdv WHERE Etat_RDV='" + cEtatValidation.getSelectedItem() + "'";
+                String sql = "SELECT id_rdv, malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande "
+                        + "FROM rdv "
+                        + "INNER JOIN malade ON rdv.id_m = malade.id_m "
+                        + "INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv "
+                        + "INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p "
+                        + "INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot "
+                        + "WHERE Etat_RDV='" + cEtatValidation.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -249,8 +279,13 @@ public class RechercherRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM rdv WHERE  Etat_RDV='" + cEtatValidation.getSelectedItem()
-                        + "' AND id_m = '" + id_m + "'";
+                String sql = "SELECT id_rdv, malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande "
+                        + "FROM rdv "
+                        + "INNER JOIN malade ON rdv.id_m = malade.id_m "
+                        + "INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv "
+                        + "INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p "
+                        + "INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot "
+                        + "WHERE  Etat_RDV='" + cEtatValidation.getSelectedItem() + "' AND rdv.id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -263,13 +298,22 @@ public class RechercherRDV extends javax.swing.JFrame {
 
    
     private void tRDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tRDVMouseClicked
+        log.trace("DEBUT tRDVMouseClicked ");
         con = Connect.connect();
         int row = tRDV.getSelectedRow();
         String n;
         n = tRDV.getModel().getValueAt(row, 0).toString();
 
         try {
-            String sql = "SELECT * FROM rdv WHERE id_RDV = '" + n + "'";
+            String sql = "SELECT id_rdv, malade.id_m, nom_m, prenom_m, date_rdv, Etat_RDV, "
+                    + "Remarque, date_recuperation, Examen, convontion_id_conv, demande_de_rdv.id_date_depot, "
+                    + "convontion_partenaire_id_p, nom_convontion, nom_p, datedepot, etat_demande "
+                    + "FROM rdv "
+                    + "INNER JOIN malade ON rdv.id_m = malade.id_m "
+                    + "INNER JOIN convontion ON rdv.convontion_id_conv = convontion.id_conv "
+                    + "INNER JOIN partenaire ON convontion.partenaire_id_p = partenaire.id_p "
+                    + "INNER JOIN demande_de_rdv ON rdv.id_date_depot = demande_de_rdv.id_date_depot "
+                    + "WHERE id_RDV = '" + n + "'";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
 
@@ -277,8 +321,10 @@ public class RechercherRDV extends javax.swing.JFrame {
                 this.setVisible(false);
                 RDV s1 = new RDV();
                 s1.setVisible(true);
+                log.debug("id ADMIN = " + id);
+                s1.id = id;
 
-                String id_m = rs.getString("id_m");
+                String id_m = rs.getString("malade.id_m");
                 String p1 = id_m.substring(0, 1);
                 s1.cAlphabet.setSelectedItem(p1);
                 s1.cAlphabet.setEditable(false);
@@ -290,6 +336,7 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.txtId_p3.setEditable(false);
                 s1.txtInt.setEditable(false);
                 s1.Rechercher_Malade(id_m);
+                log.debug("id_m ="+ id_m);
                 
                 Date date_rdv = rs.getDate("date_rdv");
                 s1.jDateValidation.setDate(date_rdv);
@@ -307,10 +354,15 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.textExamen.setText(Examen);
 
                 s1.id_rdv = rs.getInt("id_rdv");
+                log.debug("id_rdv = " + rs.getInt("id_rdv") );
                 s1.id_conv = rs.getInt("convontion_id_conv");
-                s1.id_date_depot = rs.getInt("id_date_depot");
+                log.debug("convontion_id_conv = "+ rs.getInt("convontion_id_conv"));
+                s1.id_date_depot = rs.getInt("demande_de_rdv.id_date_depot");
+                log.debug("demande_de_rdv.id_date_depot = "+ rs.getInt("demande_de_rdv.id_date_depot"));
                 s1.partenaire_id_p = rs.getInt("convontion_partenaire_id_p");
-                s1.id_m = rs.getString("id_m");
+                log.debug("convontion_partenaire_id_p = "+ rs.getInt("convontion_partenaire_id_p"));
+                s1.id_m = rs.getString("malade.id_m");
+                log.debug("malade.id_m = "+ rs.getString("malade.id_m"));
 
                 s1.bAjouterValidation.setEnabled(false);
                 s1.bModifierValidation.setEnabled(true);
@@ -326,6 +378,7 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.bRechercherRDV.setEnabled(false);
                 s1.bRechercherDemandeRDV.setEnabled(false);
             }
+            log.trace("FIN tRDVMouseClicked ");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -334,9 +387,7 @@ public class RechercherRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_tRDVMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        RDV s1 = new RDV();
-        s1.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed

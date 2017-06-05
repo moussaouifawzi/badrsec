@@ -12,6 +12,8 @@ import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
 import gestionbadr.Parametre;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +38,15 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
 
     public ConsulterConvontionRDV() {
         initComponents();
-
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+        this.dispose();
     }
 
     /**
@@ -185,7 +195,7 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
         } else if ( cEtatConvontion.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -195,7 +205,7 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
         } else if (cUnite.getSelectedIndex() == -1 ) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -205,7 +215,7 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM convontion WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
                         +"' AND unite = '"+cUnite.getSelectedItem() +"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -223,7 +233,7 @@ public class ConsulterConvontionRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_tConvontionMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
+        Cancel();
         
     }//GEN-LAST:event_bCancelActionPerformed
 

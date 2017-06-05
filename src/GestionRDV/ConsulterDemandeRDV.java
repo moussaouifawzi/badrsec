@@ -11,6 +11,8 @@ import GestionLoggin.*;
 import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +39,19 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
 
     public ConsulterDemandeRDV() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+    
+    private void Cancel(){
+        this.dispose();
+        this.setVisible(false);
+        RDV s1 = new RDV();
+        s1.setVisible(true);
     }
 
     /**
@@ -215,7 +229,7 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM demande_de_rdv WHERE id_m = '" + id_m + "'";
+                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -226,7 +240,7 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM demande_de_rdv WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
+                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -241,7 +255,7 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 con = Connect.connect();
-                String sql = "SELECT * FROM demande_de_rdv WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
+                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
                         + "' AND id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -261,7 +275,7 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
         n = tDemandeRDV.getModel().getValueAt(row, 2).toString();
 
         try {
-            String sql = "SELECT * FROM demande_de_rdv WHERE id_date_depot = '" + n + "'";
+            String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_date_depot = '" + n + "'";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
 
@@ -301,10 +315,7 @@ public class ConsulterDemandeRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_tDemandeRDVMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-        RDV s1 = new RDV();
-        s1.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed

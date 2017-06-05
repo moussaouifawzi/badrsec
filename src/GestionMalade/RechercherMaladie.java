@@ -9,6 +9,8 @@ import GestionLoggin.*;
 import GestionMalade.Malade;
 import gestionbadr.Connect;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +34,19 @@ public class RechercherMaladie extends javax.swing.JFrame {
 
     public RechercherMaladie() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
+    }
+    
+    private void Cancel(){
+         this.dispose();
+        this.setVisible(false);
+                Maladies s1 = new Maladies();
+                s1.setVisible(true);
     }
 
     /**
@@ -177,7 +191,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL 
             try {
-                String sql = "select * from maladies";
+                String sql = "select type_cancer from maladies";
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
@@ -227,10 +241,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
     }//GEN-LAST:event_tUserMouseClicked
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        this.dispose();
-        this.setVisible(false);
-                Maladies s1 = new Maladies();
-                s1.setVisible(true);
+       Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     /**

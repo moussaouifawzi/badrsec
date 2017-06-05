@@ -17,6 +17,8 @@ import GestionDonnation.ConsulterHistoriqueDonnation;
 import GestionMalade.ConsulterMalade;
 import GestionRDV.RDV;
 import gestionArticle.ConsulterArticle;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -39,10 +41,28 @@ char id;
         bConsulterHistoriqueDonnation1.setEnabled(false);
         bAjouterArticle.setEnabled(false);
         bAjouterDonnation1.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
+    
+    private void Cancel(){
+        this.setVisible(false);
+        Login h = new Login();
+        h.setVisible(true);
+    }
+    
      public HomeAdministrateur(char id) {
         initComponents();
         this.id=id;
+         System.out.println("id "+id);
+                
+        bConsulterArticle.setEnabled(false);
+        bConsulterHistoriqueDonnation1.setEnabled(false);
+        bAjouterArticle.setEnabled(false);
+        bAjouterDonnation1.setEnabled(false);
     }
 
     /**
@@ -341,7 +361,9 @@ char id;
     }//GEN-LAST:event_bConsulterMaladeActionPerformed
 
     private void bAjouterMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterMaladeActionPerformed
+        this.dispose();
         this.setVisible(false);
+        
         Malade h = new Malade(id);
         h.setVisible(true);
         

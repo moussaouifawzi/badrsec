@@ -5,28 +5,49 @@
  */
 package GestionRDV;
 
-import GestionMalade.*;
 import gestionbadr.Connect;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
+
 
 public class RechercherMaladeRDV extends javax.swing.JFrame {
+    static Logger log = Logger.getLogger(RechercherDemandeRDV.class.getName());
 
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
     int a;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
     String Type_cancer;
 
     public RechercherMaladeRDV() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    
+    
+    private void Cancel(){
+        log.trace("DEBUT Cancel");
+        this.dispose();
+        RDV s = new RDV();
+        log.debug("id Admin = "+ id);
+        s.id = id;
+        s.setVisible(true);
+        log.trace("FIN Cancel");
     }
 
     /**
@@ -176,7 +197,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // alphabet
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where id_m LIKE '" + cAlphabet.getSelectedItem() + "%'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m LIKE '" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -188,7 +209,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where willaya_m='" + cWillaya.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -200,7 +221,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // etat social
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -212,7 +233,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // alpha + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -225,7 +246,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // alpha + willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where willaya_m ='" + cWillaya.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m ='" + cWillaya.getSelectedItem()
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
 
                 pst = con.prepareStatement(sql);
@@ -242,7 +263,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where id_m='" + id_m + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m='" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -254,7 +275,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // willaya + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -266,7 +287,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             // willaya + etat + Alphabet
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() 
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
@@ -281,6 +302,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     private void tMaladeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMaladeMouseClicked
+        log.trace("DEBUT tMaladeMouseClicked");
         int row = tMalade.getSelectedRow();
         String n;
         n = tMalade.getModel().getValueAt(row, 0).toString();
@@ -292,6 +314,8 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 this.setVisible(false);
                 RDV s = new RDV();
                 s.setVisible(true);
+                log.debug("id Admin = "+ id);
+                s.id= id;
                 
                 String adr_m = rst.getString("adr_m");
                 s.txtAdress.setText(adr_m);
@@ -315,6 +339,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 s.txtId_p3.setEditable(false);
                 s.txtInt.setEditable(false);
             }
+            log.trace("FIN tMaladeMouseClicked");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -338,9 +363,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
     }
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
 
-        this.dispose();
-        RDV s = new RDV();
-        s.setVisible(true);
+       Cancel();
         
     }//GEN-LAST:event_bCancel2ActionPerformed
 

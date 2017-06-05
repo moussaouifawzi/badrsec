@@ -10,6 +10,8 @@ import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +27,35 @@ public class ConsulterMalade extends javax.swing.JFrame {
 char id;
     public ConsulterMalade() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
+    
+    private void Cancel(){
+        
+        this.dispose();
+        this.setVisible(false);
+       if ( id == 'A' ){
+                        this.setVisible(false);
+                       
+                        HomeAdministrateur h = new HomeAdministrateur(id);
+                        h.setVisible(true);
+                    } else if ( id == 'S' ){
+                        this.setVisible(false);
+                      
+                        HomeSecretaire h = new HomeSecretaire(id);
+                        h.setVisible(true);
+                    } else if ( id == 'D' ){
+                        this.setVisible(false);
+                        
+                        HomeDirecteur h = new HomeDirecteur(id);
+                        h.setVisible(true);
+                    }
+    }
+    
      public ConsulterMalade(char id) {
         initComponents();
         this.id=id;
@@ -172,7 +202,7 @@ char id;
     }//GEN-LAST:event_txtIntActionPerformed
 
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
- con = Connect.connect();
+        con = Connect.connect();
         if (cWillaya.getSelectedIndex() == -1 && cAlphabet.getSelectedIndex() == -1
                 && cEtatSocial.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("")) {
@@ -187,7 +217,7 @@ char id;
             // alphabet
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where id_m LIKE '" + cAlphabet.getSelectedItem() + "%'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m LIKE '" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -199,7 +229,7 @@ char id;
             // willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where willaya_m='" + cWillaya.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -211,7 +241,7 @@ char id;
             // etat social
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -223,7 +253,7 @@ char id;
             // alpha + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -236,7 +266,7 @@ char id;
             // alpha + willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where willaya_m ='" + cWillaya.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m ='" + cWillaya.getSelectedItem()
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
 
                 pst = con.prepareStatement(sql);
@@ -253,7 +283,7 @@ char id;
             String id_m = cAlphabet.getSelectedItem() + output + output2;
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where id_m='" + id_m + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m='" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
@@ -265,7 +295,7 @@ char id;
             // willaya + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -277,7 +307,7 @@ char id;
             // willaya + etat + Alphabet
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "Select * from malade where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() 
                         + "'AND id_m LIKE'" + cAlphabet.getSelectedItem() + "%'";
                 pst = con.prepareStatement(sql);
@@ -287,6 +317,7 @@ char id;
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
+      
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     private void tMaladeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMaladeMouseClicked
@@ -294,25 +325,7 @@ char id;
     }//GEN-LAST:event_tMaladeMouseClicked
 
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
-
-        this.dispose();
-        this.setVisible(false);
-       if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+        Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     /**
@@ -356,8 +369,8 @@ char id;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel2;
     private javax.swing.JButton bRechercherMalade;
-    private javax.swing.JComboBox cAlphabet;
-    private javax.swing.JComboBox cEtatSocial;
+    protected javax.swing.JComboBox cAlphabet;
+    protected javax.swing.JComboBox cEtatSocial;
     protected javax.swing.JComboBox cWillaya;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -365,8 +378,8 @@ char id;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tMalade;
-    private javax.swing.JTextField txtId_p3;
-    private javax.swing.JTextField txtInt;
+    protected javax.swing.JTable tMalade;
+    protected javax.swing.JTextField txtId_p3;
+    protected javax.swing.JTextField txtInt;
     // End of variables declaration//GEN-END:variables
 }

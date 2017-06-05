@@ -11,6 +11,8 @@ import GestionLoggin.Employer;
 import GestionConvontion.Convontion;
 import GestionPartenaire.ConsulterPartenaire;
 import GestionPartenaire.partenaire;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -23,6 +25,17 @@ public class Parametre extends javax.swing.JFrame {
      */
     public Parametre() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    private void Cancel(){
+        this.setVisible(false);
+        HomeAdministrateur h = new HomeAdministrateur();
+        h.setVisible(true);
     }
 
     /**
@@ -242,9 +255,7 @@ public class Parametre extends javax.swing.JFrame {
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        HomeAdministrateur h = new HomeAdministrateur();
-        h.setVisible(true);
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     /**

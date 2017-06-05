@@ -47,6 +47,7 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
         this.dispose();
         this.setVisible(false);
         Benevole s = new Benevole();
+        s.id = id;
         s.setVisible(true);
     }
 

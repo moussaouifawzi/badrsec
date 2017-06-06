@@ -12,8 +12,11 @@ import gestionArticle.AjouterArticle;
 import GestionDonnation.Beneficie;
 import GestionDonnation.ConsulterHistoriqueDonnation;
 import GestionMalade.ConsulterMalade;
+import gestionbadr.RDV.ConsulterDemandeRDV;
+import gestionbadr.RDV.ConsulterRDV;
 import GestionRDV.RDV;
 import gestionArticle.ConsulterArticle;
+import gestionbadr.RDV.Quantite;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -87,8 +90,9 @@ char id;
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         bAjouterRDV = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        bConsulterRDV = new javax.swing.JButton();
+        bConsulterRDVenAttente = new javax.swing.JButton();
+        bConsulterRdv = new javax.swing.JButton();
+        bQuantiteRdv = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         bAjouterMalade1 = new javax.swing.JButton();
@@ -101,7 +105,6 @@ char id;
         bAjouterDonnation1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         bConsulterHistoriqueDonnation1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
@@ -189,20 +192,35 @@ char id;
         jPanel4.add(bAjouterRDV);
         bAjouterRDV.setBounds(18, 27, 160, 44);
 
-        jLabel11.setText("Consulter");
-        jPanel4.add(jLabel11);
-        jLabel11.setBounds(60, 90, 55, 16);
-
-        bConsulterRDV.addActionListener(new java.awt.event.ActionListener() {
+        bConsulterRDVenAttente.setText("Demande En Attente");
+        bConsulterRDVenAttente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bConsulterRDVActionPerformed(evt);
+                bConsulterRDVenAttenteActionPerformed(evt);
             }
         });
-        jPanel4.add(bConsulterRDV);
-        bConsulterRDV.setBounds(16, 82, 160, 40);
+        jPanel4.add(bConsulterRDVenAttente);
+        bConsulterRDVenAttente.setBounds(240, 80, 160, 40);
+
+        bConsulterRdv.setText("Récuperation de Bon");
+        bConsulterRdv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bConsulterRdvActionPerformed(evt);
+            }
+        });
+        jPanel4.add(bConsulterRdv);
+        bConsulterRdv.setBounds(240, 20, 160, 50);
+
+        bQuantiteRdv.setText("Quantité");
+        bQuantiteRdv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bQuantiteRdvActionPerformed(evt);
+            }
+        });
+        jPanel4.add(bQuantiteRdv);
+        bQuantiteRdv.setBounds(20, 80, 160, 50);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(520, 300, 190, 150);
+        jPanel4.setBounds(280, 300, 430, 150);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Benevole"));
@@ -280,17 +298,15 @@ char id;
         });
         jPanel7.add(bConsulterHistoriqueDonnation1);
         bConsulterHistoriqueDonnation1.setBounds(16, 82, 160, 40);
-        jPanel7.add(jLabel1);
-        jLabel1.setBounds(-290, -300, 740, 560);
 
         jPanel1.add(jPanel7);
-        jPanel7.setBounds(280, 300, 190, 150);
+        jPanel7.setBounds(30, 300, 190, 150);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,11 +365,11 @@ char id;
         s.setVisible(true);
     }//GEN-LAST:event_bConsulterMalade1ActionPerformed
 
-    private void bConsulterRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterRDVActionPerformed
+    private void bConsulterRDVenAttenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterRDVenAttenteActionPerformed
         this.setVisible(false);
-        ConsulterHistoriqueDonnation s = new ConsulterHistoriqueDonnation(id);
+        ConsulterDemandeRDV s = new ConsulterDemandeRDV(id);
         s.setVisible(true);
-    }//GEN-LAST:event_bConsulterRDVActionPerformed
+    }//GEN-LAST:event_bConsulterRDVenAttenteActionPerformed
 
     private void bConsulterMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterMaladeActionPerformed
         this.setVisible(false);
@@ -396,6 +412,18 @@ char id;
         ConsulterHistoriqueDonnation s = new ConsulterHistoriqueDonnation(id);
         s.setVisible(true);
     }//GEN-LAST:event_bConsulterHistoriqueDonnation1ActionPerformed
+
+    private void bConsulterRdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterRdvActionPerformed
+        this.setVisible(false);
+        ConsulterRDV s = new ConsulterRDV(id);
+        s.setVisible(true);
+    }//GEN-LAST:event_bConsulterRdvActionPerformed
+
+    private void bQuantiteRdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bQuantiteRdvActionPerformed
+        this.setVisible(false);
+        Quantite s = new Quantite(id);
+        s.setVisible(true);
+    }//GEN-LAST:event_bQuantiteRdvActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,12 +471,12 @@ char id;
     private javax.swing.JButton bConsulterHistoriqueDonnation1;
     private javax.swing.JButton bConsulterMalade;
     private javax.swing.JButton bConsulterMalade1;
-    private javax.swing.JButton bConsulterRDV;
+    private javax.swing.JButton bConsulterRDVenAttente;
+    private javax.swing.JButton bConsulterRdv;
     private javax.swing.JButton bDeconnecter;
     private javax.swing.JButton bParametre;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton bQuantiteRdv;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

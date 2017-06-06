@@ -105,7 +105,7 @@ public class RechercherMalade extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tMalade);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 270, 820, 137);
+        jScrollPane1.setBounds(10, 130, 1790, 350);
 
         txtInt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,11 +134,11 @@ public class RechercherMalade extends javax.swing.JFrame {
         cEtatSocial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Asurer", "Non Asurer" }));
         cEtatSocial.setSelectedIndex(-1);
         jPanel1.add(cEtatSocial);
-        cEtatSocial.setBounds(170, 90, 152, 26);
+        cEtatSocial.setBounds(760, 50, 152, 26);
 
         jLabel11.setText("Etat Sociale :");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(80, 90, 73, 20);
+        jLabel11.setBounds(670, 50, 73, 20);
 
         bCancel2.setText("Cancel");
         bCancel2.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +147,7 @@ public class RechercherMalade extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bCancel2);
-        bCancel2.setBounds(720, 120, 87, 32);
+        bCancel2.setBounds(1680, 500, 87, 32);
 
         bRechercherMalade.setText("Rechercher");
         bRechercherMalade.addActionListener(new java.awt.event.ActionListener() {
@@ -156,22 +156,22 @@ public class RechercherMalade extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bRechercherMalade);
-        bRechercherMalade.setBounds(720, 70, 97, 32);
+        bRechercherMalade.setBounds(1640, 50, 97, 32);
 
         cWillaya.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Béjaïa", "Biskra", "Béchar", "Blida", "Bouira", "Tamanrasset", "Tébessa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saïda", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Médéa", "Mostaganem", "M'Sila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bordj Bou Arreridj", "Boumerdès", "El Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenchela", "Souk Ahras", "Tipaza", "Mila", "Aïn Defla", "Naàma", "Aïn Témouchent", "Ghardaïa", "Relizane", " " }));
         cWillaya.setSelectedIndex(-1);
         jPanel1.add(cWillaya);
-        cWillaya.setBounds(180, 130, 160, 30);
+        cWillaya.setBounds(1260, 50, 160, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Willaya :");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(90, 140, 70, 17);
+        jLabel7.setBounds(1170, 60, 70, 17);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 840, 420);
+        jPanel1.setBounds(0, 0, 1810, 550);
 
-        setSize(new java.awt.Dimension(855, 462));
+        setSize(new java.awt.Dimension(1828, 600));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

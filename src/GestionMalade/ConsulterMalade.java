@@ -87,9 +87,9 @@ char id;
         cEtatSocial = new javax.swing.JComboBox();
         bCancel2 = new javax.swing.JButton();
         bRechercherMalade = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         cWillaya = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Malade");
@@ -116,11 +116,11 @@ char id;
         jScrollPane1.setViewportView(tMalade);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 210, 808, 137);
+        jScrollPane1.setBounds(10, 90, 1740, 390);
 
         jLabel10.setText("ID :");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(70, 80, 27, 16);
+        jLabel10.setBounds(70, 40, 27, 16);
 
         cAlphabet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
         cAlphabet.setSelectedIndex(-1);
@@ -130,7 +130,7 @@ char id;
             }
         });
         jPanel1.add(cAlphabet);
-        cAlphabet.setBounds(95, 70, 60, 26);
+        cAlphabet.setBounds(100, 30, 60, 26);
 
         txtInt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,18 +138,18 @@ char id;
             }
         });
         jPanel1.add(txtInt);
-        txtInt.setBounds(160, 70, 75, 24);
+        txtInt.setBounds(160, 30, 75, 24);
         jPanel1.add(txtId_p3);
-        txtId_p3.setBounds(240, 70, 70, 24);
+        txtId_p3.setBounds(240, 30, 70, 24);
 
         jLabel11.setText("Etat Sociale :");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(380, 110, 73, 16);
+        jLabel11.setBounds(1080, 30, 73, 16);
 
         cEtatSocial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Asurer", "Non Asurer" }));
         cEtatSocial.setSelectedIndex(-1);
         jPanel1.add(cEtatSocial);
-        cEtatSocial.setBounds(460, 110, 152, 26);
+        cEtatSocial.setBounds(1160, 30, 152, 26);
 
         bCancel2.setText("Cancel");
         bCancel2.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +158,7 @@ char id;
             }
         });
         jPanel1.add(bCancel2);
-        bCancel2.setBounds(680, 120, 87, 32);
+        bCancel2.setBounds(1640, 510, 87, 32);
 
         bRechercherMalade.setText("Rechercher");
         bRechercherMalade.addActionListener(new java.awt.event.ActionListener() {
@@ -167,32 +167,36 @@ char id;
             }
         });
         jPanel1.add(bRechercherMalade);
-        bRechercherMalade.setBounds(680, 80, 97, 32);
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 840, 360);
+        bRechercherMalade.setBounds(1620, 30, 97, 32);
 
         cWillaya.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Béjaïa", "Biskra", "Béchar", "Blida", "Bouira", "Tamanrasset", "Tébessa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saïda", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Médéa", "Mostaganem", "M'Sila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bordj Bou Arreridj", "Boumerdès", "El Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenchela", "Souk Ahras", "Tipaza", "Mila", "Aïn Defla", "Naàma", "Aïn Témouchent", "Ghardaïa", "Relizane", " " }));
         cWillaya.setSelectedIndex(-1);
         jPanel1.add(cWillaya);
-        cWillaya.setBounds(180, 130, 160, 30);
+        cWillaya.setBounds(630, 30, 160, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Willaya :");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(90, 140, 70, 17);
+        jLabel7.setBounds(540, 40, 70, 17);
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(20, -50, 1760, 610);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(855, 394));
+        setSize(new java.awt.Dimension(1791, 624));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

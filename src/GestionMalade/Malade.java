@@ -413,7 +413,7 @@ public class Malade extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterActionPerformed
-
+ log.trace("Debut");
         boolean v = true;
 //        Condition
         if (txtAdress.getText().equals("")) {
@@ -501,6 +501,7 @@ public class Malade extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "un champ est vide");
         } else {
             try {
+               
                 Rechercher_id_Maladie();
                 DecimalFormat myFormatter = new DecimalFormat("0000");
                 String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
@@ -526,9 +527,11 @@ public class Malade extends javax.swing.JFrame {
                 log.error(e);
             }
         }
+         log.trace("Fin");
     }//GEN-LAST:event_bAjouterActionPerformed
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
+         log.trace("Debut");
         this.dispose();
         this.setVisible(false);
         System.out.println("  kwwwwwwwd" + id);
@@ -542,6 +545,7 @@ public class Malade extends javax.swing.JFrame {
         System.out.println(" idiidii    <<<<< " + id);
         Cancel();
 //        RetoureCancel();
+ log.trace("Fin");
     }//GEN-LAST:event_bCancel2ActionPerformed
 
     private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed
@@ -550,6 +554,7 @@ public class Malade extends javax.swing.JFrame {
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed
         //        Condition
+         log.trace("Debut");
         int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
         if (txtAdress.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Adress");
@@ -611,6 +616,7 @@ public class Malade extends javax.swing.JFrame {
                 }
             }
         }
+         log.trace("Fin");
     }//GEN-LAST:event_bModifierActionPerformed
 
     private void txtIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntActionPerformed
@@ -658,15 +664,16 @@ public class Malade extends javax.swing.JFrame {
         System.out.println("4");
     }
     private void bPlusMaladieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlusMaladieActionPerformed
-
+ log.trace("Debut");
         this.setVisible(false);
         Maladies s = new Maladies();
+        s.id = id;
         s.setVisible(true);
-
+ log.trace("Fin");
     }//GEN-LAST:event_bPlusMaladieActionPerformed
 
     private void cAlphabetPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cAlphabetPopupMenuWillBecomeInvisible
-
+ log.trace("Debut");
         //         rechercher le nbr de docier existant par dossier Alphabétique
         String tableauCaractere[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"};
 
@@ -694,7 +701,7 @@ public class Malade extends javax.swing.JFrame {
                 }
             }
         }
-
+ log.trace("Fin");
     }//GEN-LAST:event_cAlphabetPopupMenuWillBecomeInvisible
 
     /**
@@ -751,6 +758,7 @@ public class Malade extends javax.swing.JFrame {
     }
 
     private void Rechercher_id_Maladie() {
+         log.trace("Debut");
         String sql = "select 	id_maladi from   maladies where Type_cancer ='" + cMaladie.getSelectedItem() + "'";
         con = Connect.connect();
 
@@ -764,11 +772,12 @@ public class Malade extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             log.error("Rechercher_id_Maladie : ", e);
         }
-
+ log.trace("Fin");
     }
 
     @SuppressWarnings("unchecked")
     private void Remplir_Combo_Maladie() {
+         log.trace("Debut");
         con = Connect.connect();
         String requete = "select * from maladies";
         try {
@@ -782,6 +791,7 @@ public class Malade extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             log.error("Remplir_Combo_Maladie : ", e);
         }
+         log.trace("Fin");
     }
 
 

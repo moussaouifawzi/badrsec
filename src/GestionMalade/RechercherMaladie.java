@@ -29,9 +29,21 @@ public class RechercherMaladie extends javax.swing.JFrame {
     String s;
     PreparedStatement pst = null;
     String row;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public RechercherMaladie() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+
+    }
+    
+    public RechercherMaladie(char id) {
+        initComponents();
+        this.id = id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -44,6 +56,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
          this.dispose();
         this.setVisible(false);
                 Maladies s1 = new Maladies();
+                s1.id = id;
                 s1.setVisible(true);
     }
 
@@ -190,7 +203,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL 
             try {
-                String sql = "select type_cancer from maladies";
+                String sql = "select id_maladi, type_cancer from maladies";
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
@@ -210,7 +223,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
 //        System.out.println("1");
         String n;
         
-        n = tUser.getModel().getValueAt(row, 1).toString();
+        n = tUser.getModel().getValueAt(row, 0).toString();
 //         System.out.println("11");
         try {
             String sql = "SELECT * FROM maladies WHERE 	id_maladi = '" + n + "'";
@@ -225,7 +238,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 this.setVisible(false);
                 Maladies s2 = new Maladies();
                 s2.setVisible(true);
-                
+                s2.id = id;
                 String Type_cancer = rs.getString("Type_cancer");
                 s2.txtMaladie.setText(Type_cancer);
                 

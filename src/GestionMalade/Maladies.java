@@ -26,9 +26,23 @@ public class Maladies extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rst = null;
     protected int id_maladi;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
    
     public Maladies() {
         initComponents();
+        
+        bModifier.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+        
+    }
+    
+     public Maladies(char id ) {
+        initComponents();
+        this.id = id;
         bModifier.setEnabled(false);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -42,6 +56,7 @@ public class Maladies extends javax.swing.JFrame {
         this.dispose();
         
         Malade s= new Malade();
+        s.id = id;
         s.setVisible(true);
     }
 
@@ -206,6 +221,7 @@ public class Maladies extends javax.swing.JFrame {
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
         this.dispose();
         RechercherMaladie s= new RechercherMaladie();
+        s.id = this.id;
         s.setVisible(true);
     }//GEN-LAST:event_bRechercherActionPerformed
 

@@ -40,6 +40,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
@@ -50,7 +51,8 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+
+        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification");
@@ -103,10 +105,6 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setBounds(210, 150, 240, 40);
         jPanel1.add(jLabel4);
         jLabel4.setBounds(210, 100, 230, 40);
-
-        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(0, 0, 690, 340);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

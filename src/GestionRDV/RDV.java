@@ -100,7 +100,7 @@ public class RDV extends javax.swing.JFrame {
         jYearChooser1.setEnabled(false);
         bRechercherCotaParMois.setEnabled(false);
 //        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
-
+    
 addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -152,6 +152,11 @@ addWindowListener(new WindowAdapter() {
 //        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
         log.debug("id Admin = "+ id);
         this.id = id;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
         log.trace("FIN Constructeure Surcharger de RDV ");
     }
 
@@ -1268,7 +1273,7 @@ addWindowListener(new WindowAdapter() {
         }
     }//GEN-LAST:event_bModifierDemandeRDVActionPerformed
 
-    private void afficher_la_date_dun_mois() throws ParseException {
+    public void afficher_la_date_dun_mois() throws ParseException {
 //        Afficher les Date + le Nom du Jours d'un mois et d'une annee dans tRDVChoix
 
         DecimalFormat myFormatter = new DecimalFormat("00");
@@ -1290,7 +1295,7 @@ addWindowListener(new WindowAdapter() {
         tRDVchoix1.setModel(md);
     }
 
-    private void afficher_le_Mois_dune_anne() {
+    public void afficher_le_Mois_dune_anne() {
 //      Cette methode Affiche tout les mois d'une annee dans tConvontion
 
         int quantite_par_unite; // la quantite des RDV restant par Unite
@@ -1328,7 +1333,7 @@ addWindowListener(new WindowAdapter() {
 //        Remplir la table tConvontion
     }
 
-    private void Rechercher_Unite_Convontion() {
+    public void Rechercher_Unite_Convontion() {
         String sql = "select partenaire_id_p,id_conv, nbr_RDv , unite from  convontion where nom_convontion ='"
                 + cConvontion.getSelectedItem() + "'";
         con = Connect.connect();
@@ -1475,7 +1480,7 @@ addWindowListener(new WindowAdapter() {
     }
 
     @SuppressWarnings("unchecked")
-    private boolean Verifier_date_rdv() {
+    public boolean Verifier_date_rdv() {
 //      Cette methode Verifie si la date de RDv a été Pris ou existe Sur TOute l'année 
 //        et affiche un message d'erreur si l'utilisateur choisit une date prise
 
@@ -2165,7 +2170,7 @@ addWindowListener(new WindowAdapter() {
     }
 
     @SuppressWarnings("unchecked")
-    private void Remplir_Combo_Type_Convontion() {
+    public void Remplir_Combo_Type_Convontion() {
         con = Connect.connect();
         String requete = "select nom_convontion from convontion";
         try {

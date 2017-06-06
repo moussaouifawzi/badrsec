@@ -16,7 +16,9 @@ public class GestionBadr {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-                Connect.connect();
+            //    Connect.connect();
+                Login s = new Login();
+                s.setVisible(true);
 
     }
     

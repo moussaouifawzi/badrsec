@@ -37,6 +37,9 @@ public class RechercherRDV extends javax.swing.JFrame {
 
     public RechercherRDV() {
         initComponents();
+        cEtatValidation.setSelectedIndex(3);
+        cEtatValidation.enable(false);
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -318,7 +321,8 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.setVisible(true);
                 log.debug("id ADMIN = " + id);
                 s1.id = id;
-
+                
+                
                 String id_m = rs.getString("malade.id_m");
                 String p1 = id_m.substring(0, 1);
                 s1.cAlphabet.setSelectedItem(p1);
@@ -340,7 +344,7 @@ public class RechercherRDV extends javax.swing.JFrame {
 
                 String Etat_RDV = rs.getString("Etat_RDV");
                 s1.cEtatValidation.setSelectedItem(Etat_RDV);
-                if (Etat_RDV.equals("Pris") || Etat_RDV.equals("En Attente")) {
+                if (Etat_RDV.equals("Pris")) {
                     s1.jDateRecuperation.setEnabled(true);
                 }
                 String Remarque = rs.getString("Remarque");

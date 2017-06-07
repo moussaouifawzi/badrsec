@@ -121,7 +121,7 @@ public class Login extends javax.swing.JFrame {
 
     private void bOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOkActionPerformed
         //confirmation si le user name et password ne sont pas vide
-        System.out.println(" kwd");
+        //System.out.println(" kwd");
         if (txtUserName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter UserName");
         } else if (txtPassword.getText().equals("")) {
@@ -133,6 +133,7 @@ public class Login extends javax.swing.JFrame {
             String sql = "select employerId from employer where username ='" + txtUserName.getText()
                     + "'and Password='" + txtPassword.getText() + "'";
             //try et catch verifie ke l'app ne va pa sarété en cas d'erreur
+            log.info("User is Connecter = " + txtUserName.getText());
             try {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery();
@@ -145,10 +146,21 @@ public class Login extends javax.swing.JFrame {
                         ResultSet rec2 = pst.executeQuery(sql);
                         rec2.next();
                         id = rec2.getString("employerId");
-                        log.info("User is Connecter = " + txtUserName.getText());
+                        
                     } catch (SQLException e) {
                         log.error(e);
+                    } finally {
+                /*This block should be added to your code
+                 * You need to release the resources like connections
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        log.error(ex);
                     }
+                }
+            }
 
                     char charAt = id.charAt(0);
 
@@ -178,58 +190,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_bOkActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        //confirmation si le user name et password ne sont pas vide
-        if (txtUserName.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter UserName");
-        } else if (txtPassword.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter Password");
-        } else {
-            //connection avec la base de donnée
-            con = Connect.connect();
-            //envoi de la requete SQL
-            String sql = "select employerId from employer where username ='" + txtUserName.getText()
-                    + "'and Password='" + txtPassword.getText() + "'";
-            //try et catch verifie ke l'app ne va pa sarété en cas d'erreur
-            try {
-                pst = con.prepareStatement(sql);
-                rst = pst.executeQuery();
-
-                if (rst.next()) {
-                    //afficher le paneau spécifike a un user
-                    con = Connect.connect();
-                    try {
-                        pst = con.prepareStatement(sql);
-                        ResultSet rec2 = pst.executeQuery(sql);
-                        rec2.next();
-                        id = rec2.getString("employerId");
-                    } catch (SQLException e) {
-                        log.error(e);
-                    }
-
-                    char charAt = id.charAt(0);
-
-                    if (charAt == 'A') {
-                        this.setVisible(false);
-
-                        HomeAdministrateur h = new HomeAdministrateur(charAt);
-                        h.setVisible(true);
-                    } else if (charAt == 'S') {
-                        this.setVisible(false);
-
-                        HomeSecretaire h = new HomeSecretaire(charAt);
-                        h.setVisible(true);
-                    } else if (charAt == 'D') {
-                        this.setVisible(false);
-
-                        HomeDirecteur h = new HomeDirecteur(charAt);
-                        h.setVisible(true);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "error");
-                }
-            } catch (SQLException ex) {
-                log.error(ex);
-            }
+        {
         }    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**

@@ -186,7 +186,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 .addGap(200, 200, 200))
         );
 
-        setSize(new java.awt.Dimension(1364, 377));
+        setSize(new java.awt.Dimension(1364, 387));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

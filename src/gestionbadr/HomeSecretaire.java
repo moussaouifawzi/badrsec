@@ -72,22 +72,15 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         bAjouterMalade = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         bConsulterMalade = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         bAjouterDonnation = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         bConsulterHistoriqueDonnation = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         bAjouterMalade1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         bConsulterMalade1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         bAjouterRDV = new javax.swing.JButton();
         bConsulterRDVenAttente = new javax.swing.JButton();
         bConsulterRdv = new javax.swing.JButton();
@@ -105,10 +98,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel2.setLayout(null);
 
-        jLabel2.setText("Ajouter");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(60, 40, 41, 16);
-
+        bAjouterMalade.setText("Ajouter");
         bAjouterMalade.setBorder(null);
         bAjouterMalade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,10 +108,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel2.add(bAjouterMalade);
         bAjouterMalade.setBounds(20, 30, 160, 40);
 
-        jLabel3.setText("Consulter");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(60, 90, 70, 16);
-
+        bConsulterMalade.setText("Consulter");
         bConsulterMalade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterMaladeActionPerformed(evt);
@@ -137,10 +124,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des donnations"));
         jPanel4.setLayout(null);
 
-        jLabel6.setText("Ajouter");
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(60, 40, 41, 16);
-
+        bAjouterDonnation.setText("Ajouter");
         bAjouterDonnation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterDonnationActionPerformed(evt);
@@ -149,10 +133,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel4.add(bAjouterDonnation);
         bAjouterDonnation.setBounds(18, 27, 160, 44);
 
-        jLabel7.setText("Consulter");
-        jPanel4.add(jLabel7);
-        jLabel7.setBounds(60, 90, 60, 16);
-
+        bConsulterHistoriqueDonnation.setText("Consulter");
         bConsulterHistoriqueDonnation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterHistoriqueDonnationActionPerformed(evt);
@@ -168,10 +149,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Benevole"));
         jPanel6.setLayout(null);
 
-        jLabel4.setText("Ajouter");
-        jPanel6.add(jLabel4);
-        jLabel4.setBounds(60, 50, 41, 16);
-
+        bAjouterMalade1.setText("Ajouter");
         bAjouterMalade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterMalade1ActionPerformed(evt);
@@ -180,10 +158,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel6.add(bAjouterMalade1);
         bAjouterMalade1.setBounds(16, 36, 160, 40);
 
-        jLabel5.setText("Consulter");
-        jPanel6.add(jLabel5);
-        jLabel5.setBounds(60, 100, 70, 16);
-
+        bConsulterMalade1.setText("Consulter");
         bConsulterMalade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterMalade1ActionPerformed(evt);
@@ -199,10 +174,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des RDV"));
         jPanel7.setLayout(null);
 
-        jLabel8.setText("Ajouter");
-        jPanel7.add(jLabel8);
-        jLabel8.setBounds(70, 40, 41, 16);
-
+        bAjouterRDV.setText("Ajouter");
         bAjouterRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterRDVActionPerformed(evt);
@@ -384,13 +356,6 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
     private javax.swing.JButton bConsulterRdv;
     private javax.swing.JButton bDeconnecter;
     private javax.swing.JButton bQuantiteRdv;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

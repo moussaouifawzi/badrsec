@@ -200,7 +200,7 @@ static Logger log = Logger.getLogger(RechercherDemandeRDV.class.getName());
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +214,7 @@ static Logger log = Logger.getLogger(RechercherDemandeRDV.class.getName());
                 .addGap(200, 200, 200))
         );
 
-        setSize(new java.awt.Dimension(696, 373));
+        setSize(new java.awt.Dimension(694, 384));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

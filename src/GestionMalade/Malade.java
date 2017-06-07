@@ -122,14 +122,10 @@ public class Malade extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
         bModifier = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
         bAjouter = new javax.swing.JButton();
-        jLabel26 = new javax.swing.JLabel();
         bRechercher = new javax.swing.JButton();
         bCancel2 = new javax.swing.JButton();
-        jLabel29 = new javax.swing.JLabel();
         bReset = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         cMaladie = new javax.swing.JComboBox();
@@ -306,10 +302,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel1.add(jLabel21);
         jLabel21.setBounds(250, 310, 240, 50);
 
-        jLabel27.setText("Modifier");
-        jPanel1.add(jLabel27);
-        jLabel27.setBounds(520, 260, 46, 16);
-
+        bModifier.setText("Modifier");
         bModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bModifierActionPerformed(evt);
@@ -318,10 +311,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel1.add(bModifier);
         bModifier.setBounds(490, 250, 110, 30);
 
-        jLabel25.setText("Ajouter");
-        jPanel1.add(jLabel25);
-        jLabel25.setBounds(510, 160, 41, 16);
-
+        bAjouter.setText("Ajouter");
         bAjouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterActionPerformed(evt);
@@ -330,10 +320,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel1.add(bAjouter);
         bAjouter.setBounds(490, 150, 110, 30);
 
-        jLabel26.setText("Rechercher");
-        jPanel1.add(jLabel26);
-        jLabel26.setBounds(510, 210, 80, 16);
-
+        bRechercher.setText("Rechercher");
         bRechercher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bRechercherActionPerformed(evt);
@@ -342,7 +329,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel1.add(bRechercher);
         bRechercher.setBounds(490, 200, 110, 30);
 
-        bCancel2.setText("cancel");
+        bCancel2.setText("Cancel");
         bCancel2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancel2ActionPerformed(evt);
@@ -351,10 +338,7 @@ public class Malade extends javax.swing.JFrame {
         jPanel1.add(bCancel2);
         bCancel2.setBounds(490, 300, 110, 30);
 
-        jLabel29.setText("Reset");
-        jPanel1.add(jLabel29);
-        jLabel29.setBounds(510, 360, 33, 16);
-
+        bReset.setText("Reset");
         bReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bResetActionPerformed(evt);
@@ -365,10 +349,10 @@ public class Malade extends javax.swing.JFrame {
 
         jLabel23.setText("Maladie :");
         jPanel1.add(jLabel23);
-        jLabel23.setBounds(240, 180, 50, 16);
+        jLabel23.setBounds(270, 150, 50, 16);
 
         jPanel1.add(cMaladie);
-        cMaladie.setBounds(310, 170, 120, 26);
+        cMaladie.setBounds(260, 180, 150, 26);
 
         bPlusMaladie.setText("+");
         bPlusMaladie.addActionListener(new java.awt.event.ActionListener() {
@@ -377,16 +361,16 @@ public class Malade extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bPlusMaladie);
-        bPlusMaladie.setBounds(420, 160, 40, 32);
+        bPlusMaladie.setBounds(420, 180, 40, 32);
 
         jLabel24.setText("Sexe");
         jPanel1.add(jLabel24);
-        jLabel24.setBounds(500, 400, 29, 16);
+        jLabel24.setBounds(500, 440, 29, 16);
 
         cSexe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Homme", "Femme" }));
         cSexe.setSelectedIndex(-1);
         jPanel1.add(cSexe);
-        cSexe.setBounds(490, 440, 110, 26);
+        cSexe.setBounds(490, 470, 110, 26);
         jPanel1.add(jLabel22);
         jLabel22.setBounds(-10, -10, 640, 570);
 
@@ -825,10 +809,6 @@ public class Malade extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

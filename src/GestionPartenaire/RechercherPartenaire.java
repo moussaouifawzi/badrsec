@@ -14,17 +14,19 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherPartenaire extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(RechercherPartenaire.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -77,6 +79,7 @@ public class RechercherPartenaire extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Partenaire");
+        setResizable(false);
 
         tPartenaire.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,8 +245,9 @@ public class RechercherPartenaire extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tPartenaire.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cTypePartenaire.getSelectedIndex() == -1 ) {
             try {
@@ -252,8 +256,9 @@ public class RechercherPartenaire extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tPartenaire.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (!(cTypePartenaire.getSelectedIndex() == -1) && !(cWillayaPartenaire.getSelectedIndex() == -1)) {
             try {
@@ -263,8 +268,9 @@ public class RechercherPartenaire extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tPartenaire.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
     }//GEN-LAST:event_bRechercherActionPerformed
@@ -303,8 +309,9 @@ public class RechercherPartenaire extends javax.swing.JFrame {
                 s1.bSavePartenaire.setEnabled(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
        
     }//GEN-LAST:event_tPartenaireMouseClicked

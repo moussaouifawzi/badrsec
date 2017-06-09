@@ -5,15 +5,7 @@
  */
 package GestionRDV;
 
-import GestionBenevole.Log4j;
-import GestionConvontion.*;
-import GestionPartenaire.*;
-import GestionLoggin.*;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
-import gestionbadr.HomeAdministrateur;
-import gestionbadr.HomeDirecteur;
-import gestionbadr.HomeSecretaire;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -25,7 +17,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import org.apache.log4j.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -34,7 +25,7 @@ import net.proteanit.sql.DbUtils;
  */
 public class RechercherRDV extends javax.swing.JFrame {
 
-    static org.apache.log4j.Logger log = Logger.getLogger(RechercherRDV.class.getName());
+    static Logger log = Logger.getLogger(RechercherRDV.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -46,6 +37,9 @@ public class RechercherRDV extends javax.swing.JFrame {
 
     public RechercherRDV() {
         initComponents();
+        cEtatValidation.setSelectedIndex(3);
+        cEtatValidation.enable(false);
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -96,6 +90,7 @@ public class RechercherRDV extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher RDV");
+        setResizable(false);
 
         bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -251,8 +246,9 @@ public class RechercherRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
@@ -268,8 +264,9 @@ public class RechercherRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (!(cEtatValidation.getSelectedIndex() == -1) && !(cAlphabet.getSelectedIndex() == -1)
                 && !(txtId_p3.getText().equals("")) && !(txtInt.getText().equals(""))) {
@@ -289,8 +286,9 @@ public class RechercherRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
 
@@ -323,7 +321,8 @@ public class RechercherRDV extends javax.swing.JFrame {
                 s1.setVisible(true);
                 log.debug("id ADMIN = " + id);
                 s1.id = id;
-
+                
+                
                 String id_m = rs.getString("malade.id_m");
                 String p1 = id_m.substring(0, 1);
                 s1.cAlphabet.setSelectedItem(p1);
@@ -345,7 +344,7 @@ public class RechercherRDV extends javax.swing.JFrame {
 
                 String Etat_RDV = rs.getString("Etat_RDV");
                 s1.cEtatValidation.setSelectedItem(Etat_RDV);
-                if (Etat_RDV.equals("Pris") || Etat_RDV.equals("En Attente")) {
+                if (Etat_RDV.equals("Pris")) {
                     s1.jDateRecuperation.setEnabled(true);
                 }
                 String Remarque = rs.getString("Remarque");
@@ -380,8 +379,9 @@ public class RechercherRDV extends javax.swing.JFrame {
             }
             log.trace("FIN tRDVMouseClicked ");
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
 
     }//GEN-LAST:event_tRDVMouseClicked

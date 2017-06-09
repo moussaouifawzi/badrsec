@@ -36,7 +36,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import org.apache.log4j.Logger;
 
-
 /**
  *
  * @author FAWZI
@@ -44,7 +43,7 @@ import org.apache.log4j.Logger;
 public class RDV extends javax.swing.JFrame {
 
     static Logger log = Logger.getLogger(RDV.class.getName());
-    
+
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -101,15 +100,15 @@ public class RDV extends javax.swing.JFrame {
         bRechercherCotaParMois.setEnabled(false);
 //        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
 
-addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
     }
-    
-    private void Cancel(){
-         this.dispose();
+
+    private void Cancel() {
+        this.dispose();
         this.setVisible(false);
 
         if (id == 'A') {
@@ -132,7 +131,7 @@ addWindowListener(new WindowAdapter() {
         log.trace("Constructeure Surcharger de RDV ");
         initComponents();
         Remplir_Combo_Type_Convontion();
-         cConvontion.setSelectedIndex(-1);
+        cConvontion.setSelectedIndex(-1);
         txtNom.setEditable(false);
         txtPrenom.setEditable(false);
         txtAdress.setEditable(false);
@@ -150,8 +149,13 @@ addWindowListener(new WindowAdapter() {
         jYearChooser1.setEnabled(false);
         bRechercherCotaParMois.setEnabled(false);
 //        System.out.println(id_date_depot + "/" + id_m + "/" + id_conv + "/" + partenaire_id_p + "/" + id_rdv);
-        log.debug("id Admin = "+ id);
+        log.debug("id Admin = " + id);
         this.id = id;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
         log.trace("FIN Constructeure Surcharger de RDV ");
     }
 
@@ -316,6 +320,7 @@ addWindowListener(new WindowAdapter() {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Ajouter RDV");
+    setResizable(false);
 
     bCancel.setText("Cancel");
     bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -354,42 +359,38 @@ addWindowListener(new WindowAdapter() {
         pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(pDemandeRDVLayout.createSequentialGroup()
             .addGap(40, 40, 40)
-            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                    .addComponent(jLabel5)
+                    .addGap(67, 67, 67)
+                    .addComponent(jDateDepot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDemandeRDVLayout.createSequentialGroup()
+                    .addComponent(jLabel7)
+                    .addGap(63, 63, 63)
+                    .addComponent(cEtatDemandeRDV, 0, 185, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDemandeRDVLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(bModifierDemandeRDV)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bAjouterDemandeRDV))
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pDemandeRDVLayout.createSequentialGroup()
-                    .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel7))
-                    .addGap(26, 26, 26)
-                    .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cEtatDemandeRDV, 0, 222, Short.MAX_VALUE)
-                        .addComponent(jDateDepot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(bAjouterDemandeRDV)))
             .addGap(411, 411, 411))
     );
     pDemandeRDVLayout.setVerticalGroup(
         pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(pDemandeRDVLayout.createSequentialGroup()
+            .addGap(34, 34, 34)
             .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(pDemandeRDVLayout.createSequentialGroup()
-                    .addGap(47, 47, 47)
-                    .addComponent(jLabel5)
-                    .addGap(18, 18, Short.MAX_VALUE))
-                .addGroup(pDemandeRDVLayout.createSequentialGroup()
-                    .addContainerGap(195, Short.MAX_VALUE)
-                    .addComponent(jDateDepot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(32, 32, 32)
-                    .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cEtatDemandeRDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
-                    .addGap(42, 42, 42)))
+                .addComponent(jLabel5)
+                .addComponent(jDateDepot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel7)
+                .addComponent(cEtatDemandeRDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
             .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(bAjouterDemandeRDV)
                 .addComponent(bModifierDemandeRDV))
-            .addContainerGap(206, Short.MAX_VALUE))
+            .addContainerGap(405, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Demande de RDV", pDemandeRDV);
@@ -542,50 +543,53 @@ addWindowListener(new WindowAdapter() {
         .addGroup(pChoisirDateLayout.createSequentialGroup()
             .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addComponent(jLabel8))
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
                     .addComponent(jLabel16))
                 .addGroup(pChoisirDateLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addGap(76, 76, 76)
-                    .addComponent(bRechercherCotaParMois))
+                    .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pChoisirDateLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pChoisirDateLayout.createSequentialGroup()
+                            .addGap(33, 33, 33)
+                            .addComponent(jLabel8))
+                        .addGroup(pChoisirDateLayout.createSequentialGroup()
+                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pChoisirDateLayout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(bRechercherCotaParMois)))))
             .addGap(18, 18, 18)
             .addComponent(tDateParConvontion, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
             .addGap(28, 28, 28))
     );
     pChoisirDateLayout.setVerticalGroup(
         pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pChoisirDateLayout.createSequentialGroup()
-            .addGap(22, 22, 22)
-            .addComponent(jLabel16)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
-            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(bRechercherCotaParMois)
-            .addGap(48, 48, 48))
         .addGroup(pChoisirDateLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pChoisirDateLayout.createSequentialGroup()
+                    .addGap(22, 22, 22)
+                    .addComponent(jLabel16)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(33, 33, 33)
+                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(bRechercherCotaParMois))
+                .addGroup(pChoisirDateLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(17, Short.MAX_VALUE))
     );
 
     jTabbedPane1.addTab("Choisir une Date", pChoisirDate);
@@ -650,8 +654,8 @@ addWindowListener(new WindowAdapter() {
         pExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(pExamenLayout.createSequentialGroup()
             .addGap(14, 14, 14)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(20, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(15, Short.MAX_VALUE))
     );
 
     jTabbedPane2.addTab("Examen", pExamen);
@@ -711,7 +715,7 @@ addWindowListener(new WindowAdapter() {
                     .addComponent(bPasDeReponse)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(bARepondu)
-                    .addGap(0, 28, Short.MAX_VALUE))))
+                    .addGap(0, 107, Short.MAX_VALUE))))
     );
 
     jTabbedPane2.addTab("Remarque", pRemarque);
@@ -741,13 +745,13 @@ addWindowListener(new WindowAdapter() {
                     .addComponent(jDateValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
                     .addComponent(jLabel14)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addGap(18, 18, 18)
+                    .addContainerGap(234, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pValidationRDVLayout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE))))
+                    .addGap(14, 14, 14))))
     );
     pValidationRDVLayout.setVerticalGroup(
         pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -755,11 +759,10 @@ addWindowListener(new WindowAdapter() {
             .addGap(23, 23, 23)
             .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel14)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10))
+                    .addGap(184, 184, 184))
                 .addGroup(pValidationRDVLayout.createSequentialGroup()
                     .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel11)
@@ -776,7 +779,7 @@ addWindowListener(new WindowAdapter() {
                     .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bAjouterValidation)
                         .addComponent(bModifierValidation))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGap(78, 374, Short.MAX_VALUE))))
     );
 
     jTabbedPane1.addTab("Validation du DRV", pValidationRDV);
@@ -1028,6 +1031,7 @@ addWindowListener(new WindowAdapter() {
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
              * You need to release the resources like connections
@@ -1036,7 +1040,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1068,8 +1072,8 @@ addWindowListener(new WindowAdapter() {
             txtNumTel.setText(nom);
             txtAdress.setText(num_tel_m);
 
-        } catch (Exception e) {
-            System.out.println("erreur");
+        } catch (SQLException e) {
+            log.error(e);
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
             /*This block should be added to your code
@@ -1079,7 +1083,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1120,6 +1124,7 @@ addWindowListener(new WindowAdapter() {
                 System.out.println("b1 =" + b);
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
                 b = false;
             } finally {
                 /*This block should be added to your code
@@ -1129,7 +1134,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1226,13 +1231,13 @@ addWindowListener(new WindowAdapter() {
     private void bModifierDemandeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierDemandeRDVActionPerformed
         date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
         System.out.println("id demonde = " + id_demande_rdv);
-        
+
         DecimalFormat myFormatter = new DecimalFormat("0000");
-            String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-            id_m = cAlphabet.getSelectedItem() + output + output2;
+        String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+        String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+        id_m = cAlphabet.getSelectedItem() + output + output2;
         System.out.println("id m " + id_m);
-        
+
         if (cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
             JOptionPane.showMessageDialog(null, "Changer l'etat");
         } else {
@@ -1245,26 +1250,27 @@ addWindowListener(new WindowAdapter() {
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
-            
-            jTabbedPane1.setEnabledAt(1, true);
-                jTabbedPane1.setSelectedIndex(1);
-                bAjouterDemandeRDV.setEnabled(false);
-                bModifierDemandeRDV.setEnabled(false);
-                cEtatDemandeRDV.setEnabled(false);
-                jDateDepot.setEnabled(false);
-                Configurer_Partie_Malade();
 
-                bResetID.setEnabled(false);
-                bRechercherRDV.setEnabled(false);
-                bRechercherMaladeRDV.setEnabled(false);
-                bannuler.setEnabled(false);
+            jTabbedPane1.setEnabledAt(1, true);
+            jTabbedPane1.setSelectedIndex(1);
+            bAjouterDemandeRDV.setEnabled(false);
+            bModifierDemandeRDV.setEnabled(false);
+            cEtatDemandeRDV.setEnabled(false);
+            jDateDepot.setEnabled(false);
+            Configurer_Partie_Malade();
+
+            bResetID.setEnabled(false);
+            bRechercherRDV.setEnabled(false);
+            bRechercherMaladeRDV.setEnabled(false);
+            bannuler.setEnabled(false);
         }
     }//GEN-LAST:event_bModifierDemandeRDVActionPerformed
 
-    private void afficher_la_date_dun_mois() throws ParseException {
+    public void afficher_la_date_dun_mois() throws ParseException {
 //        Afficher les Date + le Nom du Jours d'un mois et d'une annee dans tRDVChoix
 
         DecimalFormat myFormatter = new DecimalFormat("00");
@@ -1286,7 +1292,7 @@ addWindowListener(new WindowAdapter() {
         tRDVchoix1.setModel(md);
     }
 
-    private void afficher_le_Mois_dune_anne() {
+    public void afficher_le_Mois_dune_anne() {
 //      Cette methode Affiche tout les mois d'une annee dans tConvontion
 
         int quantite_par_unite; // la quantite des RDV restant par Unite
@@ -1324,7 +1330,7 @@ addWindowListener(new WindowAdapter() {
 //        Remplir la table tConvontion
     }
 
-    private void Rechercher_Unite_Convontion() {
+    public void Rechercher_Unite_Convontion() {
         String sql = "select partenaire_id_p,id_conv, nbr_RDv , unite from  convontion where nom_convontion ='"
                 + cConvontion.getSelectedItem() + "'";
         con = Connect.connect();
@@ -1338,6 +1344,7 @@ addWindowListener(new WindowAdapter() {
             unite_c = rec2.getString("unite");
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1346,7 +1353,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1365,6 +1372,7 @@ addWindowListener(new WindowAdapter() {
 
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1373,7 +1381,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1409,6 +1417,7 @@ addWindowListener(new WindowAdapter() {
                 tableau_resultat_rdv_mois_par_annee[m] = i;
             } catch (SQLException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1417,7 +1426,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1452,6 +1461,7 @@ addWindowListener(new WindowAdapter() {
             }
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1460,14 +1470,14 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
     }
 
     @SuppressWarnings("unchecked")
-    private boolean Verifier_date_rdv() {
+    public boolean Verifier_date_rdv() {
 //      Cette methode Verifie si la date de RDv a été Pris ou existe Sur TOute l'année 
 //        et affiche un message d'erreur si l'utilisateur choisit une date prise
 
@@ -1494,6 +1504,7 @@ addWindowListener(new WindowAdapter() {
             }
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1502,7 +1513,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1546,6 +1557,7 @@ addWindowListener(new WindowAdapter() {
             }
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -1554,7 +1566,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -1603,6 +1615,7 @@ addWindowListener(new WindowAdapter() {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1611,7 +1624,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1638,6 +1651,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1646,7 +1660,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1675,6 +1689,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1683,7 +1698,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1708,6 +1723,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1716,7 +1732,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1742,6 +1758,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1750,7 +1767,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1778,6 +1795,7 @@ addWindowListener(new WindowAdapter() {
                 b = true;
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1786,7 +1804,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1812,6 +1830,7 @@ addWindowListener(new WindowAdapter() {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1820,7 +1839,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1877,7 +1896,7 @@ addWindowListener(new WindowAdapter() {
                     jDateValidation.setDate(dateValidation);
                     v = true;
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    log.error(e);
                     v = false;
                 } finally {
                     /*This block should be added to your code
@@ -1887,7 +1906,7 @@ addWindowListener(new WindowAdapter() {
                         try {
                             con.close();
                         } catch (SQLException ex) {
-                            log.error("Erreure ", ex);
+                            log.error(ex);
                         }
                     }
                 }
@@ -1940,7 +1959,7 @@ addWindowListener(new WindowAdapter() {
                 afficher_la_date_dun_mois();
                 b = true;
             } catch (ParseException ex) {
-                log.error("Erreure ", ex);
+                log.error(ex);
             } finally {
                 /*This block should be added to your code
                  * You need to release the resources like connections
@@ -1949,7 +1968,7 @@ addWindowListener(new WindowAdapter() {
                     try {
                         con.close();
                     } catch (SQLException ex) {
-                        log.error("Erreure ", ex);
+                        log.error(ex);
                     }
                 }
             }
@@ -1971,11 +1990,87 @@ addWindowListener(new WindowAdapter() {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-       Cancel();
+        Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierValidationActionPerformed
+        log.trace("Debut");
+        log.debug("cEtatValidation = " + cEtatValidation.getSelectedIndex());
+        boolean b = false;
+        if (cEtatValidation.getSelectedIndex() == -1) {
+            log.trace("cEtatValidation.getSelectedIndex() == -1");
+            JOptionPane.showMessageDialog(null, "l'etat du RDV n'a pas était choisit");
+        } else {
+            if ((cEtatValidation.getSelectedIndex() == 2)
+                    && (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))) {
+                log.trace("etat Pris et date recupe Vide");
+                JOptionPane.showMessageDialog(null, "la Date du RDV doit étre remplit");
+                log.debug("cEtatValidation = " + cEtatValidation.getSelectedIndex());
+                log.debug("jDateRecuperation = " + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText());
+            } else {
+                if ((cEtatValidation.getSelectedIndex() == 2)
+                        && (!((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))) {
+                    log.trace("cEtatValidation Pris // jDateRecuperation Non Vide");
+                    int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
+                    if (val == 0) {
+                        try {
+                            log.debug("Id_RDV = " + id_rdv);
+                            log.debug("date_recuperation = " + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText());
+                            con = Connect.connect();
+                            String sql = "update rdv set examen='" + textExamen.getText()
+                                    + "',Etat_RDV='" + cEtatValidation.getSelectedItem()
+                                    + "',Remarque='" + textRemarque.getText()
+                                    + "',date_recuperation = '" + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                    + "' WHERE id_RDV='" + id_rdv + "'";
 
+                            pst = con.prepareStatement(sql);
+                            pst.execute();
+                            JOptionPane.showMessageDialog(null, "Update Successfully");
+                            b = true;
+//                             reset();
+
+                        } catch (HeadlessException | SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage());
+                            log.error(e);
+                        }
+                        log.trace("Fin cEtatValidation Pris // jDateRecuperation Non Vide");
+                    }
+                } else {
+                    log.trace("Je C PA");
+                    int val1 = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
+                    if (val1 == 0) {
+                        log.debug("jDateRecuperation = " + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText());
+                        jDateRecuperation.setDate(null);
+                        log.debug("jDateRecuperation = " + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText());
+                        try {
+                            log.debug("Id_RDV = " + id_rdv);
+                            log.debug("date_recuperation = " + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText());
+                            con = Connect.connect();
+                            String sql = "update rdv set examen='" + textExamen.getText()
+                                    + "',Etat_RDV='" + cEtatValidation.getSelectedItem()
+                                    + "',Remarque='" + textRemarque.getText()
+                                    + "' WHERE id_RDV='" + id_rdv + "'";
+
+                            pst = con.prepareStatement(sql);
+                            pst.execute();
+                            JOptionPane.showMessageDialog(null, "Update Successfully");
+                            b = true;
+                            // reset();
+
+                        } catch (HeadlessException | SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage());
+                            log.error(e);
+                        }
+                    }
+
+                    log.trace("FIN");
+                }
+            }
+        }
+        if (b == true) {
+            Reset_RDV_Pris();
+            bannuler.setEnabled(true);
+        }
     }//GEN-LAST:event_bModifierValidationActionPerformed
 
     private void Configurer_Partie_Malade() {
@@ -1996,10 +2091,10 @@ addWindowListener(new WindowAdapter() {
         log.trace("DEBUT bRechercherMaladeRDVActionPerformed ");
         this.dispose();
         RechercherMaladeRDV s = new RechercherMaladeRDV();
-                log.debug("id Admin = "+ id);
+        log.debug("id Admin = " + id);
         s.id = id;
         s.setVisible(true);
-                log.trace("FIN bRechercherMaladeRDVActionPerformed ");
+        log.trace("FIN bRechercherMaladeRDVActionPerformed ");
 
     }//GEN-LAST:event_bRechercherMaladeRDVActionPerformed
 
@@ -2011,11 +2106,11 @@ addWindowListener(new WindowAdapter() {
     }//GEN-LAST:event_bRechercherDemandeRDVActionPerformed
 
     private void bRechercherRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherRDVActionPerformed
-                log.trace("DEBUT bRechercherRDVActionPerformed ");
+        log.trace("DEBUT bRechercherRDVActionPerformed ");
 
         this.dispose();
         RechercherRDV s = new RechercherRDV();
-        log.debug("id ADMIN = "+ id);
+        log.debug("id ADMIN = " + id);
         s.id = id;
         s.setVisible(true);
         log.trace("FIN bRechercherRDVActionPerformed ");
@@ -2034,7 +2129,7 @@ addWindowListener(new WindowAdapter() {
             String l; // l'etat du comobobox cEtatValidation
             l = (String) cEtatValidation.getSelectedItem();
 
-            if (l.equals("Pris") ) {
+            if (l.equals("Pris")) {
                 jDateRecuperation.setEnabled(true);
             } else if (l.equals("Annuler") || l.equals("Reporter") || l.equals("En Attente")) {
                 jDateRecuperation.setDate(null);
@@ -2098,8 +2193,9 @@ addWindowListener(new WindowAdapter() {
             pst = con.prepareStatement(sql);
             rst = pst.executeQuery(sql);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -2108,7 +2204,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }
@@ -2147,7 +2243,7 @@ addWindowListener(new WindowAdapter() {
     }
 
     @SuppressWarnings("unchecked")
-    private void Remplir_Combo_Type_Convontion() {
+    public void Remplir_Combo_Type_Convontion() {
         con = Connect.connect();
         String requete = "select nom_convontion from convontion";
         try {
@@ -2158,8 +2254,9 @@ addWindowListener(new WindowAdapter() {
 //                id_conv = rst.getString("id_conv");
                 cConvontion.addItem(nom_convontion);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         } finally {
             /*This block should be added to your code
              * You need to release the resources like connections
@@ -2168,7 +2265,7 @@ addWindowListener(new WindowAdapter() {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    log.error("Erreure ", ex);
+                    log.error(ex);
                 }
             }
         }

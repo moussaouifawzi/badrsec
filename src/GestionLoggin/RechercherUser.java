@@ -13,17 +13,19 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherUser extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(RechercherUser.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -74,6 +76,7 @@ public class RechercherUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Utilisateur");
+        setResizable(false);
 
         tUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,8 +212,9 @@ public class RechercherUser extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         } else if (cFunction.getSelectedItem().equals("Secretaire")) {
             con = Connect.connect();
@@ -220,8 +224,9 @@ public class RechercherUser extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         } else if (cFunction.getSelectedItem().equals("Directeur")) {
             con = Connect.connect();
@@ -231,8 +236,9 @@ public class RechercherUser extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         }
          
@@ -284,8 +290,9 @@ public class RechercherUser extends javax.swing.JFrame {
                 s2.bSave.setEnabled(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("tUserMouseClicked : ", e);
         }
        
     }//GEN-LAST:event_tUserMouseClicked

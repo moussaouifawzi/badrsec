@@ -5,32 +5,26 @@
  */
 package GestionRDV;
 
-import GestionConvontion.*;
-import GestionPartenaire.*;
-import GestionLoggin.*;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
-import gestionbadr.HomeAdministrateur;
-import gestionbadr.HomeDirecteur;
-import gestionbadr.HomeSecretaire;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherDemandeRDV extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(RechercherDemandeRDV.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -91,6 +85,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Demande RDV");
+        setResizable(false);
 
         bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +200,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +214,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 .addGap(200, 200, 200))
         );
 
-        setSize(new java.awt.Dimension(696, 373));
+        setSize(new java.awt.Dimension(694, 384));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -243,8 +238,9 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1
                 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
@@ -254,8 +250,9 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (!(cEtatRDV.getSelectedIndex() == -1) && !(cAlphabet.getSelectedIndex() == -1)
                 && !(txtId_p3.getText().equals("")) && !(txtInt.getText().equals(""))) {
@@ -270,8 +267,9 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
 
@@ -328,8 +326,9 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 s1.jDateDepot.setEnabled(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
 
 

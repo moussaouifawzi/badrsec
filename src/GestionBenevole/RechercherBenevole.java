@@ -80,6 +80,7 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Benevole");
+        setResizable(false);
 
         tBenevole.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -272,7 +273,7 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
             log.trace("Close Methode tBenevoleMouseClicked ");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            log.error("Erreur : ", e);
+            log.error("Erreur tBenevoleMouseClicked : ", e);
         }
     }//GEN-LAST:event_tBenevoleMouseClicked
 
@@ -293,8 +294,9 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cWillayaBenevole.getSelectedIndex() == -1 && txtPrenom.getText().equals("")) {
             try {
@@ -305,8 +307,9 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
         } else if (txtNom.getText().equals("") && txtPrenom.getText().equals("")) {
             try {
@@ -317,8 +320,9 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
         } else if (cWillayaBenevole.getSelectedIndex() == -1) {
             try {
@@ -330,8 +334,9 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 rst = pst.executeQuery(sql);
                 tBenevole.setModel(DbUtils.resultSetToTableModel(rst));
 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
         } 
     }//GEN-LAST:event_bRechercherMaladeActionPerformed

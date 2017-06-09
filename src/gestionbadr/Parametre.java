@@ -49,34 +49,26 @@ public class Parametre extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         bAjouterUtilisateur = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         bConsulterUtilisateur = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         bAjouterPartenaire = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         bConsulterPartenaire = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         bAjouterConvontion = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         bConsulterConvontion = new javax.swing.JButton();
         bCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Parametre");
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Utilisateurs"));
         jPanel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel2.setLayout(null);
 
-        jLabel1.setText("Ajouter");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(70, 40, 41, 16);
-
+        bAjouterUtilisateur.setText("Ajouter");
         bAjouterUtilisateur.setBorder(null);
         bAjouterUtilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,10 +78,7 @@ public class Parametre extends javax.swing.JFrame {
         jPanel2.add(bAjouterUtilisateur);
         bAjouterUtilisateur.setBounds(20, 30, 160, 40);
 
-        jLabel2.setText("Consulter");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(70, 90, 70, 16);
-
+        bConsulterUtilisateur.setText("Consulter");
         bConsulterUtilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterUtilisateurActionPerformed(evt);
@@ -103,10 +92,7 @@ public class Parametre extends javax.swing.JFrame {
         jPanel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel3.setLayout(null);
 
-        jLabel3.setText("Ajouter");
-        jPanel3.add(jLabel3);
-        jLabel3.setBounds(70, 40, 41, 16);
-
+        bAjouterPartenaire.setText("Ajouter");
         bAjouterPartenaire.setBorder(null);
         bAjouterPartenaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,10 +102,7 @@ public class Parametre extends javax.swing.JFrame {
         jPanel3.add(bAjouterPartenaire);
         bAjouterPartenaire.setBounds(20, 30, 160, 40);
 
-        jLabel4.setText("Consulter");
-        jPanel3.add(jLabel4);
-        jLabel4.setBounds(70, 90, 70, 16);
-
+        bConsulterPartenaire.setText("Consulter");
         bConsulterPartenaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterPartenaireActionPerformed(evt);
@@ -133,10 +116,7 @@ public class Parametre extends javax.swing.JFrame {
         jPanel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel4.setLayout(null);
 
-        jLabel5.setText("Ajouter");
-        jPanel4.add(jLabel5);
-        jLabel5.setBounds(60, 40, 41, 16);
-
+        bAjouterConvontion.setText("Ajouter");
         bAjouterConvontion.setBorder(null);
         bAjouterConvontion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,10 +126,7 @@ public class Parametre extends javax.swing.JFrame {
         jPanel4.add(bAjouterConvontion);
         bAjouterConvontion.setBounds(20, 30, 160, 40);
 
-        jLabel6.setText("Consulter");
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(60, 90, 70, 16);
-
+        bConsulterConvontion.setText("Consulter");
         bConsulterConvontion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterConvontionActionPerformed(evt);
@@ -301,12 +278,6 @@ public class Parametre extends javax.swing.JFrame {
     private javax.swing.JButton bConsulterConvontion;
     private javax.swing.JButton bConsulterPartenaire;
     private javax.swing.JButton bConsulterUtilisateur;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

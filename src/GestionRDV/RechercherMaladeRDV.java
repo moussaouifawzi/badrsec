@@ -79,6 +79,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Malade");
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -201,8 +202,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("") && cEtatSocial.getSelectedIndex() == -1) {
@@ -213,8 +215,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("") && cWillaya.getSelectedIndex() == -1) {
@@ -225,8 +228,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 && cWillaya.getSelectedIndex() == -1) {
@@ -238,8 +242,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 && cEtatSocial.getSelectedIndex() == -1) {
@@ -252,8 +257,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         } else if (cEtatSocial.getSelectedIndex() == -1 && cWillaya.getSelectedIndex() == -1) {
             // id malade
@@ -267,8 +273,10 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
+                
             }
         } else if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("")) {
@@ -280,8 +288,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             // willaya + etat + Alphabet
@@ -293,8 +302,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
 
@@ -341,8 +351,9 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
             }
             log.trace("FIN tMaladeMouseClicked");
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
     }//GEN-LAST:event_tMaladeMouseClicked
 
@@ -358,6 +369,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
 
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
 
     }

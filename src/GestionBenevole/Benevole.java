@@ -5,29 +5,18 @@
  */
 package GestionBenevole;
 
-import static GestionBenevole.Log4j.log;
 import gestionbadr.Connect;
 import gestionbadr.HomeAdministrateur;
 import gestionbadr.HomeDirecteur;
 import gestionbadr.HomeSecretaire;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
-import gestionbadr.JoptionopanePerso;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import org.apache.log4j.Logger;
@@ -37,7 +26,8 @@ import org.apache.log4j.Logger;
  * @author FAWZI
  */
 public class Benevole extends javax.swing.JFrame {
-static Logger log = Logger.getLogger(Benevole.class.getName());
+
+    static Logger log = Logger.getLogger(Benevole.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -52,15 +42,16 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
         log.info("Interface Benevole");
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                
-                
+                RetoureCancel();
             }
         });
     }
 
     public Benevole(char id) {
+       
         log.trace("Constructeure Surcharger de Benevole ");
-        initComponents();
+         initComponents();
+        bModifier.setEnabled(false);
         this.id = id;
         log.debug("Id Admin= " + id);
     }
@@ -68,7 +59,7 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
     private void RetoureCancel() {
 //        log.trace("Constructeure Surcharger de Benevole ");
 //        log.debug("Id Admin= " + id);
-        
+
         this.dispose();
         this.setVisible(false);
         System.out.println(id);
@@ -140,6 +131,7 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajouter Benevole");
+        setResizable(false);
 
         jLabel1.setText("Nom :");
 
@@ -427,12 +419,12 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
                 pst = con.prepareStatement(sql2);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Successfully registred");
-             //   log.info("Successfully registred");
+                //   log.info("Successfully registred");
                 reset();
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.info("Erreur",e);
+                log.error("Erreur bSaveActionPerformed : ", e);
             }
 
         }
@@ -484,8 +476,9 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
                     bModifier.setEnabled(false);
                     bSave.setEnabled(true);
 
-                } catch (Exception e) {
+                } catch (HeadlessException | SQLException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                    log.error("Erreur bModifierActionPerformed : ", e);
                 }
             }
         }
@@ -494,7 +487,7 @@ static Logger log = Logger.getLogger(Benevole.class.getName());
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
         log.trace("Open bRechercherActionPerformed ");
-                
+
         this.setVisible(false);
         RechercherBenevole s = new RechercherBenevole();
         s.id = id;

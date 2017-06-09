@@ -16,13 +16,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class partenaire extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(partenaire.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -79,6 +80,7 @@ public class partenaire extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter Partenaire");
+        setResizable(false);
 
         jLabel1.setText("Nom :");
 
@@ -264,6 +266,7 @@ public class partenaire extends javax.swing.JFrame {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
             reset();
         }
@@ -291,8 +294,9 @@ public class partenaire extends javax.swing.JFrame {
                 bModifierPartenaire.setEnabled(false);
                 bSavePartenaire.setEnabled(true);
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }}
     }//GEN-LAST:event_bModifierPartenaireActionPerformed
 

@@ -5,13 +5,13 @@
  */
 package gestionbadr;
 
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    static Logger log = Logger.getLogger(Login.class.getName());
+   
+    
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -29,6 +32,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
+        
     }
 
     /**
@@ -40,20 +45,21 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         bOk = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         bCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+
+        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification");
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -71,24 +77,23 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(txtPassword);
         txtPassword.setBounds(250, 160, 190, 40);
 
-        jLabel2.setText("Ok");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(240, 230, 16, 16);
-
         bOk.setBackground(new java.awt.Color(42, 135, 227));
+        bOk.setText("Ok");
         bOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOkActionPerformed(evt);
             }
         });
+        bOk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bOkKeyPressed(evt);
+            }
+        });
         jPanel1.add(bOk);
         bOk.setBounds(220, 220, 100, 40);
 
-        jLabel6.setText("Cancel");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(350, 230, 39, 16);
-
         bCancel.setBackground(new java.awt.Color(42, 135, 227));
+        bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelActionPerformed(evt);
@@ -102,10 +107,6 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setBounds(210, 150, 240, 40);
         jPanel1.add(jLabel4);
         jLabel4.setBounds(210, 100, 230, 40);
-
-        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(0, 0, 690, 340);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,7 +131,7 @@ public class Login extends javax.swing.JFrame {
 
     private void bOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOkActionPerformed
         //confirmation si le user name et password ne sont pas vide
-        System.out.println(" kwd");
+        //System.out.println(" kwd");
         if (txtUserName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter UserName");
         } else if (txtPassword.getText().equals("")) {
@@ -140,103 +141,71 @@ public class Login extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL
             String sql = "select employerId from employer where username ='" + txtUserName.getText()
-            + "'and Password='" + txtPassword.getText() + "'";
+                    + "'and Password='" + txtPassword.getText() + "'";
             //try et catch verifie ke l'app ne va pa sarété en cas d'erreur
+            log.info("User is Connecter = " + txtUserName.getText());
             try {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery();
 
                 if (rst.next()) {
                     //afficher le paneau spécifike a un user
-                    con = Connect.connect();
+                    //con = Connect.connect();
                     try {
                         pst = con.prepareStatement(sql);
                         ResultSet rec2 = pst.executeQuery(sql);
                         rec2.next();
                         id = rec2.getString("employerId");
-                    } catch (Exception e) {
-                        System.err.println(e);
+                        
+                    } catch (SQLException e) {
+                        log.error(e);
+                    } finally {
+                /*This block should be added to your code
+                 * You need to release the resources like connections
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        log.error(ex);
                     }
+                }
+            }
 
                     char charAt = id.charAt(0);
 
-                    if ( charAt == 'A' ){
+                    if (charAt == 'A') {
                         this.setVisible(false);
-                       
+
                         HomeAdministrateur h = new HomeAdministrateur(charAt);
                         h.setVisible(true);
-                    } else if ( charAt == 'S' ){
+                    } else if (charAt == 'S') {
                         this.setVisible(false);
-                      
+
                         HomeSecretaire h = new HomeSecretaire(charAt);
                         h.setVisible(true);
-                    } else if ( charAt == 'D' ){
+                    } else if (charAt == 'D') {
                         this.setVisible(false);
-                        
+
                         HomeDirecteur h = new HomeDirecteur(charAt);
                         h.setVisible(true);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "error");
                 }
-                else {JOptionPane.showMessageDialog(null, "error");}
             } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                log.error(ex);
             }
         }
     }//GEN-LAST:event_bOkActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
- //confirmation si le user name et password ne sont pas vide
-        if (txtUserName.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter UserName");
-        } else if (txtPassword.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter Password");
-        } else {
-            //connection avec la base de donnée
-            con = Connect.connect();
-            //envoi de la requete SQL
-            String sql = "select employerId from employer where username ='" + txtUserName.getText()
-            + "'and Password='" + txtPassword.getText() + "'";
-            //try et catch verifie ke l'app ne va pa sarété en cas d'erreur
-            try {
-                pst = con.prepareStatement(sql);
-                rst = pst.executeQuery();
-
-                if (rst.next()) {
-                    //afficher le paneau spécifike a un user
-                    con = Connect.connect();
-                    try {
-                        pst = con.prepareStatement(sql);
-                        ResultSet rec2 = pst.executeQuery(sql);
-                        rec2.next();
-                        id = rec2.getString("employerId");
-                    } catch (Exception e) {
-                        System.err.println(e);
-                    }
-
-                    char charAt = id.charAt(0);
-
-                    if ( charAt == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(charAt);
-                        h.setVisible(true);
-                    } else if ( charAt == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(charAt);
-                        h.setVisible(true);
-                    } else if ( charAt == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(charAt);
-                        h.setVisible(true);
-                    }
-                }
-                else {JOptionPane.showMessageDialog(null, "error");}
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        {
         }    }//GEN-LAST:event_txtPasswordActionPerformed
+   
+    private void bOkKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bOkKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bOkKeyPressed
 
     /**
      * @param args the command line arguments
@@ -278,11 +247,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton bCancel;
     private javax.swing.JButton bOk;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;

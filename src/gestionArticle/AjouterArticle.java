@@ -17,13 +17,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class AjouterArticle extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(AjouterArticle.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -249,6 +250,7 @@ public class AjouterArticle extends javax.swing.JFrame {
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
             reset();
         }
@@ -278,8 +280,9 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Update Successfully");
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }}
     }//GEN-LAST:event_bModifierActionPerformed
 

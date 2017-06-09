@@ -15,17 +15,19 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherConvontion extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(ConsulterConvontion.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
@@ -76,6 +78,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Convontion");
+        setResizable(false);
 
         bCancel.setText("Cancel");
         bCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +111,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(309, Short.MAX_VALUE)
+                .addContainerGap(749, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(cUnite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,7 +186,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 .addGap(200, 200, 200))
         );
 
-        setSize(new java.awt.Dimension(922, 387));
+        setSize(new java.awt.Dimension(1364, 387));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -201,8 +204,9 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         } else if (cUnite.getSelectedIndex() == -1) {
             try {
@@ -211,8 +215,9 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
@@ -224,6 +229,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error("bRechercherActionPerformed : ", e);
             }
         }
 
@@ -268,8 +274,9 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 s1.bSavePartenaire.setEnabled(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error("tConvontionMouseClicked : ", e);
         }
 
 

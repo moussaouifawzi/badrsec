@@ -64,6 +64,7 @@ public class ConsulterPanier extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Panier");
+        setResizable(false);
 
         tArticlePanier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

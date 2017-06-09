@@ -7,30 +7,27 @@ package gestionbadr;
 
 import GestionBenevole.Benevole;
 import GestionBenevole.ConsulterBenevole;
-import GestionLoggin.ConsulterUser;
-import GestionLoggin.Employer;
 import GestionMalade.Malade;
-import GestionMalade.RechercherMalade;
-import gestionArticle.AjouterArticle;
 import GestionDonnation.Beneficie;
 import GestionDonnation.ConsulterHistoriqueDonnation;
 import GestionMalade.ConsulterMalade;
 import GestionRDV.RDV;
-import gestionArticle.ConsulterArticle;
+import gestionbadr.RDV.ConsulterDemandeRDV;
+import gestionbadr.RDV.ConsulterRDV;
+import gestionbadr.RDV.Quantite;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class HomeSecretaire extends javax.swing.JFrame {
-
+static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
     ResultSet rs = null;
     Connection con = null;
     Statement st = null;
@@ -75,30 +72,24 @@ public class HomeSecretaire extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         bAjouterMalade = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         bConsulterMalade = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         bAjouterDonnation = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         bConsulterHistoriqueDonnation = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         bAjouterMalade1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         bConsulterMalade1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         bAjouterRDV = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        bConsulterRDV = new javax.swing.JButton();
+        bConsulterRDVenAttente = new javax.swing.JButton();
+        bConsulterRdv = new javax.swing.JButton();
+        bQuantiteRdv = new javax.swing.JButton();
         bDeconnecter = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
+        setResizable(false);
 
         jPanel1.setLayout(null);
 
@@ -107,10 +98,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel2.setLayout(null);
 
-        jLabel2.setText("Ajouter");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(60, 40, 41, 16);
-
+        bAjouterMalade.setText("Ajouter");
         bAjouterMalade.setBorder(null);
         bAjouterMalade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,10 +108,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel2.add(bAjouterMalade);
         bAjouterMalade.setBounds(20, 30, 160, 40);
 
-        jLabel3.setText("Consulter");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(60, 90, 70, 16);
-
+        bConsulterMalade.setText("Consulter");
         bConsulterMalade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterMaladeActionPerformed(evt);
@@ -139,10 +124,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des donnations"));
         jPanel4.setLayout(null);
 
-        jLabel6.setText("Ajouter");
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(60, 40, 41, 16);
-
+        bAjouterDonnation.setText("Ajouter");
         bAjouterDonnation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterDonnationActionPerformed(evt);
@@ -151,10 +133,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel4.add(bAjouterDonnation);
         bAjouterDonnation.setBounds(18, 27, 160, 44);
 
-        jLabel7.setText("Consulter");
-        jPanel4.add(jLabel7);
-        jLabel7.setBounds(60, 90, 60, 16);
-
+        bConsulterHistoriqueDonnation.setText("Consulter");
         bConsulterHistoriqueDonnation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterHistoriqueDonnationActionPerformed(evt);
@@ -170,10 +149,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Benevole"));
         jPanel6.setLayout(null);
 
-        jLabel4.setText("Ajouter");
-        jPanel6.add(jLabel4);
-        jLabel4.setBounds(60, 50, 41, 16);
-
+        bAjouterMalade1.setText("Ajouter");
         bAjouterMalade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterMalade1ActionPerformed(evt);
@@ -182,10 +158,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel6.add(bAjouterMalade1);
         bAjouterMalade1.setBounds(16, 36, 160, 40);
 
-        jLabel5.setText("Consulter");
-        jPanel6.add(jLabel5);
-        jLabel5.setBounds(60, 100, 70, 16);
-
+        bConsulterMalade1.setText("Consulter");
         bConsulterMalade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bConsulterMalade1ActionPerformed(evt);
@@ -201,10 +174,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des RDV"));
         jPanel7.setLayout(null);
 
-        jLabel8.setText("Ajouter");
-        jPanel7.add(jLabel8);
-        jLabel8.setBounds(70, 40, 41, 16);
-
+        bAjouterRDV.setText("Ajouter");
         bAjouterRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAjouterRDVActionPerformed(evt);
@@ -213,20 +183,35 @@ public class HomeSecretaire extends javax.swing.JFrame {
         jPanel7.add(bAjouterRDV);
         bAjouterRDV.setBounds(18, 27, 160, 44);
 
-        jLabel9.setText("Consulter");
-        jPanel7.add(jLabel9);
-        jLabel9.setBounds(61, 90, 60, 16);
-
-        bConsulterRDV.addActionListener(new java.awt.event.ActionListener() {
+        bConsulterRDVenAttente.setText("Demande En Attente");
+        bConsulterRDVenAttente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bConsulterRDVActionPerformed(evt);
+                bConsulterRDVenAttenteActionPerformed(evt);
             }
         });
-        jPanel7.add(bConsulterRDV);
-        bConsulterRDV.setBounds(16, 82, 160, 40);
+        jPanel7.add(bConsulterRDVenAttente);
+        bConsulterRDVenAttente.setBounds(230, 80, 160, 40);
+
+        bConsulterRdv.setText("Récuperation de Bon");
+        bConsulterRdv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bConsulterRdvActionPerformed(evt);
+            }
+        });
+        jPanel7.add(bConsulterRdv);
+        bConsulterRdv.setBounds(230, 20, 160, 50);
+
+        bQuantiteRdv.setText("Quantité");
+        bQuantiteRdv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bQuantiteRdvActionPerformed(evt);
+            }
+        });
+        jPanel7.add(bQuantiteRdv);
+        bQuantiteRdv.setBounds(10, 80, 160, 50);
 
         jPanel1.add(jPanel7);
-        jPanel7.setBounds(420, 320, 190, 150);
+        jPanel7.setBounds(420, 320, 400, 150);
 
         bDeconnecter.setText("Deconnecter");
         bDeconnecter.addActionListener(new java.awt.event.ActionListener() {
@@ -236,21 +221,19 @@ public class HomeSecretaire extends javax.swing.JFrame {
         });
         jPanel1.add(bDeconnecter);
         bDeconnecter.setBounds(500, 30, 130, 32);
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 740, 560);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(748, 597));
+        setSize(new java.awt.Dimension(993, 596));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -295,6 +278,7 @@ public class HomeSecretaire extends javax.swing.JFrame {
 
     private void bDeconnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeconnecterActionPerformed
         this.setVisible(false);
+        log.info("User is Deconnected");
         Login h = new Login();
         h.setVisible(true);
     }//GEN-LAST:event_bDeconnecterActionPerformed
@@ -306,11 +290,23 @@ public class HomeSecretaire extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_bAjouterRDVActionPerformed
 
-    private void bConsulterRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterRDVActionPerformed
+    private void bConsulterRDVenAttenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterRDVenAttenteActionPerformed
         this.setVisible(false);
-        ConsulterHistoriqueDonnation s = new ConsulterHistoriqueDonnation(id);
+        ConsulterDemandeRDV s = new ConsulterDemandeRDV(id);
         s.setVisible(true);
-    }//GEN-LAST:event_bConsulterRDVActionPerformed
+    }//GEN-LAST:event_bConsulterRDVenAttenteActionPerformed
+
+    private void bConsulterRdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterRdvActionPerformed
+        this.setVisible(false);
+        ConsulterRDV s = new ConsulterRDV(id);
+        s.setVisible(true);
+    }//GEN-LAST:event_bConsulterRdvActionPerformed
+
+    private void bQuantiteRdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bQuantiteRdvActionPerformed
+        this.setVisible(false);
+        Quantite s = new Quantite(id);
+        s.setVisible(true);
+    }//GEN-LAST:event_bQuantiteRdvActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,17 +352,10 @@ public class HomeSecretaire extends javax.swing.JFrame {
     private javax.swing.JButton bConsulterHistoriqueDonnation;
     private javax.swing.JButton bConsulterMalade;
     private javax.swing.JButton bConsulterMalade1;
-    private javax.swing.JButton bConsulterRDV;
+    private javax.swing.JButton bConsulterRDVenAttente;
+    private javax.swing.JButton bConsulterRdv;
     private javax.swing.JButton bDeconnecter;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton bQuantiteRdv;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

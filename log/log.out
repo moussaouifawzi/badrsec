@@ -1,0 +1,26 @@
+2017-06-07 12:15:58,673 [INFO ] (Login.java:bOkActionPerformed:136) User is Connecter = moussaoui
+2017-06-07 12:15:59,922 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-07 12:16:04,772 [INFO ] (Login.java:bOkActionPerformed:136) User is Connecter = fawzi
+2017-06-07 12:16:05,767 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
+2017-06-08 11:23:57,210 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 11:23:59,461 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-08 11:59:24,494 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 11:59:26,618 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-08 12:25:18,112 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 12:25:30,791 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-08 12:30:55,226 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 12:30:57,968 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-08 12:31:22,922 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 12:31:25,390 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-08 23:08:59,449 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 23:10:20,135 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = moussaoui
+2017-06-08 23:10:28,581 [INFO ] (HomeAdministrateur.java:bDeconnecterActionPerformed:355) User is Deconnected
+2017-06-08 23:12:39,895 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = fawzi
+2017-06-08 23:12:44,005 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
+2017-06-09 00:34:08,290 [ERROR] (ConsulterRDV.java:tRDVMouseClicked:320) n = 109
+2017-06-09 00:52:10,844 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = fawzi
+2017-06-09 00:52:23,137 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
+2017-06-09 00:56:17,504 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = fawzi
+2017-06-09 00:56:18,697 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
+2017-06-09 00:57:37,201 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = fawzi
+2017-06-09 00:57:39,377 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected

@@ -5,35 +5,45 @@
  */
 package GestionMalade;
 
-import GestionLoggin.*;
-import GestionMalade.Malade;
 import gestionbadr.Connect;
-import gestionbadr.HomeSecretaire;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author FAWZI
  */
 public class RechercherMaladie extends javax.swing.JFrame {
-
+    static Logger log = Logger.getLogger(RechercherMaladie.class.getName());
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
     String s;
     PreparedStatement pst = null;
     String row;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public RechercherMaladie() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+
+    }
+    
+    public RechercherMaladie(char id) {
+        initComponents();
+        this.id = id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -46,6 +56,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
          this.dispose();
         this.setVisible(false);
                 Maladies s1 = new Maladies();
+                s1.id = id;
                 s1.setVisible(true);
     }
 
@@ -72,6 +83,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Maladies");
+        setResizable(false);
 
         tUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,12 +203,13 @@ public class RechercherMaladie extends javax.swing.JFrame {
             con = Connect.connect();
             //envoi de la requete SQL 
             try {
-                String sql = "select type_cancer from maladies";
+                String sql = "select id_maladi, type_cancer from maladies";
                 pst = con.prepareStatement(sql);
                 rs = pst.executeQuery(sql);
                 tUser.setModel(DbUtils.resultSetToTableModel(rs));
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         
         
@@ -210,7 +223,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
 //        System.out.println("1");
         String n;
         
-        n = tUser.getModel().getValueAt(row, 1).toString();
+        n = tUser.getModel().getValueAt(row, 0).toString();
 //         System.out.println("11");
         try {
             String sql = "SELECT * FROM maladies WHERE 	id_maladi = '" + n + "'";
@@ -225,7 +238,7 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 this.setVisible(false);
                 Maladies s2 = new Maladies();
                 s2.setVisible(true);
-                
+                s2.id = id;
                 String Type_cancer = rs.getString("Type_cancer");
                 s2.txtMaladie.setText(Type_cancer);
                 
@@ -234,8 +247,9 @@ public class RechercherMaladie extends javax.swing.JFrame {
                 s2.bAjouter.setEnabled(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
         }
        
     }//GEN-LAST:event_tUserMouseClicked

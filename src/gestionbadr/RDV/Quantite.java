@@ -74,6 +74,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     
     public Quantite() {
         initComponents();
+        jTabbedPane1.setEnabledAt(1, false);
         Remplir_Combo_Type_Convontion();
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -84,6 +85,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     
     public Quantite(char id) {
         initComponents();
+        jTabbedPane1.setEnabledAt(1, false);
         Remplir_Combo_Type_Convontion();
         this.id = id;
         addWindowListener(new WindowAdapter() {

@@ -5,6 +5,7 @@
  */
 package gestionbadr;
 
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,6 +80,11 @@ public class Login extends javax.swing.JFrame {
                 bOkActionPerformed(evt);
             }
         });
+        bOk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bOkKeyPressed(evt);
+            }
+        });
         jPanel1.add(bOk);
         bOk.setBounds(220, 220, 100, 40);
 
@@ -140,7 +146,7 @@ public class Login extends javax.swing.JFrame {
 
                 if (rst.next()) {
                     //afficher le paneau spécifike a un user
-                    con = Connect.connect();
+                    //con = Connect.connect();
                     try {
                         pst = con.prepareStatement(sql);
                         ResultSet rec2 = pst.executeQuery(sql);
@@ -192,6 +198,10 @@ public class Login extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         {
         }    }//GEN-LAST:event_txtPasswordActionPerformed
+   
+    private void bOkKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bOkKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bOkKeyPressed
 
     /**
      * @param args the command line arguments

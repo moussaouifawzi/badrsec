@@ -317,7 +317,7 @@ public class ConsulterRDV extends javax.swing.JFrame {
         int row = tRDV.getSelectedRow();
         String n;
         n = tRDV.getModel().getValueAt(row, 0).toString();
-        log.error(n);
+        log.debug("n = " +n);
 
         try {
             String sql = "SELECT id_RDV, malade.id_m, nom_m, prenom_m, date_rdv, etat_rdv, remarque, date_recuperation, examen, nom_convontion, nom_p, datedepot, etat_demande "

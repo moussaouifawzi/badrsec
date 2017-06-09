@@ -20,6 +20,8 @@ import org.apache.log4j.Logger;
 public class Login extends javax.swing.JFrame {
 
     static Logger log = Logger.getLogger(Login.class.getName());
+   
+    
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rst = null;
@@ -30,6 +32,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
+        
     }
 
     /**

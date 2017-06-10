@@ -24,3 +24,7 @@
 2017-06-09 00:56:18,697 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
 2017-06-09 00:57:37,201 [INFO ] (Login.java:bOkActionPerformed:142) User is Connecter = fawzi
 2017-06-09 00:57:39,377 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
+2017-06-10 01:26:57,687 [INFO ] (Login.java:bOkActionPerformed:146) User is Connecter = fawzi
+2017-06-10 01:27:00,601 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected
+2017-06-10 01:32:04,613 [INFO ] (Login.java:bOkActionPerformed:146) User is Connecter = fawzi
+2017-06-10 01:32:06,346 [INFO ] (HomeSecretaire.java:bDeconnecterActionPerformed:281) User is Deconnected

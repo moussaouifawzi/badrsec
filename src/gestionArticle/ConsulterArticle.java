@@ -66,6 +66,11 @@ static Logger log = Logger.getLogger(ConsulterArticle.class.getName());
      public ConsulterArticle(char id) {
         initComponents();
         this.id=id;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
 
     /**

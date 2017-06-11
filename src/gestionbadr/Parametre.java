@@ -19,12 +19,22 @@ import java.awt.event.WindowEvent;
  * @author FAWZI
  */
 public class Parametre extends javax.swing.JFrame {
-
+char id; // id de l'administrateur pour qu'il revoi au bon HOME
     /**
      * Creates new form Parametre
      */
     public Parametre() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    public Parametre(char id) {
+        initComponents();
+        this.id=id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -196,37 +206,37 @@ public class Parametre extends javax.swing.JFrame {
 
     private void bAjouterUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterUtilisateurActionPerformed
         this.setVisible(false);
-        Employer h = new Employer();
+        Employer h = new Employer(id);
         h.setVisible(true);
     }//GEN-LAST:event_bAjouterUtilisateurActionPerformed
 
     private void bConsulterUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterUtilisateurActionPerformed
         this.setVisible(false);
-        ConsulterUser h = new ConsulterUser();
+        ConsulterUser h = new ConsulterUser(id);
         h.setVisible(true);
     }//GEN-LAST:event_bConsulterUtilisateurActionPerformed
 
     private void bAjouterPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterPartenaireActionPerformed
         this.setVisible(false);
-        partenaire h = new partenaire();
+        partenaire h = new partenaire(id);
         h.setVisible(true);
     }//GEN-LAST:event_bAjouterPartenaireActionPerformed
 
     private void bConsulterPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterPartenaireActionPerformed
         this.setVisible(false);
-        ConsulterPartenaire h = new ConsulterPartenaire();
+        ConsulterPartenaire h = new ConsulterPartenaire(id);
         h.setVisible(true);
     }//GEN-LAST:event_bConsulterPartenaireActionPerformed
 
     private void bAjouterConvontionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterConvontionActionPerformed
         this.setVisible(false);
-        Convontion h = new Convontion();
+        Convontion h = new Convontion(id);
         h.setVisible(true);
     }//GEN-LAST:event_bAjouterConvontionActionPerformed
 
     private void bConsulterConvontionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterConvontionActionPerformed
         this.setVisible(false);
-        ConsulterConvontion h = new ConsulterConvontion();
+        ConsulterConvontion h = new ConsulterConvontion(id);
         h.setVisible(true);
     }//GEN-LAST:event_bConsulterConvontionActionPerformed
 

@@ -32,6 +32,7 @@ public class ConsulterUser extends javax.swing.JFrame {
     String s;
     PreparedStatement pst = null;
     String row;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public ConsulterUser() {
         initComponents();
@@ -43,6 +44,17 @@ public class ConsulterUser extends javax.swing.JFrame {
 		});
     }
 
+    public ConsulterUser(char id ) {
+        initComponents();
+        this.id=id;
+        // 
+        addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            RetoureCancel();
+			}
+		});
+    }
+    
     private void RetoureCancel (){
          this.dispose();
         this.setVisible(false);

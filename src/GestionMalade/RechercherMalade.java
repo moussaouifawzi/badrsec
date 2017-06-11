@@ -41,6 +41,11 @@ public class RechercherMalade extends javax.swing.JFrame {
      
       initComponents();
         this.id=id;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
         
     }
     

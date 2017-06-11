@@ -36,9 +36,21 @@ public class ConsulterConvontion extends javax.swing.JFrame {
     PreparedStatement pst = null;
     String row;
     ResultSet rst = null;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public ConsulterConvontion() {
         initComponents();
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    public ConsulterConvontion(char id) {
+        initComponents();
+        this.id=id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();

@@ -34,9 +34,24 @@ public class RechercherRDV extends javax.swing.JFrame {
     String row;
     ResultSet rst = null;
     char id;
+    
 
     public RechercherRDV() {
         initComponents();
+        cEtatValidation.setSelectedIndex(3);
+        cEtatValidation.enable(false);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+
+    }
+    
+    public RechercherRDV(char id) {
+        initComponents();
+        this.id=id;
         cEtatValidation.setSelectedIndex(3);
         cEtatValidation.enable(false);
         
@@ -58,11 +73,7 @@ public class RechercherRDV extends javax.swing.JFrame {
         log.trace("FIN Cancel");
     }
 
-    public RechercherRDV(char id) {
-        initComponents();
-        this.id = id;
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

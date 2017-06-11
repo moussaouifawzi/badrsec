@@ -35,6 +35,7 @@ public class Employer extends javax.swing.JFrame {
     String nomEmployer = "";
     boolean v = false;
     String c;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     protected void reset() {
         txtUserName.setText("");
@@ -47,6 +48,17 @@ public class Employer extends javax.swing.JFrame {
 
     public Employer() {
         initComponents();
+        bModifier.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+     public Employer(char id) {
+        initComponents();
+        this.id=id;
         bModifier.setEnabled(false);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

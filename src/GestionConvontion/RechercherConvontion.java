@@ -35,9 +35,21 @@ public class RechercherConvontion extends javax.swing.JFrame {
     PreparedStatement pst = null;
     String row;
     ResultSet rst = null;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public RechercherConvontion() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+
+    }
+    
+    public RechercherConvontion(char id) {
+        initComponents();
+        this.id=id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();

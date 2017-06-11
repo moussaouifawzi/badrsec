@@ -38,7 +38,15 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
         });
     }
     
-    
+    public RechercherMaladeRDV(char id) {
+        initComponents();
+        this.id=id;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
     
     private void Cancel(){
         log.trace("DEBUT Cancel");

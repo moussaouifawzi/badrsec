@@ -38,6 +38,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         initComponents();
         bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
+        log.debug(id);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();

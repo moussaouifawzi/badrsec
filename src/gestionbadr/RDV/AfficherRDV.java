@@ -13,9 +13,9 @@ import java.awt.event.WindowEvent;
  * @author FAWZI
  */
 public class AfficherRDV extends javax.swing.JFrame {
-    char id;
+    
     /**
-     * Creates new form AfficherRDV
+     * Affiche les détaille du RDV 
      */
     public AfficherRDV() {
         initComponents();
@@ -33,6 +33,8 @@ public class AfficherRDV extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     
 

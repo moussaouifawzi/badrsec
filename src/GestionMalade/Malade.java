@@ -75,6 +75,11 @@ public class Malade extends javax.swing.JFrame {
         cMaladie.setSelectedIndex(-1);
         this.id = id;
         bModifier.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
 
     /**

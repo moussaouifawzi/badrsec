@@ -42,6 +42,18 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
 		});
     }
     
+    public RechercherBenevole(char id) {
+        
+        initComponents();
+        this.id=id;
+        //Initialiser_Tableau_Benevole();
+        addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
+    }
+    
     private void Cancel(){
          // TODO add your handling code here:
         this.dispose();
@@ -49,6 +61,11 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
         Benevole s = new Benevole();
         s.id = id;
         s.setVisible(true);
+         addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
     }
 
     /**

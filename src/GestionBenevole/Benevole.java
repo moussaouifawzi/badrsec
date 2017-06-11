@@ -54,6 +54,11 @@ public class Benevole extends javax.swing.JFrame {
         bModifier.setEnabled(false);
         this.id = id;
         log.debug("Id Admin= " + id);
+         addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            RetoureCancel();
+			}
+		});
     }
 
     private void RetoureCancel() {

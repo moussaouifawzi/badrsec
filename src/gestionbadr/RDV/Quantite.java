@@ -64,7 +64,8 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     int id_pp;
     int id_p;
     String nom_p;
-    char id; 
+    char idAdmin; 
+    
     protected String id_m;
     //protected int id_demande_RDV;
     boolean t = false; // etat de la date si prise = true  "Verifier_date_rdv()"
@@ -73,7 +74,9 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     Integer[] tableau_max_Day_mois_par_annee = new Integer[12]; // Tableau de Maximum de jour par mois de l'année
     
     public Quantite() {
+        
         initComponents();
+        log.trace("Debut const Charger");
         jTabbedPane1.setEnabledAt(1, false);
         Remplir_Combo_Type_Convontion();
         addWindowListener(new WindowAdapter() {
@@ -81,18 +84,23 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
                 Cancel();
             }
         });
+        log.trace("Fin const");
     }
     
     public Quantite(char id) {
+        
         initComponents();
+        log.trace("Debut const");
         jTabbedPane1.setEnabledAt(1, false);
         Remplir_Combo_Type_Convontion();
-        this.id = id;
+        log.debug("id Admin = " + idAdmin);
+        this.idAdmin = id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
+        log.trace("Fin const Charger");
     }
 
     @SuppressWarnings("unchecked")
@@ -905,23 +913,28 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void Cancel(){
+        log.trace("Debut");
          this.dispose();
         this.setVisible(false);
 
-        if (id == 'A') {
+        if (idAdmin == 'A') {
             this.setVisible(false);
-            HomeAdministrateur h = new HomeAdministrateur(id);
+            HomeAdministrateur h = new HomeAdministrateur(idAdmin);
             h.setVisible(true);
-        } else if (id == 'S') {
+            log.trace("c a");
+        } else if (idAdmin == 'S') {
             this.setVisible(false);
 
-            HomeSecretaire h = new HomeSecretaire(id);
+            HomeSecretaire h = new HomeSecretaire(idAdmin);
             h.setVisible(true);
-        } else if (id == 'D') {
+            log.trace("c s");
+        } else if (idAdmin == 'D') {
             this.setVisible(false);
-            HomeDirecteur h = new HomeDirecteur(id);
+            HomeDirecteur h = new HomeDirecteur(idAdmin);
             h.setVisible(true);
+            log.trace("c d");
         }
+        log.trace("Fin");
     }
     
     /**

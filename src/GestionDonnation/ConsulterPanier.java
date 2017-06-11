@@ -27,11 +27,22 @@ public class ConsulterPanier extends javax.swing.JFrame {
     PreparedStatement pst = null;
     String row;
     ResultSet rst = null;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
     /**
      * Creates new form AjouterPanier
      */
     public ConsulterPanier() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+     public ConsulterPanier(char id) {
+        initComponents();
+        this.id=id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();

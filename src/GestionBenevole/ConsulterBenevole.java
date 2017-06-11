@@ -63,6 +63,11 @@ public class ConsulterBenevole extends javax.swing.JFrame {
         initComponents();
       //  Initialiser_Tableau_Benevole();
         this.id=id;
+         addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
     }
 
     /**

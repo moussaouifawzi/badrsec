@@ -28,9 +28,21 @@ static Logger log = Logger.getLogger(partenaire.class.getName());
     PreparedStatement pst = null;
     ResultSet rst = null;
     protected int id_p;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public partenaire() {
         initComponents();
+        bModifierPartenaire.setEnabled(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+    
+    public partenaire(char id) {
+        initComponents();
+        this.id=id;
         bModifierPartenaire.setEnabled(false);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

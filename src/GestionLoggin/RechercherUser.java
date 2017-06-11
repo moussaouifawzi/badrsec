@@ -32,10 +32,22 @@ public class RechercherUser extends javax.swing.JFrame {
     String s;
     PreparedStatement pst = null;
     String row;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
    
     
     public RechercherUser() {
         initComponents();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+
+    }
+    
+    public RechercherUser(char id) {
+        initComponents();
+        this.id=id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();

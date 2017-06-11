@@ -55,6 +55,11 @@ static Logger log = Logger.getLogger(RechercherDemandeRDV.class.getName());
     public RechercherDemandeRDV(char id) {
         initComponents();
         this.id = id;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
 
     }
 

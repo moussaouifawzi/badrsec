@@ -34,9 +34,24 @@ public class Convontion extends javax.swing.JFrame {
     Boolean b = false;
     protected int id_conv;
     protected String nom_pr;
+    char id; // id de l'administrateur pour qu'il revoi au bon HOME
 
     public Convontion() {
         initComponents();
+        Remplir_Combo_Partenaire();
+        cPartenaire.setSelectedIndex(-1);
+        txtType.setVisible(false);
+        bModifierPartenaire.setEnabled(false);
+        addWindowListener (new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+                            Cancel();
+			}
+		});
+    }
+    
+    public Convontion(char id) {
+        initComponents();
+        this.id=id;
         Remplir_Combo_Partenaire();
         cPartenaire.setSelectedIndex(-1);
         txtType.setVisible(false);

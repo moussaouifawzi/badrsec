@@ -33,6 +33,8 @@ static Logger log = Logger.getLogger(AjouterArticle.class.getName());
 
     public AjouterArticle() {
         initComponents();
+        bModifier.setEnabled(false);
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -191,11 +193,11 @@ static Logger log = Logger.getLogger(AjouterArticle.class.getName());
                 .addComponent(bAjouter)
                 .addGap(18, 18, 18)
                 .addComponent(bModifier)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bRechercher)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bCancel)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -213,10 +215,12 @@ static Logger log = Logger.getLogger(AjouterArticle.class.getName());
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,6 +239,7 @@ static Logger log = Logger.getLogger(AjouterArticle.class.getName());
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterActionPerformed
+        boolean b = false;
         if (txtNom.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter le Nom de l'article");
         } else if (cType.getSelectedIndex() == -1) {
@@ -252,12 +257,15 @@ static Logger log = Logger.getLogger(AjouterArticle.class.getName());
                 pst = con.prepareStatement(sql23);
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Ajouter");
+                b = true;
 
             } catch (SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
+            if (b == true){
             reset();
+        }
         }
     }//GEN-LAST:event_bAjouterActionPerformed
 
@@ -272,7 +280,8 @@ static Logger log = Logger.getLogger(AjouterArticle.class.getName());
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed
-int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
+int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?"); 
+boolean b = false;
         if (val == 0) {
         try {
                 con = Connect.connect();
@@ -283,12 +292,18 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
 
                 pst = con.prepareStatement(sql);
                 pst.execute();
+                b = true;
                 JOptionPane.showMessageDialog(null, "Update Successfully");
+                
+                
 
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }}
+        if (b == true){
+            reset();
+        }
     }//GEN-LAST:event_bModifierActionPerformed
 
     /**
@@ -331,12 +346,15 @@ int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
         txtNom.setText("");
         txtQuantite.setText("");
         cType.setSelectedIndex(-1);
+        
+        bAjouter.setEnabled(true);
+        bModifier.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAjouter;
+    protected javax.swing.JButton bAjouter;
     private javax.swing.JButton bCancel;
-    private javax.swing.JButton bModifier;
+    protected javax.swing.JButton bModifier;
     private javax.swing.JButton bRechercher;
     protected javax.swing.JComboBox cType;
     private javax.swing.JLabel jLabel1;

@@ -22,7 +22,8 @@ import org.apache.log4j.Logger;
  * @author FAWZI
  */
 public class RechercherArticle extends javax.swing.JFrame {
-static Logger log = Logger.getLogger(RechercherArticle.class.getName());
+
+    static Logger log = Logger.getLogger(RechercherArticle.class.getName());
     ResultSet rst = null;
     Connection con = null;
     Statement st = null;
@@ -37,18 +38,18 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
             }
         });
     }
-    
+
     public RechercherArticle(char id) {
         initComponents();
-        this.id=id;
+        this.id = id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
     }
-    
-    private void Cancel (){
+
+    private void Cancel() {
         this.dispose();
         this.setVisible(false);
         AjouterArticle s = new AjouterArticle();
@@ -197,7 +198,6 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
 
     private void bRechercherArticleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherArticleActionPerformed
         con = Connect.connect();
-        
 
         if (txtNomArticle.getText().equals("") && cType.getSelectedIndex() == -1
                 || cType.getSelectedIndex() == -1) {
@@ -205,12 +205,12 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
                     + "\n     - Type seulement."
                     + "\n     - Nom Article et Type.");
 
-        } else if ((cType.getSelectedItem() == "pret" || cType.getSelectedItem() == "consomable") 
+        } else if ((cType.getSelectedItem() == "pret" || cType.getSelectedItem() == "consomable")
                 || !(txtNomArticle.getText().equals(""))) {
             try {
 
-                String sql = "SELECT * FROM article WHERE Type_art = '" 
-                        + cType.getSelectedItem() + "' AND Nom_a='"+ txtNomArticle.getText()+"'";
+                String sql = "SELECT * FROM article WHERE Type_art = '"
+                        + cType.getSelectedItem() + "' AND Nom_a='" + txtNomArticle.getText() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tArticleHistorique.setModel(DbUtils.resultSetToTableModel(rst));
@@ -218,12 +218,11 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
-        }
-        else if ((cType.getSelectedItem() == "pret" || cType.getSelectedItem() == "consomable") 
+        } else if ((cType.getSelectedItem() == "pret" || cType.getSelectedItem() == "consomable")
                 || txtNomArticle.getText().equals("")) {
             try {
 
-                String sql = "SELECT * FROM article WHERE Type_art = '" 
+                String sql = "SELECT * FROM article WHERE Type_art = '"
                         + cType.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -232,7 +231,7 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
-        } 
+        }
 
     }//GEN-LAST:event_bRechercherArticleActionPerformed
 
@@ -246,23 +245,27 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
         int row = tArticleHistorique.getSelectedRow();
         System.out.println("1");
         String n;
-        
+
         n = tArticleHistorique.getModel().getValueAt(row, 0).toString();
-         System.out.println("11");
+        System.out.println("11");
         try {
             String sql1 = "SELECT * FROM article WHERE id_a = '" + n + "'";
-             System.out.println("3");
+            System.out.println("3");
             pst = con.prepareStatement(sql1);
-             System.out.println("4");
+            System.out.println("4");
             rst = pst.executeQuery(sql1);
-             System.out.println("5"+rst.toString());
-             
+            System.out.println("5" + rst.toString());
+
             if (rst.next()) {
-                 System.out.println("6");
+                System.out.println("6");
                 this.setVisible(false);
                 AjouterArticle s1 = new AjouterArticle();
+
+                s1.bAjouter.setEnabled(false);
+                s1.bModifier.setEnabled(true);
+
                 s1.setVisible(true);
-                
+
                 String AjouterArticle = rst.getString("Nom_a");
                 s1.txtNom.setText(AjouterArticle);
                 String Quantite_a = rst.getString("Quantite_a");
@@ -270,14 +273,14 @@ static Logger log = Logger.getLogger(RechercherArticle.class.getName());
                 String type_art = rst.getString("type_art");
                 s1.cType.setSelectedItem(type_art);
                 s1.id_aa = rst.getInt("id_a");
-                
+
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             log.error(e);
         }
-       
+
     }//GEN-LAST:event_tArticleHistoriqueMouseClicked
 
     /**

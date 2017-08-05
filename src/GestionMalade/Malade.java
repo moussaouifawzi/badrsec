@@ -142,13 +142,17 @@ public class Malade extends javax.swing.JFrame {
         bPlusMaladie = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         cSexe = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajouter Malade");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Information du malade"));
@@ -363,15 +367,6 @@ public class Malade extends javax.swing.JFrame {
         cSexe.setSelectedIndex(-1);
         jPanel1.add(cSexe);
         cSexe.setBounds(490, 470, 110, 26);
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(480, 50, 77, 32);
 
         jLabel25.setText("/");
         jPanel1.add(jLabel25);
@@ -656,10 +651,10 @@ public class Malade extends javax.swing.JFrame {
  log.trace("Fin");
     }//GEN-LAST:event_bPlusMaladieActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Verification_de_date();
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       Verification_de_date();
         VerifierNbrMalade();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_formWindowOpened
 
     private  void VerifierNbrMalade() {
         // Verifie le nbr de malade dans la base de donnée et Ajoute 1
@@ -802,7 +797,6 @@ public class Malade extends javax.swing.JFrame {
     protected javax.swing.JComboBox cMaladie;
     protected javax.swing.JComboBox cSexe;
     protected javax.swing.JComboBox cWillaya;
-    private javax.swing.JButton jButton1;
     protected com.toedter.calendar.JDateChooser jDateNaiMalade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

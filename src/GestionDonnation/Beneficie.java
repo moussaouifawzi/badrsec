@@ -20,7 +20,9 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -41,13 +43,15 @@ public class Beneficie extends javax.swing.JFrame {
     ResultSet rst2 = null;
     Login e = new Login();
     String id_e;
-    String id_m="";
+    String id_m = "";
     public String time_actuele;
     String id_et_Heure = "";
     String heure_article_historique;
     ResultSet rs = null;
     Statement st = null;
+    List<article> Listarticle = new ArrayList<>() ;
     char id;
+
     public Beneficie() {
         this.id_e = e.id;
         initComponents();
@@ -57,32 +61,32 @@ public class Beneficie extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void Cancel(){
+
+    private void Cancel() {
         this.dispose();
         this.setVisible(false);
-        if ( id == 'A' ){
-                        this.setVisible(false);
-                       
-                        HomeAdministrateur h = new HomeAdministrateur(id);
-                        h.setVisible(true);
-                    } else if ( id == 'S' ){
-                        this.setVisible(false);
-                      
-                        HomeSecretaire h = new HomeSecretaire(id);
-                        h.setVisible(true);
-                    } else if ( id == 'D' ){
-                        this.setVisible(false);
-                        
-                        HomeDirecteur h = new HomeDirecteur(id);
-                        h.setVisible(true);
-                    }
+        if (id == 'A') {
+            this.setVisible(false);
+
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+        } else if (id == 'D') {
+            this.setVisible(false);
+
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+        }
     }
-    
+
     public Beneficie(char id) {
-       
+
         initComponents();
-        this.id=id;
+        this.id = id;
     }
 
     /**
@@ -106,7 +110,6 @@ public class Beneficie extends javax.swing.JFrame {
         txtNumTel = new javax.swing.JTextField();
         txtAdress = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        cAlphabet = new javax.swing.JComboBox();
         txtInt = new javax.swing.JTextField();
         txtId_p3 = new javax.swing.JTextField();
         bRechercherMalade = new javax.swing.JButton();
@@ -153,14 +156,6 @@ public class Beneficie extends javax.swing.JFrame {
 
         jLabel10.setText("ID :");
 
-        cAlphabet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
-        cAlphabet.setSelectedIndex(-1);
-        cAlphabet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cAlphabetActionPerformed(evt);
-            }
-        });
-
         txtInt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntActionPerformed(evt);
@@ -193,9 +188,7 @@ public class Beneficie extends javax.swing.JFrame {
                                 .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cAlphabet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(66, 66, 66)
                         .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -204,13 +197,12 @@ public class Beneficie extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel10)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cAlphabet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -528,147 +520,49 @@ public class Beneficie extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bConsulterPanierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterPanierActionPerformed
-     
-        ConsulterPanier s = new ConsulterPanier();
-        DecimalFormat myFormatter = new DecimalFormat("0000");
+        System.out.println(" dahel ");
+       
+        
+        //envoyer Id malade et info nécéssaire pour l'ajout de l'article (information concernnate le malade)
+        String c = "/";
+           DecimalFormat myFormatter = new DecimalFormat("0000");
         String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-        String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-        id_m = cAlphabet.getSelectedItem() + output + output2;
-
-        s.txtIdMaladePanier.setText(id_m);
+        
+        id_m =  output + c + txtId_p3.getText();
+          
         String date =((JTextField)jDatePrise.getDateEditor().getUiComponent()).getText();
-        s.txtDatePanier.setText(date);
+      
+        
+ ConsulterPanier s = new ConsulterPanier(  id, Listarticle, id_m,date);
+
 
 
         s.setVisible(true);
+     
+    
     }//GEN-LAST:event_bConsulterPanierActionPerformed
 
     private void bAjouterPanierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterPanierActionPerformed
-        DecimalFormat myFormatter = new DecimalFormat("0000");
-        String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-        String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-        id_m = cAlphabet.getSelectedItem() + output + output2;
+        article c = new article();
+        c.setId(Integer.parseInt(txtIdArticlePanier.getText()));
+        c.setNom_a(txtNomArticlePanier.getText());
+        c.setQte(Integer.parseInt(txtQuantiteArticlePanier.getText()));
+        Listarticle.add(c);
+        System.out.println(" article list "+ Listarticle);
+      
         
-        
-        
-        String ida = txtIdArticlePanier.getText();
-        int id_a = Integer.parseInt(ida);
-        String date_h = ((JTextField)jDatePrise.getDateEditor().getUiComponent()).getText();
-        // quantite dans le panier
-        int qp = Integer.parseInt(txtQuantiteArticlePanier.getText());
-         // quantite dans beneficie
-        int qb = 0;
-        boolean v = false;
-        int idArticle = 0;
-        int quatite_article_beneficie = 0;
-        String idMalade = "";
-        String date_article_historique = "";
-        int Quantite_article_Stock = 0;
-        String heure_prise ="";
-        
-//        Tantque que le méme malade est saisie l'heure reste la méme 
-        if(!(id_et_Heure.equals(id_m))){    
-            Time_Actuelle();
-           id_et_Heure = id_m;
-           System.out.println(" ! ");
-        } else {
-           System.out.println(" == ");
-        }
 
-        try {
-            // /////////////////////////////////////////////////
-//                              TABLE ARTICLE
-//            Rechercher id a
-            String Requete2 = "SELECT * FROM article WHERE id_a ='" + txtIdArticlePanier.getText() + "'";
-
-            pst2 = con.prepareStatement(Requete2);
-            rst2 = pst2.executeQuery(Requete2);
-            while (rst2.next()) {
-                idArticle = rst2.getInt("id_a");
-                Quantite_article_Stock = rst2.getInt("Quantite_a");
-                System.out.println("f TABLE ARTICLE");
-                
-            }
-
-//                            TABLE  Beneficie
-//            Rechercher si un Article existe deja dans la table BENEFICIE
-            
-            String Requete = "SELECT * FROM beneficie WHERE malade_id_m ='" + id_m 
-                    + "' && article_id_a='" + txtIdArticlePanier.getText() + "'";
-
-            pst = con.prepareStatement(Requete);
-            rst = pst.executeQuery(Requete);
-            while (rst.next()) {
-                idArticle = rst.getInt("article_id_a");
-                idMalade = rst.getString("malade_id_m");
-                qb = rst.getInt("Quantite_a_b");
-                System.out.println("f Beneficie");
-                
-            }
-
-            int res = Integer.parseInt(txtQuantiteArticlePanier.getText());
-            System.out.println("" + res);
-//
-            if (Quantite_article_Stock > 0 && Quantite_article_Stock >= res) {
-                if (id_a == (idArticle) && id_m.equals(idMalade) && qb != 0) {
-                    System.out.println("c 01 1");
-//                     requete modifier quantiti
-                    Quantite_article_Stock = Quantite_article_Stock - qp;
-                    int qf = qp + qb;
-                    String update = " update beneficie set Quantite_a_b='" + qf
-                            + "' WHERE  ( malade_id_m='" + id_m
-                            + "' AND article_id_a='" + txtIdArticlePanier.getText() + "')";
-
-                    pst = con.prepareStatement(update);
-                    pst.execute();
-                    JOptionPane.showMessageDialog(null, "Update Successfully");
-                    v = true;
-                    
-                } else {
-                    System.out.println("c 01 2");
-//                     ajouter  l'article 
-                    String insert = "INSERT INTO beneficie (malade_id_m,article_id_a,Quantite_a_b, date_prise"
-                            + ", heure_prise) VALUES ('"
-                            + id_m + "','" + txtIdArticlePanier.getText() + "','" + txtQuantiteArticlePanier.getText() 
-                            + "','"+ ((JTextField)jDatePrise.getDateEditor().getUiComponent()).getText() 
-                            + "','"+ time_actuele +"')";
-                    pst = con.prepareStatement(insert);
-                    pst.execute();
-                    Quantite_article_Stock = Quantite_article_Stock - qp;
-                    JOptionPane.showMessageDialog(null, "Insert Successfully");
-                    v = true;
-                }
-
-                if (v = true) {
-                    String update2 = " update article set Quantite_a='" + Quantite_article_Stock
-                            + "' WHERE  ( id_a='" + txtIdArticlePanier.getText() + "')";
-
-                    pst2 = con.prepareStatement(update2);
-                    pst2.execute();
-                    JOptionPane.showMessageDialog(null, "Successfully");
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, " Verifier la quantite ");
-            }
-        } catch (SQLException | NumberFormatException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+       
 
 
     }//GEN-LAST:event_bAjouterPanierActionPerformed
 
 
-    private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed
-
-
-    }//GEN-LAST:event_cAlphabetActionPerformed
-
     private void txtIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIntActionPerformed
 
-    private void Time_Actuelle(){
+    private void Time_Actuelle() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         time_actuele = sdf.format(cal.getTime());
@@ -676,10 +570,11 @@ public class Beneficie extends javax.swing.JFrame {
     }
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
 
-       DecimalFormat myFormatter = new DecimalFormat("0000");
-                String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-                String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-        String id_m = cAlphabet.getSelectedItem() + output + output2;
+        String c = "/";
+        DecimalFormat myFormatter = new DecimalFormat("0000");
+        String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
+        
+        String id_m = output + c + txtId_p3.getText();
 //        System.out.println("="+ id);
 
 //        Selecte
@@ -709,14 +604,14 @@ public class Beneficie extends javax.swing.JFrame {
     }//GEN-LAST:event_bRechercherMaladeActionPerformed
 
     private void bRechercherArticleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherArticleActionPerformed
-Remplir_le_tableau();
+        Remplir_le_tableau();
     }//GEN-LAST:event_bRechercherArticleActionPerformed
 
-    private void Remplir_le_tableau (){
-                con = Connect.connect();
-                String pret = "pret";
-                String consomable = "consomable";
-                String combo = cType.getSelectedItem().toString();
+    private void Remplir_le_tableau() {
+        con = Connect.connect();
+        String pret = "pret";
+        String consomable = "consomable";
+        String combo = cType.getSelectedItem().toString();
 
 //        Rechercher Article
         if (txtIdArticle.getText().equals("") && cType.getSelectedIndex() == -1) {
@@ -725,11 +620,11 @@ Remplir_le_tableau();
                     + "\n     - Type seulement."
                     + "\n     - Nom Article et Type.");
 
-        } else if ((combo.equalsIgnoreCase(pret)  || combo.equalsIgnoreCase(consomable)) 
+        } else if ((combo.equalsIgnoreCase(pret) || combo.equalsIgnoreCase(consomable))
                 && txtNomArticle.getText().equals("")) {
             try {
 
-                String sql = "SELECT id_a,Nom_a,Type_art, Quantite_a FROM article WHERE Type_art = '" 
+                String sql = "SELECT id_a,Nom_a,Type_art, Quantite_a FROM article WHERE Type_art = '"
                         + cType.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -753,39 +648,16 @@ Remplir_le_tableau();
             }
         }
     }
-    private void tArticleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tArticleMouseClicked
 
-//        Parcoure le tableau pour envoier les donner  à information Article panier
-        con = Connect.connect();
-        int row = tArticle.getSelectedRow();
-        String n;
-        n = tArticle.getModel().getValueAt(row, 0).toString();
-        try {
-            String sql = "SELECT id_a,Nom_a,Type_art, Quantite_a FROM article WHERE id_a = '" + n + "'";
-            pst = con.prepareStatement(sql);
-            rst = pst.executeQuery(sql);
-            if (rst.next()) {
-                String nom_a = rst.getString("Nom_a");
-                txtNomArticlePanier.setText(nom_a);
-                String id_a = rst.getString("id_a");
-                txtIdArticlePanier.setText(id_a);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_tArticleMouseClicked
-
-    
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
         Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
     private void bModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierActionPerformed
-             String Requete1 = "SELECT * FROM beneficie WHERE malade_id_m ='" + id_m
-                        + "' && article_id_a='" + txtIdArticlePanier.getText()
-                        + "' && heure_prise='" + time_actuele
-                        + "' && date_prise='" + ((JTextField)jDatePrise.getDateEditor().getUiComponent()).getText() + "'";
+        String Requete1 = "SELECT * FROM beneficie WHERE malade_id_m ='" + id_m
+                + "' && article_id_a='" + txtIdArticlePanier.getText()
+                + "' && heure_prise='" + time_actuele
+                + "' && date_prise='" + ((JTextField) jDatePrise.getDateEditor().getUiComponent()).getText() + "'";
 //                pst = con.prepareStatement(Requete1);
 //                rst = pst.executeQuery(Requete1);
 //                while (rst.next()) {
@@ -831,6 +703,29 @@ Remplir_le_tableau();
 //                }
     }//GEN-LAST:event_bModifierActionPerformed
 
+    private void tArticleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tArticleMouseClicked
+
+        //        Parcoure le tableau pour envoier les donner  à information Article panier
+        con = Connect.connect();
+        int row = tArticle.getSelectedRow();
+        String n;
+        n = tArticle.getModel().getValueAt(row, 0).toString();
+        try {
+            String sql = "SELECT id_a,Nom_a,Type_art, Quantite_a FROM article WHERE id_a = '" + n + "'";
+            pst = con.prepareStatement(sql);
+            rst = pst.executeQuery(sql);
+            if (rst.next()) {
+                String nom_a = rst.getString("Nom_a");
+                txtNomArticlePanier.setText(nom_a);
+                String id_a = rst.getString("id_a");
+                txtIdArticlePanier.setText(id_a);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_tArticleMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -873,7 +768,6 @@ Remplir_le_tableau();
     private javax.swing.JButton bModifier;
     private javax.swing.JButton bRechercherArticle;
     private javax.swing.JButton bRechercherMalade;
-    private javax.swing.JComboBox cAlphabet;
     private javax.swing.JComboBox cType;
     private com.toedter.calendar.JDateChooser jDatePrise;
     private javax.swing.JLabel jLabel1;

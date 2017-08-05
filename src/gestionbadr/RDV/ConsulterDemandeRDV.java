@@ -93,7 +93,6 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
         cEtatRDV = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        cAlphabet = new javax.swing.JComboBox();
         txtInt = new javax.swing.JTextField();
         txtId_p3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -130,14 +129,6 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
 
         jLabel10.setText("ID :");
 
-        cAlphabet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
-        cAlphabet.setSelectedIndex(-1);
-        cAlphabet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cAlphabetActionPerformed(evt);
-            }
-        });
-
         txtInt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntActionPerformed(evt);
@@ -153,9 +144,7 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cAlphabet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(66, 66, 66)
                         .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,13 +162,12 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel10)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cAlphabet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -240,21 +228,22 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
 
-        if (cEtatRDV.getSelectedIndex() == -1 && cAlphabet.getSelectedIndex() == -1
-                && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
+        if (cEtatRDV.getSelectedIndex() == -1 && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
                     + "\n     - L'Id Malade."
                     + "\n     - Etat de la demande."
                     + "\n     - L'Id Malade + Etat de la demande.");
 
         } else if (cEtatRDV.getSelectedIndex() == -1) {
+            String c = "/";
             DecimalFormat myFormatter = new DecimalFormat("0000");
             String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-            String id_m = cAlphabet.getSelectedItem() + output + output2;
+            
+            String id_m = output+ c + txtId_p3.getText();
             try {
                 con = Connect.connect();
-                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_m = '" + id_m + "'";
+                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
+                        + "INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE demande_de_rdv.id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -262,11 +251,11 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
-        } else if (cAlphabet.getSelectedIndex() == -1
-                && txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
+        } else if (txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
+                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
+                        + "INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tDemandeRDV.setModel(DbUtils.resultSetToTableModel(rst));
@@ -274,15 +263,17 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
-        } else if (!(cEtatRDV.getSelectedIndex() == -1) && !(cAlphabet.getSelectedIndex() == -1)
+        } else if (!(cEtatRDV.getSelectedIndex() == -1) 
                 && !(txtId_p3.getText().equals("")) && !(txtInt.getText().equals(""))) {
+            String c = "/";
             DecimalFormat myFormatter = new DecimalFormat("0000");
             String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-            String id_m = cAlphabet.getSelectedItem() + output + output2;
+            
+            String id_m = output + c  + txtId_p3.getText();
             try {
                 con = Connect.connect();
-                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
+                String sql = "SELECT datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
+                        + "INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
                         + "' AND id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -346,10 +337,6 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
         Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
-
-    private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed
-
-    }//GEN-LAST:event_cAlphabetActionPerformed
 
     private void txtIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntActionPerformed
         // TODO add your handling code here:
@@ -648,7 +635,6 @@ static Logger log = Logger.getLogger(ConsulterDemandeRDV.class.getName());
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel;
     private javax.swing.JButton bRechercher;
-    private javax.swing.JComboBox cAlphabet;
     private javax.swing.JComboBox cEtatRDV;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;

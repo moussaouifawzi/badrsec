@@ -237,7 +237,7 @@ public class RDV extends javax.swing.JFrame {
                         if (k == true) {
                             //                    //                     si la date est prise afficher ERREUR
                             t = true;
-                            System.out.println("Rouge");
+                            //  System.out.println("Rouge");
                             c.setBackground(Color.RED);
                             c.setForeground(Color.WHITE);
                             //                    //                    JOptionPane.showMessageDialog(null, "c'est une date prise");
@@ -304,7 +304,6 @@ public class RDV extends javax.swing.JFrame {
     jLabel4 = new javax.swing.JLabel();
     txtAdress = new javax.swing.JTextField();
     txtInt = new javax.swing.JTextField();
-    cAlphabet = new javax.swing.JComboBox();
     jLabel10 = new javax.swing.JLabel();
     jLabel1 = new javax.swing.JLabel();
     txtNom = new javax.swing.JTextField();
@@ -803,14 +802,6 @@ public class RDV extends javax.swing.JFrame {
         }
     });
 
-    cAlphabet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
-    cAlphabet.setSelectedIndex(-1);
-    cAlphabet.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            cAlphabetActionPerformed(evt);
-        }
-    });
-
     jLabel10.setText("ID :");
 
     jLabel1.setText("Nom :");
@@ -869,9 +860,7 @@ public class RDV extends javax.swing.JFrame {
                                 .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cAlphabet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGap(66, 66, 66)
                             .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -912,7 +901,6 @@ public class RDV extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cAlphabet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bResetID)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -986,28 +974,23 @@ public class RDV extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed
-
-
-    }//GEN-LAST:event_cAlphabetActionPerformed
-
     private void txtIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIntActionPerformed
 
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
 
-        if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                || cAlphabet.getSelectedIndex() == -1 || txtId_p3.getText().equals("") || txtInt.getText().equals("")
+        if ( txtId_p3.getText().equals("") && txtInt.getText().equals("")
+                ||  txtId_p3.getText().equals("") || txtInt.getText().equals("")
                 || txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                || cAlphabet.getSelectedIndex() == -1 && txtInt.getText().equals("")) {
+                ||txtInt.getText().equals("")) {
 //            si aucun malade n'est choisit
             JOptionPane.showMessageDialog(null, "Il faut choisir un Malade");
         } else {
+            String c = "/";
             DecimalFormat myFormatter = new DecimalFormat("0000");
             String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-            id_m = cAlphabet.getSelectedItem() + output + output2;
+            id_m = output + c + txtId_p3.getText();
 
             String sql = "Select id_m, prenom_m, nom_m, adr_m, num_tel_m from malade where id_m='" + id_m + "'";
             con = Connect.connect();
@@ -1090,10 +1073,10 @@ public class RDV extends javax.swing.JFrame {
     }
     private void bAjouterDemandeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterDemandeRDVActionPerformed
         date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
-        if (cAlphabet.getSelectedIndex() == -1 && txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                || cAlphabet.getSelectedIndex() == -1 || txtId_p3.getText().equals("") || txtInt.getText().equals("")
+        if ( txtId_p3.getText().equals("") && txtInt.getText().equals("")
+                ||  txtId_p3.getText().equals("") || txtInt.getText().equals("")
                 || txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                || cAlphabet.getSelectedIndex() == -1 && txtInt.getText().equals("")) {
+                || txtInt.getText().equals("")) {
 //            si aucun malade n'est choisit
             JOptionPane.showMessageDialog(null, "Il faut choisir un Malade");
         } else if (cEtatDemandeRDV.getSelectedIndex() == -1) {
@@ -1103,11 +1086,12 @@ public class RDV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La date est vide");
         } else {
 //            Ajouter la demande de RDV
+
+            String c = "/";
             String vEtatDemandeRDV = cEtatDemandeRDV.getSelectedItem().toString();
             DecimalFormat myFormatter = new DecimalFormat("0000");
             String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-            String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-            id_m = cAlphabet.getSelectedItem() + output + output2;
+            id_m = output + c + txtId_p3.getText();
             boolean b;
 
             con = Connect.connect();
@@ -1121,7 +1105,7 @@ public class RDV extends javax.swing.JFrame {
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Ok");
                 b = true;
-                System.out.println("b1 =" + b);
+                
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
@@ -1138,7 +1122,7 @@ public class RDV extends javax.swing.JFrame {
                     }
                 }
             }
-            System.out.println("b1 =" + b);
+           
 
             if (b == true && cEtatDemandeRDV.getSelectedItem().equals("Valider")) {
 //                Ouvrir l'onglet 2
@@ -1164,7 +1148,7 @@ public class RDV extends javax.swing.JFrame {
     private void Reset_Demande_RDV() {
 //        Vider les champs de la demande de rdv
 
-        cAlphabet.setSelectedIndex(-1);
+        
         txtAdress.setText("");
         txtId_p3.setText("");
         txtInt.setText("");
@@ -1210,7 +1194,7 @@ public class RDV extends javax.swing.JFrame {
         jTabbedPane1.setEnabledAt(2, false);
         jTabbedPane1.setEnabledAt(3, false);
 
-        cAlphabet.setEnabled(true);
+        
         txtId_p3.setEditable(true);
         txtInt.setEditable(true);
 
@@ -1232,11 +1216,12 @@ public class RDV extends javax.swing.JFrame {
         date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
         System.out.println("id demonde = " + id_demande_rdv);
 
+        String c = "/"; 
         DecimalFormat myFormatter = new DecimalFormat("0000");
         String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-        String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
-        id_m = cAlphabet.getSelectedItem() + output + output2;
-        System.out.println("id m " + id_m);
+        
+        id_m = output + c + txtId_p3.getText();
+        log.debug("id malade dans bModifier = " + id_m);
 
         if (cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
             JOptionPane.showMessageDialog(null, "Changer l'etat");
@@ -1585,6 +1570,8 @@ public class RDV extends javax.swing.JFrame {
     }
 
     private void bAjouterValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterValidationActionPerformed
+        log.trace("Debut bAjouterValidationActionPerformed");
+        
         boolean b = false;
         if (((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText().equals("")) {
             // Si les champs sont vides afficher un message d'erreur
@@ -1595,7 +1582,7 @@ public class RDV extends javax.swing.JFrame {
         } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
                 && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
             // Inserer la date de rdv pris si les 4 champs sont remplit
-            System.out.println("1");
+            log.debug("bAjouterValidationActionPerformed Condition 01");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
@@ -1632,7 +1619,8 @@ public class RDV extends javax.swing.JFrame {
         } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
             // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
-            System.out.println("2");
+            
+            log.debug("bAjouterValidationActionPerformed Condition 02");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
@@ -1668,7 +1656,7 @@ public class RDV extends javax.swing.JFrame {
                 && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque est remplie et l'examen est vide
-            System.out.println("3");
+            log.debug("bAjouterValidationActionPerformed Condition 03");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
@@ -1705,7 +1693,7 @@ public class RDV extends javax.swing.JFrame {
         } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
-            System.out.println("6");
+            log.debug("bAjouterValidationActionPerformed Condition 04");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
@@ -1740,11 +1728,18 @@ public class RDV extends javax.swing.JFrame {
                 && textRemarque.getText().equals("") && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque et l'examen sont vide
-            System.out.println("4");
+            log.debug("bAjouterValidationActionPerformed Condition 05");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
-
+ log.trace("les valeure avant l'ajout ");
+                log.debug("id date depot = " + id_date_depot 
+                        + " / id malade = +" + id_m 
+                        + "/ id convontion =" + id_conv 
+                + " / Etat de validation = " + cEtatValidation.getSelectedItem()
+                + " / id partenaire = " + id_p 
+                + " / date de validation = " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
+                
                 con = Connect.connect();
                 String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
                         + "convontion_id_conv, convontion_partenaire_id_p) values ('"
@@ -1774,7 +1769,7 @@ public class RDV extends javax.swing.JFrame {
         } else if (textRemarque.getText().equals("") && textExamen.getText().equals("")) {
             // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque et l'examen sont vide
-            System.out.println("5");
+            log.debug("bAjouterValidationActionPerformed Condition 06");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
@@ -1811,7 +1806,7 @@ public class RDV extends javax.swing.JFrame {
         } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
                 && textRemarque.getText().equals("") && !(textExamen.getText().equals(""))) {
             // Inserer la date de rdv pris si les 4 champs sont remplit
-            System.out.println("6");
+            log.debug("bAjouterValidationActionPerformed Condition 07");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
@@ -1850,6 +1845,8 @@ public class RDV extends javax.swing.JFrame {
             Reset_RDV_Pris();
             bannuler.setEnabled(true);
         }
+        
+        log.trace("Fin bAjouterValidationActionPerformed");
     }//GEN-LAST:event_bAjouterValidationActionPerformed
 
     private void bRechercherCotaParMoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherCotaParMoisActionPerformed
@@ -2082,7 +2079,7 @@ public class RDV extends javax.swing.JFrame {
         bRechercherDemandeRDV.setEnabled(false);
         bResetID.setEnabled(false);
 
-        cAlphabet.setEnabled(false);
+        
         txtId_p3.setEditable(false);
         txtInt.setEditable(false);
     }
@@ -2146,7 +2143,7 @@ public class RDV extends javax.swing.JFrame {
         txtNumTel.setText("");
         txtId_p3.setText("");
         txtInt.setText("");
-        cAlphabet.setSelectedIndex(-1);
+        
         bResetID.setEnabled(true);
     }//GEN-LAST:event_bResetIDActionPerformed
 
@@ -2323,7 +2320,6 @@ public class RDV extends javax.swing.JFrame {
     protected javax.swing.JButton bRechercherRDV;
     protected javax.swing.JButton bResetID;
     private javax.swing.JButton bannuler;
-    protected javax.swing.JComboBox cAlphabet;
     private javax.swing.JComboBox cConvontion;
     protected javax.swing.JComboBox cEtatDemandeRDV;
     protected javax.swing.JComboBox cEtatValidation;

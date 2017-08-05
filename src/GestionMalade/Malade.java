@@ -17,7 +17,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.apache.log4j.Logger;
@@ -41,6 +44,7 @@ public class Malade extends javax.swing.JFrame {
         cMaladie.setSelectedIndex(-1);
         bModifier.setEnabled(false);
         txtInt.setEditable(false);
+        txtId_p3.setEditable(false);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -75,6 +79,8 @@ public class Malade extends javax.swing.JFrame {
         cMaladie.setSelectedIndex(-1);
         this.id = id;
         bModifier.setEnabled(false);
+        txtInt.setEditable(false);
+        txtId_p3.setEditable(false);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
@@ -94,7 +100,6 @@ public class Malade extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cAlphabet = new javax.swing.JComboBox();
         txtInt = new javax.swing.JTextField();
         txtId_p3 = new javax.swing.JTextField();
         txtNom = new javax.swing.JTextField();
@@ -137,6 +142,8 @@ public class Malade extends javax.swing.JFrame {
         bPlusMaladie = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         cSexe = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -151,26 +158,6 @@ public class Malade extends javax.swing.JFrame {
         jLabel1.setText("ID :");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(90, 50, 30, 15);
-
-        cAlphabet.setBackground(new java.awt.Color(255, 255, 255));
-        cAlphabet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
-        cAlphabet.setSelectedIndex(-1);
-        cAlphabet.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                cAlphabetPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-        cAlphabet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cAlphabetActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cAlphabet);
-        cAlphabet.setBounds(130, 40, 50, 30);
 
         txtInt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,6 +363,19 @@ public class Malade extends javax.swing.JFrame {
         cSexe.setSelectedIndex(-1);
         jPanel1.add(cSexe);
         cSexe.setBounds(490, 470, 110, 26);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(480, 50, 77, 32);
+
+        jLabel25.setText("/");
+        jPanel1.add(jLabel25);
+        jLabel25.setBounds(270, 36, 30, 30);
         jPanel1.add(jLabel22);
         jLabel22.setBounds(-10, -10, 640, 570);
 
@@ -410,11 +410,11 @@ public class Malade extends javax.swing.JFrame {
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Adress");
         }
-        if (cAlphabet.getSelectedIndex() == -1) {
-            cAlphabet.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Alphabet");
-        }
+//        if (cAlphabet.getSelectedIndex() == -1) {
+//            cAlphabet.setBackground(Color.red);
+//            v = false;
+////            JOptionPane.showMessageDialog(null, "Enter Alphabet");
+//        }
         if (txtId_p3.getText().equals("")) {
             txtId_p3.setBackground(Color.red);
             v = false;
@@ -460,11 +460,11 @@ public class Malade extends javax.swing.JFrame {
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Ville");
         }
-        if (cAlphabet.getSelectedIndex() == -1) {
-            cAlphabet.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Alphabet");
-        }
+//        if (cAlphabet.getSelectedIndex() == -1) {
+//            cAlphabet.setBackground(Color.red);
+//            v = false;
+////            JOptionPane.showMessageDialog(null, "Enter Alphabet");
+//        }
         if (cEtatSocial.getSelectedIndex() == -1) {
             cEtatSocial.setBackground(Color.red);
             v = false;
@@ -495,10 +495,11 @@ public class Malade extends javax.swing.JFrame {
                 DecimalFormat myFormatter = new DecimalFormat("0000");
                 String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
                 String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+                String c = "/";
                 //2eme requete pour ajouter les donné à la table
                 String sql2 = "insert into malade (id_m, prenom_m, nom_m, adr_m,  ville_m,willaya_m , num_tel_m"
                         + ", tel_famille_m, Etat_social, Medecin_m, maladies_id_maladi1, date_n_m,sexe_m) values ('"
-                        + cAlphabet.getSelectedItem() + output + output2 + "','" + txtPrenom.getText()
+                        + output  + c + txtId_p3.getText()  + "','" + txtPrenom.getText() 
                         + "','" + txtNom.getText() + "','" + txtAdress.getText() + "','" + txtVille.getText()
                         + "','" + cWillaya.getSelectedItem() + "','" + txtNumTelMalade.getText()
                         + "','" + txtNumTelFamille.getText() + "','" + cEtatSocial.getSelectedItem() + "','"
@@ -547,8 +548,6 @@ public class Malade extends javax.swing.JFrame {
         int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
         if (txtAdress.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Adress");
-        } else if (cAlphabet.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Enter Alphabet");
         } else if (txtId_p3.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter id p3");
         } else if (txtInt.getText().equals("")) {
@@ -586,7 +585,7 @@ public class Malade extends javax.swing.JFrame {
                             + "',Medecin_m='" + txtMedecin.getText() + "',maladies_id_maladi1='" + id_maladi
                             + "',date_n_m='" + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
                             + "',sexe_m='" + cSexe.getSelectedItem()
-                            + "' WHERE id_m='" + cAlphabet.getSelectedItem() + output + output2 + "'";
+                            + "' WHERE id_m='" + output +"/" + txtId_p3.getText() + "'";
 
                     pst = con.prepareStatement(sql);
                     pst.execute();
@@ -594,7 +593,7 @@ public class Malade extends javax.swing.JFrame {
                     reset();
 
                     // rétablire l'interface pour un ajout éventuelle
-                    cAlphabet.setEnabled(true);
+                    
                     txtId_p3.setEditable(true);
                     txtInt.setEditable(false);
                     bAjouter.setEnabled(true);
@@ -611,10 +610,6 @@ public class Malade extends javax.swing.JFrame {
     private void txtIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIntActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIntActionPerformed
-
-    private void cAlphabetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAlphabetActionPerformed
-
-    }//GEN-LAST:event_cAlphabetActionPerformed
 
     private void txtId_p3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId_p3ActionPerformed
         // TODO add your handling code here:
@@ -661,38 +656,50 @@ public class Malade extends javax.swing.JFrame {
  log.trace("Fin");
     }//GEN-LAST:event_bPlusMaladieActionPerformed
 
-    private void cAlphabetPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cAlphabetPopupMenuWillBecomeInvisible
- log.trace("Debut");
-        //         rechercher le nbr de docier existant par dossier Alphabétique
-        String tableauCaractere[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "L", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"};
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Verification_de_date();
+        VerifierNbrMalade();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        for (int i = 0; i < tableauCaractere.length; i++) {
-
-            if (cAlphabet.getSelectedItem().equals(tableauCaractere[i])) {
-                //                              System.out.println("fefze");
-                con = Connect.connect();
-                String sql = "SELECT COUNT(*)  count FROM malade WHERE id_m LIKE '" + tableauCaractere[i] + "%'";
-                //                               System.out.println("efzef");
+    private  void VerifierNbrMalade() {
+        // Verifie le nbr de malade dans la base de donnée et Ajoute 1
+        
+        log.trace("Debut");
+        con = Connect.connect();
+                String sql = "SELECT COUNT(*) count FROM malade ";
+                
                 try {
                     pst = con.prepareStatement(sql);
-                    //                                        System.out.println("hghghgh");
+                    
                     ResultSet rec2 = pst.executeQuery(sql);
-                    //                                       System.out.println("hfhghgh");
+                    
                     rec2.next();
                     int nb = rec2.getInt("count");
                     String k = Integer.toString(nb + 1);
                     txtInt.setText(k);
+                    log.debug("le Nbr de malde = '" + k + "'");
+                    txtInt.setText(k);
 
-                    //                                       System.out.println("jfjfg,bombng");
+                   
                 } catch (SQLException e) {
                     System.err.println(e);
                     log.error(e);
                 }
-            }
-        }
- log.trace("Fin");
-    }//GEN-LAST:event_cAlphabetPopupMenuWillBecomeInvisible
+        log.trace("Fin");
+    }
+    
+    private void Verification_de_date(){
+        // Verifie si la date
+        DateFormat dateFormat = new SimpleDateFormat("yy");
+        Date date = new Date();
+        log.debug("la date (Date) = " + dateFormat.format(date)); 
+        
+        String reportDate = dateFormat.format(date);
+        log.debug("la date (String) = " + reportDate); 
+        
+        txtId_p3.setText(reportDate);
 
+    }
     /**
      * @param args the command line arguments
      */
@@ -729,7 +736,7 @@ public class Malade extends javax.swing.JFrame {
     }
 
     protected void reset() {
-        cAlphabet.setSelectedIndex(-1);
+        
         txtId_p3.setText("");
         txtInt.setText("");
         txtNom.setText("");
@@ -791,11 +798,11 @@ public class Malade extends javax.swing.JFrame {
     private javax.swing.JButton bPlusMaladie;
     private javax.swing.JButton bRechercher;
     private javax.swing.JButton bReset;
-    protected javax.swing.JComboBox cAlphabet;
     protected javax.swing.JComboBox cEtatSocial;
     protected javax.swing.JComboBox cMaladie;
     protected javax.swing.JComboBox cSexe;
     protected javax.swing.JComboBox cWillaya;
+    private javax.swing.JButton jButton1;
     protected com.toedter.calendar.JDateChooser jDateNaiMalade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -814,6 +821,7 @@ public class Malade extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

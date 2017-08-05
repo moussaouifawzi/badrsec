@@ -445,7 +445,7 @@
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tRDVchoix1MouseEntered"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public boolean isCellEditable (int d, int c){&#xa;        // Rendre les cellule non Editable&#xa;        return false;&#xa;    }&#xa;    public Component prepareRenderer(TableCellRenderer r, int rw,int col)&#xa;    {&#xa;        //        // Colorier les ligne du tableau&#xa;        Component c = super.prepareRenderer(r, rw, col);&#xa;        c.setBackground(Color.WHITE);&#xa;        c.setForeground(Color.BLACK);&#xa;        String nomJour = tRDVchoix1.getModel().getValueAt(rw, 0).toString();&#xa;&#xa;        if (nomJour.equals(&quot;vendredi&quot;)) { // Si Jour = Vendredi alors ERREUR&#xa;            c.setBackground(Color.RED);&#xa;            c.setForeground(Color.WHITE);&#xa;        }&#xa;        &#xa;                String date_tester = tRDVchoix1.getModel().getValueAt(rw, 1).toString();&#xa;boolean k = Verifier_date_rdv_colorier(date_tester);&#xa;        //        con = Connect.connect();&#xa;        //        String sql = &quot;select Etat_RDV,date_rdv from rdv where date_rdv =&apos;&quot; + date_tester + &quot;&apos;&quot;;&#xa;        //        try {&#xa;            //            pst = con.prepareStatement(sql);&#xa;            //            ResultSet rst1 = pst.executeQuery(sql);&#xa;&#xa;            //            while (rst1.next()) {&#xa;                //                // Compare la valeur selectioner avec la valeur rechercher dans la BDD&#xa;                //                String Etat_rdv_pris = rst1.getString(&quot;Etat_RDV&quot;);&#xa;                //                Date date_rdv_pris = rst1.getDate(&quot;date_rdv&quot;);&#xa;                //                DateFormat fd = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);&#xa;                //                String dateFormatee = fd.format(date_rdv_pris);&#xa;                //                System.out.println(Etat_rdv_pris + &quot; | date bd: &quot;+ dateFormatee + &quot; | date tableau: &quot;+ date_tester);&#xa;                if (k == true) {&#xa;                    //                    //                     si la date est prise afficher ERREUR&#xa;                    t = true;&#xa;                    System.out.println(&quot;Rouge&quot;);&#xa;                    c.setBackground(Color.RED);&#xa;                    c.setForeground(Color.WHITE);&#xa;                    //                    //                    JOptionPane.showMessageDialog(null, &quot;c&apos;est une date prise&quot;);&#xa;                }&#xa;                //else if ((((Etat_rdv_pris.equals(&quot;Pris&quot;) || Etat_rdv_pris.equals(&quot;En Attente&quot;)))&#xa;                    //                    &amp;&amp; (Etat_rdv_pris.equals(&quot;Annuler&quot;) || Etat_rdv_pris.equals(&quot;Reporter&quot;)))&#xa;                //                &amp;&amp; dateFormatee.equals(date_tester)) {&#xa;                //                //                     si la date est prise afficher ERREUR&#xa;                //                t = true;&#xa;                //                c.setBackground(Color.RED);&#xa;                //                c.setForeground(Color.WHITE);&#xa;                //            }&#xa;            //        }&#xa;        //        else {&#xa;            //            t = false;&#xa;            //            //        }&#xa;        //    } catch (SQLException | NumberFormatException e) {&#xa;        //        JOptionPane.showMessageDialog(null, e.getMessage());&#xa;        //    }finally{&#xa;        //        /*This block should be added to your code&#xa;        //        * You need to release the resources like connections&#xa;        //        */&#xa;        //        if(con!=null)&#xa;        //        try {&#xa;            //            con.close();&#xa;            //        } catch (SQLException ex) {&#xa;            //            Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);&#xa;            //        }&#xa;        //    }&#xa;    return c;&#xa;}&#xa;}"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public boolean isCellEditable (int d, int c){&#xa;        // Rendre les cellule non Editable&#xa;        return false;&#xa;    }&#xa;    public Component prepareRenderer(TableCellRenderer r, int rw,int col)&#xa;    {&#xa;        //        // Colorier les ligne du tableau&#xa;        Component c = super.prepareRenderer(r, rw, col);&#xa;        c.setBackground(Color.WHITE);&#xa;        c.setForeground(Color.BLACK);&#xa;        String nomJour = tRDVchoix1.getModel().getValueAt(rw, 0).toString();&#xa;&#xa;        if (nomJour.equals(&quot;vendredi&quot;)) { // Si Jour = Vendredi alors ERREUR&#xa;            c.setBackground(Color.RED);&#xa;            c.setForeground(Color.WHITE);&#xa;        }&#xa;&#xa;        String date_tester = tRDVchoix1.getModel().getValueAt(rw, 1).toString();&#xa;        boolean k = Verifier_date_rdv_colorier(date_tester);&#xa;        //        con = Connect.connect();&#xa;        //        String sql = &quot;select Etat_RDV,date_rdv from rdv where date_rdv =&apos;&quot; + date_tester + &quot;&apos;&quot;;&#xa;        //        try {&#xa;            //            pst = con.prepareStatement(sql);&#xa;            //            ResultSet rst1 = pst.executeQuery(sql);&#xa;&#xa;            //            while (rst1.next()) {&#xa;                //                // Compare la valeur selectioner avec la valeur rechercher dans la BDD&#xa;                //                String Etat_rdv_pris = rst1.getString(&quot;Etat_RDV&quot;);&#xa;                //                Date date_rdv_pris = rst1.getDate(&quot;date_rdv&quot;);&#xa;                //                DateFormat fd = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);&#xa;                //                String dateFormatee = fd.format(date_rdv_pris);&#xa;                //                System.out.println(Etat_rdv_pris + &quot; | date bd: &quot;+ dateFormatee + &quot; | date tableau: &quot;+ date_tester);&#xa;                if (k == true) {&#xa;                    //                    //                     si la date est prise afficher ERREUR&#xa;                    t = true;&#xa;                  //  System.out.println(&quot;Rouge&quot;);&#xa;                    c.setBackground(Color.RED);&#xa;                    c.setForeground(Color.WHITE);&#xa;                    //                    //                    JOptionPane.showMessageDialog(null, &quot;c&apos;est une date prise&quot;);&#xa;                }&#xa;                //else if ((((Etat_rdv_pris.equals(&quot;Pris&quot;) || Etat_rdv_pris.equals(&quot;En Attente&quot;)))&#xa;                    //                    &amp;&amp; (Etat_rdv_pris.equals(&quot;Annuler&quot;) || Etat_rdv_pris.equals(&quot;Reporter&quot;)))&#xa;                //                &amp;&amp; dateFormatee.equals(date_tester)) {&#xa;                //                //                     si la date est prise afficher ERREUR&#xa;                //                t = true;&#xa;                //                c.setBackground(Color.RED);&#xa;                //                c.setForeground(Color.WHITE);&#xa;                //            }&#xa;            //        }&#xa;        //        else {&#xa;            //            t = false;&#xa;            //            //        }&#xa;        //    } catch (SQLException | NumberFormatException e) {&#xa;        //        JOptionPane.showMessageDialog(null, e.getMessage());&#xa;        //    }finally{&#xa;        //        /*This block should be added to your code&#xa;        //        * You need to release the resources like connections&#xa;        //        */&#xa;        //        if(con!=null)&#xa;        //        try {&#xa;            //            con.close();&#xa;            //        } catch (SQLException ex) {&#xa;            //            Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);&#xa;            //        }&#xa;        //    }&#xa;    return c;&#xa;}&#xa;}"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -849,9 +849,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel10" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="cAlphabet" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                                   <Component id="txtInt" min="-2" pref="75" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtId_p3" min="-2" pref="70" max="-2" attributes="0"/>
@@ -906,7 +904,6 @@
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="txtId_p3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtInt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cAlphabet" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="bResetID" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -985,45 +982,6 @@
         <Component class="javax.swing.JTextField" name="txtInt">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIntActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cAlphabet">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="24">
-                <StringItem index="0" value="A"/>
-                <StringItem index="1" value="B"/>
-                <StringItem index="2" value="C"/>
-                <StringItem index="3" value="D"/>
-                <StringItem index="4" value="E"/>
-                <StringItem index="5" value="F"/>
-                <StringItem index="6" value="G"/>
-                <StringItem index="7" value="H"/>
-                <StringItem index="8" value="I"/>
-                <StringItem index="9" value="J"/>
-                <StringItem index="10" value="K"/>
-                <StringItem index="11" value="L"/>
-                <StringItem index="12" value="M"/>
-                <StringItem index="13" value="N"/>
-                <StringItem index="14" value="O"/>
-                <StringItem index="15" value="P"/>
-                <StringItem index="16" value="Q"/>
-                <StringItem index="17" value="R"/>
-                <StringItem index="18" value="S"/>
-                <StringItem index="19" value="T"/>
-                <StringItem index="20" value="U"/>
-                <StringItem index="21" value="V"/>
-                <StringItem index="22" value="W"/>
-                <StringItem index="23" value="Z"/>
-              </StringArray>
-            </Property>
-            <Property name="selectedIndex" type="int" value="-1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cAlphabetActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>

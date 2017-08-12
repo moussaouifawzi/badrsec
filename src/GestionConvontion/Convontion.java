@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
  * @author FAWZI
  */
 public class Convontion extends javax.swing.JFrame {
+
     static Logger log = Logger.getLogger(Convontion.class.getName());
     Connection con = null;
     PreparedStatement pst = null;
@@ -42,28 +43,28 @@ public class Convontion extends javax.swing.JFrame {
         cPartenaire.setSelectedIndex(-1);
         txtType.setVisible(false);
         bModifierPartenaire.setEnabled(false);
-        addWindowListener (new WindowAdapter(){
-			public void windowClosing (WindowEvent e){
-                            Cancel();
-			}
-		});
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
-    
+
     public Convontion(char id) {
         initComponents();
-        this.id=id;
+        this.id = id;
         Remplir_Combo_Partenaire();
         cPartenaire.setSelectedIndex(-1);
         txtType.setVisible(false);
         bModifierPartenaire.setEnabled(false);
-        addWindowListener (new WindowAdapter(){
-			public void windowClosing (WindowEvent e){
-                            Cancel();
-			}
-		});
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
     }
-    
-    private void Cancel(){
+
+    private void Cancel() {
         this.dispose();
         this.setVisible(false);
         if (b == true) {
@@ -104,6 +105,8 @@ public class Convontion extends javax.swing.JFrame {
         cEtatConvontion = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         txtType = new javax.swing.JTextField();
+        chSyntegraphie = new javax.swing.JCheckBox();
+        chEtc = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         bSavePartenaire = new javax.swing.JButton();
         bCancelPartenaire = new javax.swing.JButton();
@@ -159,43 +162,61 @@ public class Convontion extends javax.swing.JFrame {
         cInjection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gratuit", "Payant", "demi tarif" }));
         cInjection.setSelectedIndex(-1);
 
-        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche", " " }));
+        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche" }));
         cEtatConvontion.setSelectedIndex(-1);
 
         jLabel7.setText("Etat de la Convontion");
+
+        chSyntegraphie.setText("Syntegraphie");
+        chSyntegraphie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chSyntegraphieActionPerformed(evt);
+            }
+        });
+
+        chEtc.setText("Etc");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
-                        .addComponent(jLabel1))
-                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cInjection, 0, 116, Short.MAX_VALUE)
+                            .addComponent(cEtatConvontion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(cUnite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chIRM)
-                    .addComponent(chScaner)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cEtatConvontion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cInjection, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(chMamographie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(cPartenaire, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(58, 58, 58)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3)))
+                                .addComponent(jLabel1))
+                            .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chSyntegraphie)
+                            .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(cUnite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(chIRM)
+                            .addComponent(chScaner)
+                            .addComponent(chMamographie)
+                            .addComponent(cPartenaire, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chEtc))))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,19 +244,23 @@ public class Convontion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chScaner)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chMamographie)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(cInjection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cEtatConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
+                        .addComponent(chMamographie))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(chSyntegraphie)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chEtc)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cInjection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cEtatConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(29, 29, 29))
         );
 
         bSavePartenaire.setText("Save");
@@ -312,9 +337,9 @@ public class Convontion extends javax.swing.JFrame {
                         .addGap(86, 86, 86)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(19, 19, 19)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -336,7 +361,6 @@ public class Convontion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomConvontionActionPerformed
 
-    
     public Boolean getB() {
         return b;
     }
@@ -349,39 +373,94 @@ public class Convontion extends javax.swing.JFrame {
         txtNomConvontion.setText("");
         txtNombre.setText("");
         txtType.setText("");
-        
+
         cEtatConvontion.setSelectedIndex(-1);
         cInjection.setSelectedIndex(-1);
         cPartenaire.setSelectedIndex(-1);
         cUnite.setSelectedIndex(-1);
-        
+
         chIRM.setSelected(false);
         chMamographie.setSelected(false);
         chScaner.setSelected(false);
-           
+        chEtc.setSelected(false);
+        chSyntegraphie.setSelected(false);
+
     }
 
     private void bSavePartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSavePartenaireActionPerformed
+        log.trace("Debut bSavePartenaireActionPerformed");
+
         String r = "";
-        if (chIRM.isSelected() && chMamographie.isSelected() && chScaner.isSelected()) {
-            r = chIRM.getText() + "/" + chMamographie.getText() + "/" + chScaner.getText();
-        } else if (chIRM.isSelected() && chScaner.isSelected()) {
-            r = chIRM.getText() + "/" + chScaner.getText();
-        } else if (chMamographie.isSelected() && chScaner.isSelected()) {
-            r = chMamographie.getText() + "/" + chScaner.getText();
-        } else if (chIRM.isSelected() && chMamographie.isSelected()) {
-            r = chIRM.getText() + "/" + chMamographie.getText();
-        } else if (chIRM.isSelected()) {
-            r = chIRM.getText();
-        } else if (chMamographie.isSelected()) {
-            r = chMamographie.getText();
-        } else if (chScaner.isSelected()) {
-            r = chScaner.getText();
-        } else {
-            JOptionPane.showMessageDialog(null, "Il faut choisire le Type");
-        }
+
         Rechercher_id_Partenaire();
+        log.debug("type du partenaire 01 = " + type_p);
+        if (type_p.equals("Radiologue")) {
+
+            if (chIRM.isSelected() && chMamographie.isSelected() && chScaner.isSelected() && chEtc.isSelected() && chSyntegraphie.isSelected()) {
+//            Selectioner : IRM + MAMO + Scanner + Syntegraphie + etc
+
+                r = chIRM.getText() + "/" + chMamographie.getText() + "/" + chScaner.getText() + "/" + chSyntegraphie.getText() + "/" + chEtc.getText();
+
+            } else if (chIRM.isSelected() && chMamographie.isSelected() && chScaner.isSelected() && chEtc.isSelected()) {
+//            Selectioner : IRM + MAMO + Scanner + etc
+
+                r = chIRM.getText() + "/" + chMamographie.getText() + "/" + chScaner.getText() + "/" + chEtc.getText();
+
+            } else if (chIRM.isSelected() && chMamographie.isSelected() && chScaner.isSelected()) {
+//            Selectioner : IRM + MAMO + Scanner
+
+                r = chIRM.getText() + "/" + chMamographie.getText() + "/" + chScaner.getText();
+
+            } else if (chIRM.isSelected() && chScaner.isSelected()) {
+//            Selectioner : Irm + Scaner
+
+                r = chIRM.getText() + "/" + chScaner.getText();
+
+            } else if (chMamographie.isSelected() && chScaner.isSelected()) {
+//            Selectioner Mamo + Scaner
+
+                r = chMamographie.getText() + "/" + chScaner.getText();
+
+            } else if (chIRM.isSelected() && chMamographie.isSelected()) {
+//             Selectioner Irm + Mamo
+
+                r = chIRM.getText() + "/" + chMamographie.getText();
+
+            } else if (chIRM.isSelected()) {
+//            Selectioner IRM
+
+                r = chIRM.getText();
+
+            } else if (chMamographie.isSelected()) {
+//            Mamo
+
+                r = chMamographie.getText();
+
+            } else if (chScaner.isSelected()) {
+//            Scanner
+
+                r = chScaner.getText();
+
+            } else if (chSyntegraphie.isSelected()) {
+//            Scanner
+
+                r = chSyntegraphie.getText();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Il faut choisir le Type");
+            }
+        }
+
+//            Apre les condition inserer le tout dans la BDD
+        // Selectioner : Medecin / Laboratoire
+        log.trace("Selectioner : Medecin / Laboratoire");
+
         con = Connect.connect();
+
+        log.debug(Integer.parseInt(txtNombre.getText()) + "','" + cUnite.getSelectedItem() + "','" + txtNomConvontion.getText()
+                + "','" + r + "','" + cInjection.getSelectedItem() + "','" + cEtatConvontion.getSelectedItem()
+                + "','" + id_p);
+
         try {
 
             String sql2 = "insert into  convontion (nbr_RDv, Unite, Nom_convontion, type_radiologie,"
@@ -398,7 +477,7 @@ public class Convontion extends javax.swing.JFrame {
             log.error("bSavePartenaireActionPerformed", e);
         }
 
-
+        log.trace("Fin bSavePartenaireActionPerformed");
     }//GEN-LAST:event_bSavePartenaireActionPerformed
 
     private void bCancelPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelPartenaireActionPerformed
@@ -406,10 +485,10 @@ public class Convontion extends javax.swing.JFrame {
     }//GEN-LAST:event_bCancelPartenaireActionPerformed
 
     private void bModifierPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifierPartenaireActionPerformed
-       
+
         int val = JOptionPane.showConfirmDialog(null, "Voulez vous modifier ?");
         String r = "";
-        
+
         if (chIRM.isSelected() && chMamographie.isSelected() && chScaner.isSelected()) {
             r = chIRM.getText() + "/" + chMamographie.getText() + "/" + chScaner.getText();
         } else if (chIRM.isSelected() && chScaner.isSelected()) {
@@ -466,11 +545,16 @@ public class Convontion extends javax.swing.JFrame {
             chIRM.setEnabled(false);
             chMamographie.setEnabled(false);
             chScaner.setEnabled(false);
+            chSyntegraphie.setEnabled(false);
+            chEtc.setEnabled(false);
             cInjection.setEnabled(false);
+
         } else {
             chIRM.setEnabled(true);
             chMamographie.setEnabled(true);
             chScaner.setEnabled(true);
+            chSyntegraphie.setEnabled(true);
+            chEtc.setEnabled(true);
             cInjection.setEnabled(true);
         }
     }//GEN-LAST:event_cPartenairePopupMenuWillBecomeInvisible
@@ -478,6 +562,10 @@ public class Convontion extends javax.swing.JFrame {
     private void cPartenaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cPartenaireActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cPartenaireActionPerformed
+
+    private void chSyntegraphieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chSyntegraphieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chSyntegraphieActionPerformed
 
     @SuppressWarnings("unchecked")
     private void Remplir_Combo_Partenaire() {
@@ -578,9 +666,11 @@ public class Convontion extends javax.swing.JFrame {
     protected javax.swing.JComboBox cInjection;
     protected javax.swing.JComboBox cPartenaire;
     protected javax.swing.JComboBox cUnite;
+    private javax.swing.JCheckBox chEtc;
     protected javax.swing.JCheckBox chIRM;
     protected javax.swing.JCheckBox chMamographie;
     protected javax.swing.JCheckBox chScaner;
+    private javax.swing.JCheckBox chSyntegraphie;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

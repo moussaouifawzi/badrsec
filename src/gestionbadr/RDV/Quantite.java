@@ -64,7 +64,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     int id_pp;
     int id_p;
     String nom_p;
-    char idAdmin; 
+    char id; 
     
     protected String id_m;
     //protected int id_demande_RDV;
@@ -75,32 +75,67 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     
     public Quantite() {
         
+        log.trace("Debut Quantite()");
         initComponents();
-        log.trace("Debut const Charger");
+        
         jTabbedPane1.setEnabledAt(1, false);
         Remplir_Combo_Type_Convontion();
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
-        log.trace("Fin const");
+        
+        log.trace("Fin Quantite()");
+    }
+    
+    private void Cancel(){
+        log.trace("Debut Cancel");
+         this.dispose();
+        this.setVisible(false);
+
+        log.debug("Cancel : id " + id);
+        
+        if (id == 'A') {
+            this.setVisible(false);
+            HomeAdministrateur h = new HomeAdministrateur(id);
+            h.setVisible(true);
+            log.trace("le caracter = a");
+        } else if (id == 'S') {
+            this.setVisible(false);
+
+            HomeSecretaire h = new HomeSecretaire(id);
+            h.setVisible(true);
+            log.trace("le caracter = s");
+        } else if (id == 'D') {
+            this.setVisible(false);
+            HomeDirecteur h = new HomeDirecteur(id);
+            h.setVisible(true);
+            log.trace("le caracter = d");
+        }
+        log.trace("Fin Cancel");
     }
     
     public Quantite(char id) {
         
+        log.trace("Debut Quantite(char id)");
+        
         initComponents();
-        log.trace("Debut const");
+        
         jTabbedPane1.setEnabledAt(1, false);
         Remplir_Combo_Type_Convontion();
-        log.debug("id Admin = " + idAdmin);
-        this.idAdmin = id;
+        
+        log.debug("Quantite(char id) : id Admin = " + id);
+        this.id = id;
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
-        log.trace("Fin const Charger");
+        
+        log.trace("Fin Quantite(char id)");
     }
 
     @SuppressWarnings("unchecked")
@@ -239,7 +274,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     txtNomConvontion = new javax.swing.JTextField();
     bCancel = new javax.swing.JButton();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setResizable(false);
 
     jLabel17.setText("Annee");
@@ -463,7 +498,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bCancel)
             .addContainerGap())
@@ -912,30 +947,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
         Cancel();
     }//GEN-LAST:event_bCancelActionPerformed
 
-    private void Cancel(){
-        log.trace("Debut");
-         this.dispose();
-        this.setVisible(false);
-
-        if (idAdmin == 'A') {
-            this.setVisible(false);
-            HomeAdministrateur h = new HomeAdministrateur(idAdmin);
-            h.setVisible(true);
-            log.trace("c a");
-        } else if (idAdmin == 'S') {
-            this.setVisible(false);
-
-            HomeSecretaire h = new HomeSecretaire(idAdmin);
-            h.setVisible(true);
-            log.trace("c s");
-        } else if (idAdmin == 'D') {
-            this.setVisible(false);
-            HomeDirecteur h = new HomeDirecteur(idAdmin);
-            h.setVisible(true);
-            log.trace("c d");
-        }
-        log.trace("Fin");
-    }
+    
     
     /**
      * @param args the command line arguments
@@ -985,7 +997,7 @@ static Logger log = Logger.getLogger(Quantite.class.getName());
     private javax.swing.JLabel jLabel9;
     private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    protected javax.swing.JTabbedPane jTabbedPane1;
     private com.toedter.calendar.JYearChooser jYearChooser1;
     private com.toedter.calendar.JYearChooser jYearChooser2;
     private javax.swing.JPanel pChoisirDate;

@@ -28,6 +28,7 @@ import java.util.Calendar;
 import static java.util.Calendar.*;
 
 import java.util.Date;
+import java.util.logging.Level;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -48,6 +49,7 @@ public class RDV extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rst = null;
     Statement st = null;
+    Convontion_Semaine n;
     ResultSet rs = null;
     String nom_convontion;
     String nbr_RDv;
@@ -56,6 +58,7 @@ public class RDV extends javax.swing.JFrame {
     int id_pp;
     int id_p;
     String nom_p;
+    boolean bb = false; // les methode utiliser en cas de TRUE sont que pour "SEMAINE"
     protected String id_m;
     //protected int id_demande_RDV;
     boolean t = false; // etat de la date si prise = true  "Verifier_date_rdv()"
@@ -980,10 +983,10 @@ public class RDV extends javax.swing.JFrame {
 
     private void bRechercherMaladeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherMaladeActionPerformed
 
-        if ( txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                ||  txtId_p3.getText().equals("") || txtInt.getText().equals("")
+        if (txtId_p3.getText().equals("") && txtInt.getText().equals("")
+                || txtId_p3.getText().equals("") || txtInt.getText().equals("")
                 || txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                ||txtInt.getText().equals("")) {
+                || txtInt.getText().equals("")) {
 //            si aucun malade n'est choisit
             JOptionPane.showMessageDialog(null, "Il faut choisir un Malade");
         } else {
@@ -1073,8 +1076,8 @@ public class RDV extends javax.swing.JFrame {
     }
     private void bAjouterDemandeRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterDemandeRDVActionPerformed
         date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
-        if ( txtId_p3.getText().equals("") && txtInt.getText().equals("")
-                ||  txtId_p3.getText().equals("") || txtInt.getText().equals("")
+        if (txtId_p3.getText().equals("") && txtInt.getText().equals("")
+                || txtId_p3.getText().equals("") || txtInt.getText().equals("")
                 || txtId_p3.getText().equals("") && txtInt.getText().equals("")
                 || txtInt.getText().equals("")) {
 //            si aucun malade n'est choisit
@@ -1105,7 +1108,7 @@ public class RDV extends javax.swing.JFrame {
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Ok");
                 b = true;
-                
+
             } catch (NumberFormatException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
@@ -1122,7 +1125,6 @@ public class RDV extends javax.swing.JFrame {
                     }
                 }
             }
-           
 
             if (b == true && cEtatDemandeRDV.getSelectedItem().equals("Valider")) {
 //                Ouvrir l'onglet 2
@@ -1148,7 +1150,6 @@ public class RDV extends javax.swing.JFrame {
     private void Reset_Demande_RDV() {
 //        Vider les champs de la demande de rdv
 
-        
         txtAdress.setText("");
         txtId_p3.setText("");
         txtInt.setText("");
@@ -1194,12 +1195,12 @@ public class RDV extends javax.swing.JFrame {
         jTabbedPane1.setEnabledAt(2, false);
         jTabbedPane1.setEnabledAt(3, false);
 
-        
         txtId_p3.setEditable(true);
         txtInt.setEditable(true);
 
         textExamen.setText("");
         textRemarque.setText("");
+
     }
 
     private void Vider_Tableau_Convontion() {
@@ -1216,10 +1217,10 @@ public class RDV extends javax.swing.JFrame {
         date_depot = ((JTextField) jDateDepot.getDateEditor().getUiComponent()).getText();
         System.out.println("id demonde = " + id_demande_rdv);
 
-        String c = "/"; 
+        String c = "/";
         DecimalFormat myFormatter = new DecimalFormat("0000");
         String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-        
+
         id_m = output + c + txtId_p3.getText();
         log.debug("id malade dans bModifier = " + id_m);
 
@@ -1282,8 +1283,10 @@ public class RDV extends javax.swing.JFrame {
 
         int quantite_par_unite; // la quantite des RDV restant par Unite
         String Unite[] = {"Mois", "Semaine", "Jours"}; // Tableau des Nom d'unite
+
         DecimalFormat myFormatter = new DecimalFormat("00");
         int MoisAnnee[] = {JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER};
+
         DefaultTableModel md = new DefaultTableModel();
         md.setColumnIdentifiers(new String[]{"Mois", "Annee", "Quantite"});
 
@@ -1571,7 +1574,7 @@ public class RDV extends javax.swing.JFrame {
 
     private void bAjouterValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterValidationActionPerformed
         log.trace("Debut bAjouterValidationActionPerformed");
-        
+
         boolean b = false;
         if (((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText().equals("")) {
             // Si les champs sont vides afficher un message d'erreur
@@ -1619,7 +1622,7 @@ public class RDV extends javax.swing.JFrame {
         } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
                 && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
             // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
-            
+
             log.debug("bAjouterValidationActionPerformed Condition 02");
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
@@ -1732,14 +1735,14 @@ public class RDV extends javax.swing.JFrame {
             try {
                 Rechercher_id_Demande_RDV(); // id_m et id_date_depot
                 Rechercher_Unite_Convontion(); // id_p et id_c
- log.trace("les valeure avant l'ajout ");
-                log.debug("id date depot = " + id_date_depot 
-                        + " / id malade = +" + id_m 
-                        + "/ id convontion =" + id_conv 
-                + " / Etat de validation = " + cEtatValidation.getSelectedItem()
-                + " / id partenaire = " + id_p 
-                + " / date de validation = " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
-                
+                log.trace("les valeure avant l'ajout ");
+                log.debug("id date depot = " + id_date_depot
+                        + " / id malade = +" + id_m
+                        + "/ id convontion =" + id_conv
+                        + " / Etat de validation = " + cEtatValidation.getSelectedItem()
+                        + " / id partenaire = " + id_p
+                        + " / date de validation = " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
+
                 con = Connect.connect();
                 String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
                         + "convontion_id_conv, convontion_partenaire_id_p) values ('"
@@ -1845,7 +1848,7 @@ public class RDV extends javax.swing.JFrame {
             Reset_RDV_Pris();
             bannuler.setEnabled(true);
         }
-        
+
         log.trace("Fin bAjouterValidationActionPerformed");
     }//GEN-LAST:event_bAjouterValidationActionPerformed
 
@@ -1927,9 +1930,8 @@ public class RDV extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_tRDVchoix1MouseClicked
-
     private void bRechercherCotaParAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherCotaParAnsActionPerformed
-
+        n = new Convontion_Semaine();
         if (cConvontion.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "La Convontion est vide");
         } else {
@@ -1937,48 +1939,144 @@ public class RDV extends javax.swing.JFrame {
             Rechercher_Unite_Convontion();
             afficher_le_Mois_dune_anne();
         }
+        if ("semaine".equals(unite_c)) {
+
+            int k = 0;
+            try {
+
+                for (k = 0; k < 12; k++) {
+                    n.afficher_la_date_dun_mois_ameliorer(k);
+                }
+                n.Calculer_sam_dim_annee();
+                Afficher_la_liste_des_semaines();
+                bb = true;
+            } catch (ParseException ex) {
+                java.util.logging.Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_bRechercherCotaParAnsActionPerformed
+
+    ////////////////////////////////////////
+    public void Afficher_la_liste_des_semaines() {
+//              Ajouter et Afficher l'ordre de la semaine au tableau
+
+        if (log.isTraceEnabled()) {
+            log.trace("Debut Afficher_la_liste_des_semaines");
+        }
+
+        int m = 0;
+        int a = 0;
+
+        DefaultTableModel md = new DefaultTableModel();
+        md.setColumnIdentifiers(new String[]{"Numéro Semaine", "Dimanche", "Samedi"});
+
+        log.debug("Taille Dimanche = " + n.aDimanche.size());
+        log.debug("Taille Samedi = " + n.aSamedi.size());
+
+        for (int l = 0; l < n.aDimanche.size(); l++) {
+//            afficher la liste des semaines (debut et fin)
+            a = a + 1;
+            md.addRow(new Object[]{a, n.aDimanche.get(l), n.aSamedi.get(l)});  // Ajouter les variables à la ligne du tableau
+            System.out.println("");
+            log.debug(a + " le 1er dimanche = " + n.aDimanche.get(l) + "le 1er aSamedi = " + n.aSamedi.get(l));
+        }
+
+        tConvontion.setModel(md);
+
+        if (log.isTraceEnabled()) {
+            log.trace("Fin Afficher_la_liste_des_semaines");
+        }
+    }
+    ///////////////////////////////////////
 
     private void tConvontionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tConvontionMouseClicked
         boolean b = false;
-        int row = tConvontion.getSelectedRow();
-        String Mois = tConvontion.getModel().getValueAt(row, 0).toString();
-        String Annee = tConvontion.getModel().getValueAt(row, 1).toString();
-        String quantite_rdv = tConvontion.getModel().getValueAt(row, 2).toString();
-        jYearChooser1.setYear(Integer.parseInt(Annee));
-        int Month = Integer.parseInt(Mois) - 1;
-        jMonthChooser1.setMonth(Month);
+        if (bb == true) {
+//            pour "Semaine"
+            
+            log.trace("Debut tRDVchoix1MouseClicked");
 
-        if (Integer.parseInt(quantite_rdv) == 0) {  // Si quantite de RDV = 0 alors ERREUR
-            JOptionPane.showMessageDialog(null, "Erreur: La Quantite est = 0. ");
-        } else {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            int row = tConvontion.getSelectedRow();
+            String vDimanche = tConvontion.getModel().getValueAt(row, 1).toString();
+            String vSamedi = tConvontion.getModel().getValueAt(row, 2).toString();
+            log.debug("Dimanche = " + vDimanche + " / Samedi = " + vSamedi);
+
+            Remplir_detail_date_tableau n = new Remplir_detail_date_tableau(vSamedi, vDimanche);
+
+            ArrayList z;
+            z = n.getArJour();  // récuperer les valeurs de la liste 
             try {
-                afficher_la_date_dun_mois();
+                Afficher_details_semaine(z);
                 b = true;
             } catch (ParseException ex) {
-                log.error(ex);
-            } finally {
-                /*This block should be added to your code
+                Logger.getLogger(NewJFrame1.class.getName()).log(null, ex);
+            }
+
+            log.trace("Fin tRDVchoix1MouseClicked");
+
+           
+        } else {
+            //            pour "Jours" et "Mois"
+            log.trace("Debut tRDVchoix1MouseClicked else");
+            int row = tConvontion.getSelectedRow();
+            String Mois = tConvontion.getModel().getValueAt(row, 0).toString();
+            String Annee = tConvontion.getModel().getValueAt(row, 1).toString();
+            String quantite_rdv = tConvontion.getModel().getValueAt(row, 2).toString();
+            jYearChooser1.setYear(Integer.parseInt(Annee));
+            int Month = Integer.parseInt(Mois) - 1;
+            jMonthChooser1.setMonth(Month);
+
+            if (Integer.parseInt(quantite_rdv) == 0) {  // Si quantite de RDV = 0 alors ERREUR
+                JOptionPane.showMessageDialog(null, "Erreur: La Quantite est = 0. ");
+            } else {
+                try {
+                    afficher_la_date_dun_mois();
+                    b = true;
+                } catch (ParseException ex) {
+                    log.error(ex);
+                } finally {
+                    /*This block should be added to your code
                  * You need to release the resources like connections
-                 */
-                if (con != null) {
-                    try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
+                     */
+                    if (con != null) {
+                        try {
+                            con.close();
+                        } catch (SQLException ex) {
+                            log.error(ex);
+                        }
                     }
                 }
             }
         }
-
-        if (b == true) { // Debloquer les autres anglets
-            jTabbedPane1.setEnabledAt(2, true);
-            jTabbedPane1.setSelectedIndex(2);
-        }
+         if (b == true) { // Debloquer les autres anglets
+                jTabbedPane1.setEnabledAt(2, true);
+                jTabbedPane1.setSelectedIndex(2);
+            }
 //        else {
 //            JOptionPane.showMessageDialog(null, "Erreur");
 //        }
     }//GEN-LAST:event_tConvontionMouseClicked
+
+    public void Afficher_details_semaine(ArrayList q) throws ParseException {
+//              Ajouter et Afficher l'ordre de la semaine au tableau pour "Semaine"
+
+        DefaultTableModel md = new DefaultTableModel();
+        md.setColumnIdentifiers(new String[]{"Nom", "Jours"});
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (int l = 0; l < q.size(); l++) {
+//            afficher la liste des semaines (debut et fin)
+
+            String n = (String) q.get(l);
+
+            Date dateValidation = formatter.parse(n);
+            md.addRow(new Object[]{new SimpleDateFormat("EEEE").format(dateValidation), q.get(l)});  // Ajouter les variables à la ligne du tableau
+        }
+
+        tRDVchoix1.setModel(md);
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
@@ -2079,7 +2177,6 @@ public class RDV extends javax.swing.JFrame {
         bRechercherDemandeRDV.setEnabled(false);
         bResetID.setEnabled(false);
 
-        
         txtId_p3.setEditable(false);
         txtInt.setEditable(false);
     }
@@ -2143,7 +2240,7 @@ public class RDV extends javax.swing.JFrame {
         txtNumTel.setText("");
         txtId_p3.setText("");
         txtInt.setText("");
-        
+
         bResetID.setEnabled(true);
     }//GEN-LAST:event_bResetIDActionPerformed
 
@@ -2351,7 +2448,7 @@ public class RDV extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     protected javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
+    protected com.toedter.calendar.JYearChooser jYearChooser1;
     private com.toedter.calendar.JYearChooser jYearChooser2;
     private javax.swing.JPanel pChoisirDate;
     private javax.swing.JPanel pChoisirRDV;
@@ -2359,9 +2456,9 @@ public class RDV extends javax.swing.JFrame {
     private javax.swing.JPanel pExamen;
     private javax.swing.JPanel pRemarque;
     private javax.swing.JPanel pValidationRDV;
-    private javax.swing.JTable tConvontion;
+    protected javax.swing.JTable tConvontion;
     private javax.swing.JScrollPane tDateParConvontion;
-    private javax.swing.JTable tRDVchoix1;
+    protected javax.swing.JTable tRDVchoix1;
     protected javax.swing.JTextArea textExamen;
     protected javax.swing.JTextArea textRemarque;
     protected javax.swing.JTextField txtAdress;

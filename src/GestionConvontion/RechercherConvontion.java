@@ -110,7 +110,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
 
         jLabel7.setText("Etat de la Convontion");
 
-        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche", " " }));
+        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche" }));
         cEtatConvontion.setSelectedIndex(-1);
 
         jLabel4.setText("Unite");
@@ -203,6 +203,8 @@ public class RechercherConvontion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
+        log.trace("Debut bRechercherActionPerformed");
+        
         if (cEtatConvontion.getSelectedIndex() == -1 && cUnite.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
                     + "\n     - L'unite."
@@ -210,9 +212,16 @@ public class RechercherConvontion extends javax.swing.JFrame {
                     + "\n     - L'unite + Etat de la convontion.");
 
         } else if (cEtatConvontion.getSelectedIndex() == -1) {
+            // Selection : Mois
+            log.trace("Condition : Selection : Mois");
+            
+            log.debug("Cunite = " + cUnite.getSelectedItem().toString());
             try {
                 con = Connect.connect();
-                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '" + cUnite.getSelectedItem().toString() + "'";
+                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, "
+                        + "etat_c FROM convontion "
+                        + "INNER JOIN partenaire ON partenaire_id_p = id_p "
+                        + "WHERE unite ='" + cUnite.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -220,10 +229,18 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error("bRechercherActionPerformed : ", e);
             }
+            
         } else if (cUnite.getSelectedIndex() == -1) {
+            // Selection : Etat
+            log.trace("Condition : Selection : Etat");
+            
+            log.debug("etat_c = " + cEtatConvontion.getSelectedItem());
             try {
                 con = Connect.connect();
-                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem() + "'";
+                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, "
+                        + "etat_c FROM convontion "
+                        + "INNER JOIN partenaire ON partenaire_id_p = id_p "
+                        + "WHERE  etat_c='" + cEtatConvontion.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -231,11 +248,19 @@ public class RechercherConvontion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error("bRechercherActionPerformed : ", e);
             }
+            
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
+            // Selection : Mois + Etat
+            log.trace("Condition : Selection : Mois + Etat");
+            
+            log.debug("etat_c =" + cEtatConvontion.getSelectedItem() + "' AND unite = '" + cUnite.getSelectedItem() );
             try {
                 con = Connect.connect();
-                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem()
-                        + "' AND unite = '" + cUnite.getSelectedItem() + "'";
+                String sql = "SELECT id_conv,nom_convontion,partenaire_id_p, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, "
+                        + "etat_c FROM convontion "
+                        + "INNER JOIN partenaire ON partenaire_id_p = id_p "
+                        + "WHERE etat_c='" + cEtatConvontion.getSelectedItem()
+                        + "' AND unite ='" + cUnite.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -245,6 +270,7 @@ public class RechercherConvontion extends javax.swing.JFrame {
             }
         }
 
+        log.trace("Fin bRechercherActionPerformed");
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void tConvontionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tConvontionMouseClicked
@@ -255,7 +281,10 @@ public class RechercherConvontion extends javax.swing.JFrame {
         n = tConvontion.getModel().getValueAt(row, 0).toString();
 
         try {
-            String sql = "SELECT id_conv, partenaire_id_p, nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE id_conv = '" + n + "'";
+            String sql = "SELECT id_conv, partenaire_id_p, nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, "
+                    + "etat_c FROM convontion "
+                    + "INNER JOIN partenaire ON id_conv = id_p "
+                    + "WHERE id_conv = '" + n + "'";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
 

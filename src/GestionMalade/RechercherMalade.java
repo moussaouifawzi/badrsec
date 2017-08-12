@@ -299,6 +299,7 @@ public class RechercherMalade extends javax.swing.JFrame {
                 s.txtInt.setEditable(false);
                 s.bAjouter.setEnabled(false);
                 s.bModifier.setEnabled(true);
+                s.bNewID.setEnabled(false);
             }
             
         } catch (SQLException e) {

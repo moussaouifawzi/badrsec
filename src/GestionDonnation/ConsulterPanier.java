@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GestionDonnation;
+
 import gestionbadr.Connect;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -11,9 +12,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author FAWZI
@@ -23,11 +29,16 @@ public class ConsulterPanier extends javax.swing.JFrame {
     Connection con = null;
     Statement st = null;
     ResultSet rs = null;
+    List<article> listArticle;
     String s;
+     public String time_actuele;
     PreparedStatement pst = null;
     String row;
     ResultSet rst = null;
+    String id_m,date;
+    DefaultTableModel model;
     char id; // id de l'administrateur pour qu'il revoi au bon HOME
+
     /**
      * Creates new form AjouterPanier
      */
@@ -39,18 +50,32 @@ public class ConsulterPanier extends javax.swing.JFrame {
             }
         });
     }
-    
-     public ConsulterPanier(char id) {
+
+    public ConsulterPanier(char id) {
         initComponents();
-        this.id=id;
+        this.id = id;
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
     }
-    
-    private void Cancel(){
+
+    public ConsulterPanier(char id, List<article> list, String id_m,String date) {
+
+        initComponents();
+        this.id = id;
+        this.listArticle = list;
+        this.id_m = id_m;
+        this.date=date;
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Cancel();
+            }
+        });
+    }
+
+    private void Cancel() {
         this.dispose();
     }
 
@@ -64,33 +89,24 @@ public class ConsulterPanier extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tArticlePanier = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         txtIdMaladePanier = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         bRechercher = new javax.swing.JButton();
         bCancel = new javax.swing.JButton();
         txtDatePanier = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tArticlePanier = new javax.swing.JTable();
+        bValider = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Panier");
         setResizable(false);
-
-        tArticlePanier.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null}
-            },
-            new String [] {
-                "id_a", "Nom_a", "Type_art", "Quantite_a"
-            }
-        ));
-        tArticlePanier.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tArticlePanierMouseClicked(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
-        jScrollPane1.setViewportView(tArticlePanier);
 
         jLabel10.setText("ID :");
 
@@ -116,6 +132,31 @@ public class ConsulterPanier extends javax.swing.JFrame {
             }
         });
 
+        tArticlePanier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tArticlePanier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tArticlePanierMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tArticlePanier);
+
+        bValider.setText("Valider");
+        bValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bValiderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,14 +173,16 @@ public class ConsulterPanier extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDatePanier, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bRechercher))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGap(423, 423, 423)
+                        .addComponent(bValider)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bRechercher))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,30 +199,30 @@ public class ConsulterPanier extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bRechercher)
-                    .addComponent(bCancel))
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                    .addComponent(bCancel)
+                    .addComponent(bValider))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tArticlePanierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tArticlePanierMouseClicked
-
-        
-    }//GEN-LAST:event_tArticlePanierMouseClicked
 
     private void txtIdMaladePanierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMaladePanierActionPerformed
         // TODO add your handling code here:
@@ -188,25 +231,84 @@ public class ConsulterPanier extends javax.swing.JFrame {
     private void bRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherActionPerformed
         if (txtIdMaladePanier.getText().equals("") && txtDatePanier.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
-                + "\n     - Date de prise + ID Malade.");
+                    + "\n     - Date de prise + ID Malade.");
 
         } else {
-        try {
+            try {
                 con = Connect.connect();
-                String Requete1 = "SELECT * FROM beneficie WHERE malade_id_m ='" + txtIdMaladePanier.getText() 
+                String Requete1 = "SELECT * FROM beneficie WHERE malade_id_m ='" + txtIdMaladePanier.getText()
                         + "' && date_prise='" + txtDatePanier.getText() + "'";
                 pst = con.prepareStatement(Requete1);
                 rst = pst.executeQuery(Requete1);
                 tArticlePanier.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-            }}
+            }
+        }
     }//GEN-LAST:event_bRechercherActionPerformed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
         Cancel();
-       
+
     }//GEN-LAST:event_bCancelActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        model = new DefaultTableModel();
+        model.addColumn("id_artcile");
+        model.addColumn("nom_ art");
+        model.addColumn("date");
+        tArticlePanier.setModel(model);
+        afficher();
+
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tArticlePanierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tArticlePanierMouseClicked
+        int l = tArticlePanier.getSelectedRow();
+        System.out.println("55555555555 " + l);
+        listArticle.remove(l);
+//          model = new DefaultTableModel();
+        System.out.println(" liste articl " + listArticle);
+        model.removeRow(l);
+//        tArticlePanier.setModel(model);
+//        afficher();
+//        listArticle.remove(c);
+    }//GEN-LAST:event_tArticlePanierMouseClicked
+  private void Time_Actuelle() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        time_actuele = sdf.format(cal.getTime());
+        System.out.println(time_actuele);
+    }
+    private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
+        con = Connect.connect();
+        try {
+            for (article c : listArticle) {
+                String insert = "INSERT INTO beneficie (malade_id_m,article_id_a,Quantite_a_b,date_prise, heure_prise ) VALUES ('"
+                        + id_m + "','" + c.getId() + "','" + c.getQte()+ "','"+ date +"','"+ time_actuele + "')";
+
+                pst = con.prepareStatement(insert);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Insert Successfully");
+
+            }
+        } catch (Exception e) {
+            System.out.println(" wsd  " + e);
+        }
+
+
+    }//GEN-LAST:event_bValiderActionPerformed
+
+    public void afficher() {
+        for (article c : listArticle) {
+            Object[] obj = {c.getId(), c.getNom_a(), c.getQte()};
+            model.addRow(obj);
+
+        }
+
+        tArticlePanier.setModel(model);
+
+    }
 
     /**
      * @param args the command line arguments
@@ -240,7 +342,7 @@ public class ConsulterPanier extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ConsulterPanier().setVisible(true);
-                
+
             }
         });
     }
@@ -248,11 +350,12 @@ public class ConsulterPanier extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel;
     private javax.swing.JButton bRechercher;
+    private javax.swing.JButton bValider;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    protected javax.swing.JTable tArticlePanier;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tArticlePanier;
     protected javax.swing.JTextField txtDatePanier;
     protected javax.swing.JTextField txtIdMaladePanier;
     // End of variables declaration//GEN-END:variables

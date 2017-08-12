@@ -42,6 +42,7 @@ public class Malade extends javax.swing.JFrame {
         initComponents();
         Remplir_Combo_Maladie();
         cMaladie.setSelectedIndex(-1);
+        
         bModifier.setEnabled(false);
         txtInt.setEditable(false);
         txtId_p3.setEditable(false);
@@ -53,7 +54,9 @@ public class Malade extends javax.swing.JFrame {
     }
 
     private void Cancel() {
-        System.out.println(" id "+id);
+        log.trace("Debut Cancel");
+        
+        log.debug(" id "+id);
         this.dispose();
         this.setVisible(false);
 
@@ -71,6 +74,8 @@ public class Malade extends javax.swing.JFrame {
             HomeDirecteur h = new HomeDirecteur(id);
             h.setVisible(true);
         }
+        
+        log.trace("Fin Cancel");
     }
 
     public Malade(char id) {
@@ -143,6 +148,7 @@ public class Malade extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         cSexe = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
+        bNewID = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -371,6 +377,15 @@ public class Malade extends javax.swing.JFrame {
         jLabel25.setText("/");
         jPanel1.add(jLabel25);
         jLabel25.setBounds(270, 36, 30, 30);
+
+        bNewID.setText("New ID");
+        bNewID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bNewIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bNewID);
+        bNewID.setBounds(490, 100, 110, 32);
         jPanel1.add(jLabel22);
         jLabel22.setBounds(-10, -10, 640, 570);
 
@@ -420,21 +435,13 @@ public class Malade extends javax.swing.JFrame {
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Le numero du docier");
         }
-        if (txtMedecin.getText().equals("")) {
-            txtMedecin.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Medecin");
-        }
+        
         if (txtNom.getText().equals("")) {
             txtNom.setBackground(Color.red);
             v = false;
 //            JOptionPane.showMessageDialog(null, "Enter Nom");
         }
-        if (txtNumTelFamille.getText().equals("")) {
-            txtNumTelFamille.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter Num tel de famille");
-        }
+        
         if (txtNumTelMalade.getText().equals("")) {
             txtNumTelMalade.setBackground(Color.red);
             v = false;
@@ -460,11 +467,7 @@ public class Malade extends javax.swing.JFrame {
 //            v = false;
 ////            JOptionPane.showMessageDialog(null, "Enter Alphabet");
 //        }
-        if (cEtatSocial.getSelectedIndex() == -1) {
-            cEtatSocial.setBackground(Color.red);
-            v = false;
-//            JOptionPane.showMessageDialog(null, "Enter EtatSocial");
-        }
+       
         if (cWillaya.getSelectedIndex() == -1) {
             cWillaya.setBackground(Color.red);
             v = false;
@@ -547,20 +550,14 @@ public class Malade extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter id p3");
         } else if (txtInt.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Le numero du docier");
-        } else if (txtMedecin.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter Medecin");
         } else if (txtNom.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Nom");
-        } else if (txtNumTelFamille.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Enter Num tel de famille");
         } else if (txtNumTelMalade.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Num Tel du Malade");
         } else if (txtPrenom.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Prenom");
         } else if (txtVille.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Ville");
-        } else if (cEtatSocial.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Enter EtatSocial");
         } else if (((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText().equals("")) {
             JOptionPane.showMessageDialog(null, "enter la date de naissance");
         } else if (cWillaya.getSelectedIndex() == -1) {
@@ -572,7 +569,18 @@ public class Malade extends javax.swing.JFrame {
                     con = Connect.connect();
                     DecimalFormat myFormatter = new DecimalFormat("0000");
                     String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-                    String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+                    
+                    String c = "/";
+                    System.out.println("prenom_m='" + txtPrenom.getText()
+                            + "',nom_m='" + txtNom.getText() + "',adr_m='" + txtAdress.getText()
+                            + "',ville_m='" + txtVille.getText() + "',num_tel_m='" + txtNumTelMalade.getText()
+                            + "',tel_famille_m='" + txtNumTelFamille.getText() + "',Etat_social='" + cEtatSocial.getSelectedItem()
+                            + "',Medecin_m='" + txtMedecin.getText() + "',maladies_id_maladi1='" + id_maladi
+                            + "',date_n_m='" + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
+                            + "',sexe_m='" + cSexe.getSelectedItem()
+                            + "'id_m='" + output + c + txtId_p3.getText() + "'");
+                    
+                    
                     String sql = "update malade set prenom_m='" + txtPrenom.getText()
                             + "',nom_m='" + txtNom.getText() + "',adr_m='" + txtAdress.getText()
                             + "',ville_m='" + txtVille.getText() + "',num_tel_m='" + txtNumTelMalade.getText()
@@ -580,8 +588,16 @@ public class Malade extends javax.swing.JFrame {
                             + "',Medecin_m='" + txtMedecin.getText() + "',maladies_id_maladi1='" + id_maladi
                             + "',date_n_m='" + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
                             + "',sexe_m='" + cSexe.getSelectedItem()
-                            + "' WHERE id_m='" + output +"/" + txtId_p3.getText() + "'";
+                            + "' WHERE id_m='" + output + c + txtId_p3.getText() + "'";
 
+                    System.out.println("prenom_m='" + txtPrenom.getText()
+                            + "',nom_m='" + txtNom.getText() + "',adr_m='" + txtAdress.getText()
+                            + "',ville_m='" + txtVille.getText() + "',num_tel_m='" + txtNumTelMalade.getText()
+                            + "',tel_famille_m='" + txtNumTelFamille.getText() + "',Etat_social='" + cEtatSocial.getSelectedItem()
+                            + "',Medecin_m='" + txtMedecin.getText() + "',maladies_id_maladi1='" + id_maladi
+                            + "',date_n_m='" + ((JTextField) jDateNaiMalade.getDateEditor().getUiComponent()).getText()
+                            + "',sexe_m='" + cSexe.getSelectedItem()
+                            + "'id_m='" + output + c + txtId_p3.getText() + "'");
                     pst = con.prepareStatement(sql);
                     pst.execute();
                     JOptionPane.showMessageDialog(null, "Update Successfully");
@@ -652,9 +668,13 @@ public class Malade extends javax.swing.JFrame {
     }//GEN-LAST:event_bPlusMaladieActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       Verification_de_date();
-        VerifierNbrMalade();
+       
     }//GEN-LAST:event_formWindowOpened
+
+    private void bNewIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewIDActionPerformed
+        Verification_de_date();
+        VerifierNbrMalade();
+    }//GEN-LAST:event_bNewIDActionPerformed
 
     private  void VerifierNbrMalade() {
         // Verifie le nbr de malade dans la base de donnée et Ajoute 1
@@ -746,6 +766,10 @@ public class Malade extends javax.swing.JFrame {
         cEtatSocial.setSelectedIndex(-1);
         txtMedecin.setText("");
         cSexe.setSelectedIndex(-1);
+        
+        bModifier.setEnabled(false);
+        bNewID.setEnabled(true);
+        bAjouter.setEnabled(true);
     }
 
     private void Rechercher_id_Maladie() {
@@ -790,6 +814,7 @@ public class Malade extends javax.swing.JFrame {
     protected javax.swing.JButton bAjouter;
     private javax.swing.JButton bCancel2;
     protected javax.swing.JButton bModifier;
+    protected javax.swing.JButton bNewID;
     private javax.swing.JButton bPlusMaladie;
     private javax.swing.JButton bRechercher;
     private javax.swing.JButton bReset;

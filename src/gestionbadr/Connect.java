@@ -46,7 +46,7 @@ FileInputStream in;
 String url = prop.getProperty("db.database");
 String user = prop.getProperty("db.user");
 String password = prop.getProperty("db.password");
-        System.out.println(url + user + password);
+   
         
         
 //        try{
@@ -65,11 +65,11 @@ String password = prop.getProperty("db.password");
 //   }
 
 try{
-          System.out.println("slaut");
+          
         Class.forName("com.mysql.jdbc.Driver");
-         System.out.println("allé");
+         
         Connection con = DriverManager.getConnection(url, user, password);
-        System.out.println("hhhh");
+       
            //  JOptionPane.showMessageDialog(null, "connec");
                      return con;
 

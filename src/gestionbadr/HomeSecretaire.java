@@ -27,39 +27,44 @@ import org.apache.log4j.Logger;
  * @author FAWZI
  */
 public class HomeSecretaire extends javax.swing.JFrame {
-static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
+
+    static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
     ResultSet rs = null;
     Connection con = null;
     Statement st = null;
     char id;
-   
 
     public HomeSecretaire() {
         initComponents();
         bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
+        bAjouterBenevole.setEnabled(false);
+        bConsulterBenevole.setEnabled(false);
+        
         log.debug(id);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Cancel();
             }
         });
-        
+
     }
-    
-    private void Cancel(){
+
+    private void Cancel() {
         this.setVisible(false);
         Login h = new Login();
         h.setVisible(true);
     }
-    
-      public HomeSecretaire( char id) {
-           initComponents();
-          this.id=id;
-          
-          bConsulterHistoriqueDonnation.setEnabled(false);
+
+    public HomeSecretaire(char id) {
+        initComponents();
+        this.id = id;
+
+        bConsulterHistoriqueDonnation.setEnabled(false);
         bAjouterDonnation.setEnabled(false);
-       
+        bAjouterBenevole.setEnabled(false);
+        bConsulterBenevole.setEnabled(false);
+
     }
 
     /**
@@ -79,8 +84,8 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         bAjouterDonnation = new javax.swing.JButton();
         bConsulterHistoriqueDonnation = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        bAjouterMalade1 = new javax.swing.JButton();
-        bConsulterMalade1 = new javax.swing.JButton();
+        bAjouterBenevole = new javax.swing.JButton();
+        bConsulterBenevole = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         bAjouterRDV = new javax.swing.JButton();
         bConsulterRDVenAttente = new javax.swing.JButton();
@@ -150,23 +155,23 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Benevole"));
         jPanel6.setLayout(null);
 
-        bAjouterMalade1.setText("Ajouter");
-        bAjouterMalade1.addActionListener(new java.awt.event.ActionListener() {
+        bAjouterBenevole.setText("Ajouter");
+        bAjouterBenevole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAjouterMalade1ActionPerformed(evt);
+                bAjouterBenevoleActionPerformed(evt);
             }
         });
-        jPanel6.add(bAjouterMalade1);
-        bAjouterMalade1.setBounds(16, 36, 160, 40);
+        jPanel6.add(bAjouterBenevole);
+        bAjouterBenevole.setBounds(16, 36, 160, 40);
 
-        bConsulterMalade1.setText("Consulter");
-        bConsulterMalade1.addActionListener(new java.awt.event.ActionListener() {
+        bConsulterBenevole.setText("Consulter");
+        bConsulterBenevole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bConsulterMalade1ActionPerformed(evt);
+                bConsulterBenevoleActionPerformed(evt);
             }
         });
-        jPanel6.add(bConsulterMalade1);
-        bConsulterMalade1.setBounds(16, 86, 160, 40);
+        jPanel6.add(bConsulterBenevole);
+        bConsulterBenevole.setBounds(16, 86, 160, 40);
 
         jPanel1.add(jPanel6);
         jPanel6.setBounds(410, 120, 190, 150);
@@ -246,18 +251,18 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
 
     }//GEN-LAST:event_bAjouterDonnationActionPerformed
 
-    private void bAjouterMalade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterMalade1ActionPerformed
+    private void bAjouterBenevoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterBenevoleActionPerformed
         this.setVisible(false);
         Benevole s = new Benevole(id);
         s.setVisible(true);
-        
-    }//GEN-LAST:event_bAjouterMalade1ActionPerformed
 
-    private void bConsulterMalade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterMalade1ActionPerformed
+    }//GEN-LAST:event_bAjouterBenevoleActionPerformed
+
+    private void bConsulterBenevoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterBenevoleActionPerformed
         this.setVisible(false);
         ConsulterBenevole s = new ConsulterBenevole(id);
         s.setVisible(true);
-    }//GEN-LAST:event_bConsulterMalade1ActionPerformed
+    }//GEN-LAST:event_bConsulterBenevoleActionPerformed
 
     private void bConsulterHistoriqueDonnationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConsulterHistoriqueDonnationActionPerformed
         this.setVisible(false);
@@ -305,6 +310,7 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
 
     private void bQuantiteRdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bQuantiteRdvActionPerformed
         this.setVisible(false);
+        log.debug("la valeur de l'id dans le bouton Quantite : "+ id);
         Quantite s = new Quantite(id);
         s.setVisible(true);
     }//GEN-LAST:event_bQuantiteRdvActionPerformed
@@ -346,13 +352,13 @@ static Logger log = Logger.getLogger(HomeSecretaire.class.getName());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAjouterBenevole;
     private javax.swing.JButton bAjouterDonnation;
     private javax.swing.JButton bAjouterMalade;
-    private javax.swing.JButton bAjouterMalade1;
     private javax.swing.JButton bAjouterRDV;
+    private javax.swing.JButton bConsulterBenevole;
     private javax.swing.JButton bConsulterHistoriqueDonnation;
     private javax.swing.JButton bConsulterMalade;
-    private javax.swing.JButton bConsulterMalade1;
     private javax.swing.JButton bConsulterRDVenAttente;
     private javax.swing.JButton bConsulterRdv;
     private javax.swing.JButton bDeconnecter;

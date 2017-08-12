@@ -315,6 +315,7 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
+            
         } else if (cWillayaBenevole.getSelectedIndex() == -1 && txtPrenom.getText().equals("")) {
             try {
                 //1er requete pour identifier une erreur de redendence 
@@ -328,6 +329,7 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
+            
         } else if (txtNom.getText().equals("") && txtPrenom.getText().equals("")) {
             try {
                 //1er requete pour identifier une erreur de redendence 
@@ -341,6 +343,7 @@ static Logger log = Logger.getLogger(RechercherBenevole.class.getName());
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error("Erreur bRechercherMaladeActionPerformed : ", e);
             }
+            
         } else if (cWillayaBenevole.getSelectedIndex() == -1) {
             try {
                 //1er requete pour identifier une erreur de redendence 

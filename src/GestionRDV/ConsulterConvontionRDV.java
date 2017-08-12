@@ -100,7 +100,7 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
 
         jLabel7.setText("Etat de la Convontion");
 
-        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche", " " }));
+        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche" }));
         cEtatConvontion.setSelectedIndex(-1);
 
         jLabel4.setText("Unite");
@@ -113,7 +113,7 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(238, Short.MAX_VALUE)
+                .addContainerGap(580, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(cUnite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,10 +170,11 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bCancel))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(bCancel)
+                        .addGap(12, 12, 12)))
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -182,13 +183,13 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bCancel)
-                .addGap(200, 200, 200))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(853, 383));
+        setSize(new java.awt.Dimension(1195, 466));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -202,7 +203,7 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
         } else if ( cEtatConvontion.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON partenaire_id_p = id_p WHERE unite = '"+ cUnite.getSelectedItem().toString() +"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -213,7 +214,7 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
         } else if (cUnite.getSelectedIndex() == -1 ) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON partenaire_id_p = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()+"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -224,7 +225,7 @@ static Logger log = Logger.getLogger(ConsulterConvontionRDV.class.getName());
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON partenaire_id_p = id_p WHERE  etat_c='"+ cEtatConvontion.getSelectedItem()
                         +"' AND unite = '"+cUnite.getSelectedItem() +"'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);

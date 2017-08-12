@@ -54,7 +54,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
     private void Cancel( ){
         this.dispose();
         this.setVisible(false);
-        Malade s = new Malade(id);
+        RDV s = new RDV(id);
         s.setVisible(true);
     }
 
@@ -300,6 +300,12 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
                 s.txtInt.setEditable(false);
 //                s.bAjouter.setEnabled(false);
 //                s.bModifier.setEnabled(true);
+
+                s.bResetID.setEnabled(false);
+                s.bRechercherMalade.setEnabled(false);
+                s.bRechercherDemandeRDV.setEnabled(false);
+                s.bRechercherMaladeRDV.setEnabled(false);
+                s.bRechercherRDV.setEnabled(false);
             }
             
         } catch (SQLException e) {
@@ -325,7 +331,7 @@ public class RechercherMaladeRDV extends javax.swing.JFrame {
 
     }
     private void bCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancel2ActionPerformed
-        System.out.println(" kwd");
+        
         Cancel();
     }//GEN-LAST:event_bCancel2ActionPerformed
 

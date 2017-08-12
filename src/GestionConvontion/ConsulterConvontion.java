@@ -110,7 +110,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
 
         jLabel7.setText("Etat de la Convontion");
 
-        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche", " " }));
+        cEtatConvontion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Areter", "Marche" }));
         cEtatConvontion.setSelectedIndex(-1);
 
         jLabel4.setText("Unite");
@@ -212,7 +212,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
         } else if (cEtatConvontion.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE unite = '" + cUnite.getSelectedItem().toString() + "'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON partenaire_id_p = id_p WHERE unite = '" + cUnite.getSelectedItem().toString() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -223,7 +223,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
         } else if (cUnite.getSelectedIndex() == -1) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem() + "'";
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON partenaire_id_p = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tConvontion.setModel(DbUtils.resultSetToTableModel(rst));
@@ -234,7 +234,7 @@ public class ConsulterConvontion extends javax.swing.JFrame {
         } else if (!(cEtatConvontion.getSelectedIndex() == -1) && !(cUnite.getSelectedIndex() == -1)) {
             try {
                 con = Connect.connect();
-                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON id_conv = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem()
+                String sql = "SELECT nom_convontion, nom_p, type_p, nbr_rdv, unite, type_radiologie, injection, etat_c FROM convontion INNER JOIN partenaire ON partenaire_id_p = id_p WHERE  etat_c='" + cEtatConvontion.getSelectedItem()
                         + "' AND unite = '" + cUnite.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);

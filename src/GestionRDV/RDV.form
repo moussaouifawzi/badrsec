@@ -280,6 +280,9 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JYearChooser" name="jYearChooser2">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+              </AuxValues>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>

@@ -58,7 +58,9 @@ public class RDV extends javax.swing.JFrame {
     int id_pp;
     int id_p;
     String nom_p;
-    boolean bb = false; // les methode utiliser en cas de TRUE sont que pour "SEMAINE"
+    boolean bTypeSemaine = false; // les methode utiliser en cas de TRUE sont que pour "SEMAINE" e
+    // et evite une erreur lore du changement de la convontion sans choir une date
+
     protected String id_m;
     //protected int id_demande_RDV;
     boolean t = false; // etat de la date si prise = true  "Verifier_date_rdv()"
@@ -79,8 +81,13 @@ public class RDV extends javax.swing.JFrame {
     Integer[] tableau_resultat_rdv_mois_par_annee = new Integer[12]; // tableau des rdv restant par mois de l'année
     Integer[] tableau_Vendredi_mois_par_annee = new Integer[12]; // Tableau du nombres de Vendredi par mois de l'année
     Integer[] tableau_max_Day_mois_par_annee = new Integer[12]; // Tableau de Maximum de jour par mois de l'année
+    Integer[] tableau_resultat_rdv_par_semaine = new Integer[53]; // Tableau de Maximum de jour par semaine par annee
     char id;
+    String vNumSemaine = null;
 
+//    public String getvNumSemaine() {
+//        return vNumSemaine;
+//    }
     public RDV() {
         initComponents();
         Remplir_Combo_Type_Convontion();
@@ -1106,7 +1113,7 @@ public class RDV extends javax.swing.JFrame {
 
                 pst = con.prepareStatement(sql2);
                 pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
+
                 b = true;
 
             } catch (NumberFormatException | SQLException | HeadlessException e) {
@@ -1421,6 +1428,128 @@ public class RDV extends javax.swing.JFrame {
         }
     }
 
+    private void Calculer_les_RDv_Pris_Semaine() {
+        if (log.isTraceEnabled()) {
+            log.trace("Debut Calculer_les_RDv_Pris_Semaine");
+        }
+//      Cette methode Calcule les RDv Pris ou En ATTENTE Sur TOute l'année de toute les semaine 
+
+        int z = 0;
+        for (z = 0; z < tableau_resultat_rdv_par_semaine.length; z++) {
+//            initializer les valeurs du tableau afin que les valeur par default soient 0 et non "null"
+            tableau_resultat_rdv_par_semaine[z] = 0;
+        }
+
+        int i = 0;
+        Rechercher_Unite_Convontion();
+        DecimalFormat myFormatter = new DecimalFormat("00");
+        String sql = "select Etat_RDV,date_rdv, Num_semaine  from rdv where convontion_id_conv='" + id_conv + "'";
+        int yearChooser2 = jYearChooser2.getYear();
+//        for (int m = 1; m < 54; m++) { // calculer les rdv restant sur tout les mois le l'annee
+        if (log.isDebugEnabled()) {
+            log.debug("Debut Calculer_les_RDv_Pris_Semaine");
+        }
+
+        con = Connect.connect();
+
+        DecimalFormat myFormatter3 = new DecimalFormat("00");
+        try {
+            pst = con.prepareStatement(sql);
+            ResultSet rst1 = pst.executeQuery(sql);
+
+            while (rst1.next()) {
+                String Etat_rdv_pris = rst1.getString("Etat_RDV");
+                Date date_rdv_pris = rst1.getDate("date_rdv");
+                DateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
+                String dateFormatee = fd.format(date_rdv_pris);
+                String Mois = dateFormatee.substring(5, 7);
+                String Annee = dateFormatee.substring(0, 4);
+//                    String Month = myFormatter.format(m + 1);
+                String yearChooser2Formater = myFormatter.format(yearChooser2);
+
+                String Num_semaine = rst1.getString("Num_semaine");
+                System.out.println("");
+                log.debug("DataBase : Num_semaine = " + Num_semaine);
+
+                boolean bsortire_Boucle = false;
+
+                if (!(Num_semaine == "0")) {
+                    log.debug("Condition : !(Num_semaine == null)");
+//                    Si numero de la semaine est different de Null
+
+                    int iNumSemaine = Integer.parseInt(Num_semaine);
+                    int cmp = 0; // Compteur d'existance de la date 
+
+                    for (i = 0; i < 53; i++) {
+//                        verifier par rapport a toute les semaine d'une annee
+                        log.debug("Boucle : i = " + i);
+
+                        if (iNumSemaine == i) {
+                            log.debug("Condition i = le num de la semaine");
+//                            Si numero de la semaine = i
+
+                            if ((Etat_rdv_pris.equals("Pris") || Etat_rdv_pris.equals("En Attente"))
+                                    && Annee.equals(yearChooser2Formater)) {
+//                      Si l'etat du RDV = Pris ou En Attente et l'annee est la méme que dans le jYearChooser alors +1
+                                log.debug("Condition Pris/ En Attent & méme anné");
+
+                                if (tableau_resultat_rdv_par_semaine[i] == 0) {
+//                                    la date n'existe pas
+                                    log.debug("la date n'existe pas");
+                                    cmp++;
+                                    log.debug("Cmp = " + cmp);
+                                    tableau_resultat_rdv_par_semaine[i] = cmp;
+                                } else {
+//                                    la date existe 
+                                    log.debug("la date existe ");
+                                    int val_Tab_Sem = tableau_resultat_rdv_par_semaine[i]; // si la valeur existe la metre dans valTabSem
+                                    cmp = val_Tab_Sem + 1;
+                                    log.debug("Cmp = " + cmp);
+                                    tableau_resultat_rdv_par_semaine[i] = cmp;
+                                }
+
+                                bsortire_Boucle = true;
+                            }
+                        }
+
+                        if (bsortire_Boucle == true) {
+//                            Sortire de la boucle si on trouve l'élément
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            log.error(e);
+        } finally {
+            /*This block should be added to your code
+                 * You need to release the resources like connections
+             */
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    log.error(ex);
+                }
+            }
+        }
+//        }
+
+        System.out.println("");
+        log.debug("la taille : tableau_resultat_rdv_par_semaine = " + tableau_resultat_rdv_par_semaine.length);
+        System.out.println("");
+        log.debug("Afficher tableau_resultat_rdv_par_semaine");
+        for (i = 0; i < tableau_resultat_rdv_par_semaine.length; i++) {
+            log.debug("i : " + i + " = " + tableau_resultat_rdv_par_semaine[i]);
+        }
+
+        if (log.isTraceEnabled()) {
+            log.trace("Fin Calculer_les_RDv_Pris_Semaine");
+        }
+    }
+
     private void Verifier_daterdv() {
 //      Cette methode Verifie si la date de RDv a été Pris ou existe Sur TOute l'année
 
@@ -1573,283 +1702,564 @@ public class RDV extends javax.swing.JFrame {
     }
 
     private void bAjouterValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterValidationActionPerformed
-        log.trace("Debut bAjouterValidationActionPerformed");
+        log.trace("Debut bAjouterValidationActiodnPerformed");
+
+        log.debug("vSemaine = " + vNumSemaine);
+//        if(!(unite_c.equals("semaine"))){
+//            vNumSemaine = null;
+//        }
 
         boolean b = false;
         if (((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText().equals("")) {
             // Si les champs sont vides afficher un message d'erreur
             JOptionPane.showMessageDialog(null, "Rempliser la Date Valide du RDV et son l'etat");
 
-        } else if (cEtatValidation.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "l'etat du RDV n'a pas était choisit");
-        } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
-                && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
-            // Inserer la date de rdv pris si les 4 champs sont remplit
-            log.debug("bAjouterValidationActionPerformed Condition 01");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
-
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
-                        + " convontion_partenaire_id_p, Remarque, date_recuperation, examen) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "','" + textRemarque.getText() + "','"
-                        + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
-                        + "','" + textExamen.getText() + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
-                 * You need to release the resources like connections
-                 */
-                if (con != null) {
+        } else {
+            if (unite_c.equals("Semaine")) {
+                if (cEtatValidation.getSelectedIndex() == -1) {
+                    JOptionPane.showMessageDialog(null, "l'etat du RDV n'a pas était choisit");
+                } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                        && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
+                    // Inserer la date de rdv pris si les 4 champs sont remplit
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 01");
                     try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
-                    }
-                }
-            }
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
 
-        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
-                && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
-            // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
+                                + " convontion_partenaire_id_p, Remarque, date_recuperation, examen , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + textRemarque.getText() + "','"
+                                + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + textExamen.getText() + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
 
-            log.debug("bAjouterValidationActionPerformed Condition 02");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
-
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV,"
-                        + " convontion_id_conv, convontion_partenaire_id_p, "
-                        + "Remarque, examen) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "','" + textRemarque.getText()
-                        + "','" + textExamen.getText() + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
                  * You need to release the resources like connections
-                 */
-                if (con != null) {
-                    try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
                     }
-                }
-            }
-        } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
-                && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
-            // Inserer la date de rdv pris si la date de recuperation est Remplit 
+
+                } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+                        && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
+                    // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
+
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 02");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV,"
+                                + " convontion_id_conv, convontion_partenaire_id_p, "
+                                + "Remarque, examen , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + textRemarque.getText()
+                                + "','" + textExamen.getText() + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                        && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque est remplie et l'examen est vide
-            log.debug("bAjouterValidationActionPerformed Condition 03");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
-
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
-                        + "convontion_id_conv, convontion_partenaire_id_p, "
-                        + "date_recuperation, Remarque) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','"
-                        + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "','"
-                        + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
-                        + "','" + textRemarque.getText() + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
-                 * You need to release the resources like connections
-                 */
-                if (con != null) {
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 03");
                     try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
-                    }
-                }
-            }
-        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
-                && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
-            // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
-            log.debug("bAjouterValidationActionPerformed Condition 04");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
 
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV,"
-                        + " convontion_id_conv, convontion_partenaire_id_p, "
-                        + "Remarque) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "','" + textRemarque.getText() + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
+                                + "convontion_id_conv, convontion_partenaire_id_p, "
+                                + "date_recuperation, Remarque , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','"
+                                + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','"
+                                + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + textRemarque.getText() + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
                  * You need to release the resources like connections
-                 */
-                if (con != null) {
-                    try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
                     }
-                }
-            }
-        } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
-                && textRemarque.getText().equals("") && textExamen.getText().equals("")) {
-            // Inserer la date de rdv pris si la date de recuperation est Remplit 
+                } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+                        && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 04");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV,"
+                                + " convontion_id_conv, convontion_partenaire_id_p, "
+                                + "Remarque , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + textRemarque.getText() + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+                        && textRemarque.getText().equals("") && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque et l'examen sont vide
-            log.debug("bAjouterValidationActionPerformed Condition 05");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
-                log.trace("les valeure avant l'ajout ");
-                log.debug("id date depot = " + id_date_depot
-                        + " / id malade = +" + id_m
-                        + "/ id convontion =" + id_conv
-                        + " / Etat de validation = " + cEtatValidation.getSelectedItem()
-                        + " / id partenaire = " + id_p
-                        + " / date de validation = " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
-
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
-                        + "convontion_id_conv, convontion_partenaire_id_p) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','"
-                        + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
-                 * You need to release the resources like connections
-                 */
-                if (con != null) {
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 05");
                     try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+                        log.trace("les valeure avant l'ajout ");
+                        log.debug("id date depot = " + id_date_depot
+                                + " / id malade = +" + id_m
+                                + "/ id convontion =" + id_conv
+                                + " / Etat de validation = " + cEtatValidation.getSelectedItem()
+                                + " / id partenaire = " + id_p
+                                + " / date de validation = " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
+                                + "convontion_id_conv, convontion_partenaire_id_p , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','"
+                                + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
                     }
-                }
-            }
-        } else if (textRemarque.getText().equals("") && textExamen.getText().equals("")) {
-            // Inserer la date de rdv pris si la date de recuperation est Remplit 
+                } else if (textRemarque.getText().equals("") && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est Remplit 
 //            et la Remarque et l'examen sont vide
-            log.debug("bAjouterValidationActionPerformed Condition 06");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
-
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
-                        + "convontion_id_conv, convontion_partenaire_id_p, "
-                        + "date_recuperation) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','"
-                        + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "','"
-                        + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
-                        + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
-                 * You need to release the resources like connections
-                 */
-                if (con != null) {
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 06");
                     try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
-                    }
-                }
-            }
-        } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
-                && textRemarque.getText().equals("") && !(textExamen.getText().equals(""))) {
-            // Inserer la date de rdv pris si les 4 champs sont remplit
-            log.debug("bAjouterValidationActionPerformed Condition 07");
-            try {
-                Rechercher_id_Demande_RDV(); // id_m et id_date_depot
-                Rechercher_Unite_Convontion(); // id_p et id_c
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
 
-                con = Connect.connect();
-                String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
-                        + " convontion_partenaire_id_p,  date_recuperation, examen) values ('"
-                        + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
-                        + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
-                        + id_conv + "','" + id_p + "','" + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
-                        + "','" + textExamen.getText() + "')";
-                pst = con.prepareStatement(sql2);
-                pst.execute();
-                JOptionPane.showMessageDialog(null, "Ok");
-                b = true;
-
-            } catch (SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error(e);
-            } finally {
-                /*This block should be added to your code
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
+                                + "convontion_id_conv, convontion_partenaire_id_p, "
+                                + "date_recuperation , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','"
+                                + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','"
+                                + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
                  * You need to release the resources like connections
-                 */
-                if (con != null) {
-                    try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        log.error(ex);
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
                     }
+                } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                        && textRemarque.getText().equals("") && !(textExamen.getText().equals(""))) {
+                    // Inserer la date de rdv pris si les 4 champs sont remplit
+                    log.debug("bAjouterValidationActionPerformed Condition SEM 07");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
+                                + " convontion_partenaire_id_p,  date_recuperation, examen , Num_semaine) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + textExamen.getText() + "','" + vNumSemaine + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+
                 }
+
+                if (b == true) {
+                    Reset_RDV_Pris();
+                    bannuler.setEnabled(true);
+                }
+
+                log.trace("Fin bAjouterValidationActionPerformed");
+
+            } else {
+                if (cEtatValidation.getSelectedIndex() == -1) {
+                    JOptionPane.showMessageDialog(null, "l'etat du RDV n'a pas était choisit");
+                } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                        && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
+                    // Inserer la date de rdv pris si les 4 champs sont remplit
+                    log.debug("bAjouterValidationActionPerformed Condition 01");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
+                                + " convontion_partenaire_id_p, Remarque, date_recuperation, examen) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + textRemarque.getText() + "','"
+                                + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + textExamen.getText() + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+
+                } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+                        && !(textRemarque.getText().equals("")) && !(textExamen.getText().equals(""))) {
+                    // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
+
+                    log.debug("bAjouterValidationActionPerformed Condition 02");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV,"
+                                + " convontion_id_conv, convontion_partenaire_id_p, "
+                                + "Remarque, examen) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + textRemarque.getText()
+                                + "','" + textExamen.getText() + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                        && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est Remplit 
+//            et la Remarque est remplie et l'examen est vide
+                    log.debug("bAjouterValidationActionPerformed Condition 03");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
+                                + "convontion_id_conv, convontion_partenaire_id_p, "
+                                + "date_recuperation, Remarque) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','"
+                                + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','"
+                                + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + textRemarque.getText() + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+                        && !(textRemarque.getText().equals("")) && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est vide et la Remarque est Remplit
+                    log.debug("bAjouterValidationActionPerformed Condition 04");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV,"
+                                + " convontion_id_conv, convontion_partenaire_id_p, "
+                                + "Remarque) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + textRemarque.getText() + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals("")
+                        && textRemarque.getText().equals("") && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est Remplit 
+//            et la Remarque et l'examen sont vide
+                    log.debug("bAjouterValidationActionPerformed Condition 05");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+                        log.trace("les valeure avant l'ajout ");
+                        log.debug("id date depot = " + id_date_depot
+                                + " / id malade = +" + id_m
+                                + "/ id convontion =" + id_conv
+                                + " / Etat de validation = " + cEtatValidation.getSelectedItem()
+                                + " / id partenaire = " + id_p
+                                + " / date de validation = " + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText());
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
+                                + "convontion_id_conv, convontion_partenaire_id_p) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','"
+                                + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (textRemarque.getText().equals("") && textExamen.getText().equals("")) {
+                    // Inserer la date de rdv pris si la date de recuperation est Remplit 
+//            et la Remarque et l'examen sont vide
+                    log.debug("bAjouterValidationActionPerformed Condition 06");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, "
+                                + "convontion_id_conv, convontion_partenaire_id_p, "
+                                + "date_recuperation) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','"
+                                + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','"
+                                + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+                } else if (!(((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText().equals(""))
+                        && textRemarque.getText().equals("") && !(textExamen.getText().equals(""))) {
+                    // Inserer la date de rdv pris si les 4 champs sont remplit
+                    log.debug("bAjouterValidationActionPerformed Condition 07");
+                    try {
+                        Rechercher_id_Demande_RDV(); // id_m et id_date_depot
+                        Rechercher_Unite_Convontion(); // id_p et id_c
+
+                        con = Connect.connect();
+                        String sql2 = "insert into rdv (date_rdv, id_date_depot, id_m, Etat_RDV, convontion_id_conv,"
+                                + " convontion_partenaire_id_p,  date_recuperation, examen) values ('"
+                                + ((JTextField) jDateValidation.getDateEditor().getUiComponent()).getText()
+                                + "','" + id_date_depot + "','" + id_m + "','" + cEtatValidation.getSelectedItem() + "','"
+                                + id_conv + "','" + id_p + "','" + ((JTextField) jDateRecuperation.getDateEditor().getUiComponent()).getText()
+                                + "','" + textExamen.getText() + "')";
+                        pst = con.prepareStatement(sql2);
+                        pst.execute();
+                        JOptionPane.showMessageDialog(null, "Ok");
+                        b = true;
+
+                    } catch (SQLException | HeadlessException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        log.error(e);
+                    } finally {
+                        /*This block should be added to your code
+                 * You need to release the resources like connections
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
+                        }
+                    }
+
+                }
+
+                if (b == true) {
+                    Reset_RDV_Pris();
+                    bannuler.setEnabled(true);
+                }
+
+                log.trace("Fin bAjouterValidationActionPerformed");
             }
-
         }
-
-        if (b == true) {
-            Reset_RDV_Pris();
-            bannuler.setEnabled(true);
-        }
-
-        log.trace("Fin bAjouterValidationActionPerformed");
     }//GEN-LAST:event_bAjouterValidationActionPerformed
 
     private void bRechercherCotaParMoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherCotaParMoisActionPerformed
@@ -1931,31 +2341,54 @@ public class RDV extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tRDVchoix1MouseClicked
     private void bRechercherCotaParAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherCotaParAnsActionPerformed
+        bRechercherCota();
+    }//GEN-LAST:event_bRechercherCotaParAnsActionPerformed
+
+    public  void bRechercherCota() {
+        if (log.isTraceEnabled()) {
+            log.trace("Debut bRechercherCotaParAnsActionPerformed");
+        }
+
         n = new Convontion_Semaine();
         if (cConvontion.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "La Convontion est vide");
         } else {
 
             Rechercher_Unite_Convontion();
-            afficher_le_Mois_dune_anne();
-        }
-        if ("semaine".equals(unite_c)) {
+            if (log.isDebugEnabled()) {
+                log.debug("bRechercherCotaParAnsActionPerformed :unite_c = " + unite_c);
+            }
 
-            int k = 0;
-            try {
-
-                for (k = 0; k < 12; k++) {
-                    n.afficher_la_date_dun_mois_ameliorer(k);
+            if ("Semaine".equals(unite_c)) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Si semaine = " + unite_c);
                 }
-                n.Calculer_sam_dim_annee();
-                Afficher_la_liste_des_semaines();
-                bb = true;
-            } catch (ParseException ex) {
-                java.util.logging.Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
+
+                int k = 0;
+                int anneeJyearChooser = jYearChooser2.getYear();
+                try {
+
+                    for (k = 0; k < 12; k++) {
+                        n.afficher_la_date_dun_mois_ameliorer(k, anneeJyearChooser);
+                    }
+                    n.Calculer_sam_dim_annee();
+                    Afficher_la_liste_des_semaines();
+                    bTypeSemaine = true;
+                } catch (ParseException ex) {
+                    java.util.logging.Logger.getLogger(NewJFrame1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Else ");
+                }
+                afficher_le_Mois_dune_anne();
             }
         }
-    }//GEN-LAST:event_bRechercherCotaParAnsActionPerformed
 
+        if (log.isTraceEnabled()) {
+            log.trace("Fin bRechercherCotaParAnsActionPerformed");
+        }
+    }
     ////////////////////////////////////////
     public void Afficher_la_liste_des_semaines() {
 //              Ajouter et Afficher l'ordre de la semaine au tableau
@@ -1967,18 +2400,52 @@ public class RDV extends javax.swing.JFrame {
         int m = 0;
         int a = 0;
 
-        DefaultTableModel md = new DefaultTableModel();
-        md.setColumnIdentifiers(new String[]{"Numéro Semaine", "Dimanche", "Samedi"});
+        Calculer_les_RDv_Pris_Semaine();
 
+        DefaultTableModel md = new DefaultTableModel();
+        md.setColumnIdentifiers(new String[]{"Numéro Semaine", "Dimanche", "Samedi", "Quantite"});
+
+        int quantite_par_unite = Integer.parseInt(nbr_RDv);
+        log.debug("quantite_par_unite = " + nbr_RDv);
         log.debug("Taille Dimanche = " + n.aDimanche.size());
         log.debug("Taille Samedi = " + n.aSamedi.size());
+
+        int i = 0;
+        log.debug("Afficher tableau_resultat_rdv_par_semaine");
+        log.debug("Taille de tableau_resultat_rdv_par_semaine =" + tableau_resultat_rdv_par_semaine.length);
+
+        for (i = 0; i < tableau_resultat_rdv_par_semaine.length; i++) {
+            log.debug("i : " + i + " = " + tableau_resultat_rdv_par_semaine[i] + " Dimanche = " + n.aDimanche.get(i));
+        }
 
         for (int l = 0; l < n.aDimanche.size(); l++) {
 //            afficher la liste des semaines (debut et fin)
             a = a + 1;
-            md.addRow(new Object[]{a, n.aDimanche.get(l), n.aSamedi.get(l)});  // Ajouter les variables à la ligne du tableau
+            int nbrRdv_unite = Integer.parseInt(nbr_RDv);
+            int quantite_restante_rdv = 0;
+
+            log.debug(" tableau_resultat_rdv_par_semaine[l = " + l + " ]  " + tableau_resultat_rdv_par_semaine[l]);
+            int vTableau_resultat_rdv_par_semaine = tableau_resultat_rdv_par_semaine[l];
+
+            if (vTableau_resultat_rdv_par_semaine == 0) {
+//                Si la quantite prise est = 0
+
+                log.debug("la valeur du tableau  = 0");
+                quantite_restante_rdv = 0;
+            } else {
+//                Si la quantite prise est != 0
+
+                log.debug("la valeur du tableau  != 0");
+                quantite_restante_rdv = tableau_resultat_rdv_par_semaine[l];
+            }
+
+            log.debug("nbrRdv_unite = " + nbrRdv_unite);
+            quantite_restante_rdv = nbrRdv_unite - quantite_restante_rdv;
+            int u = 0;
+            u = u + 1;
+            md.addRow(new Object[]{a, n.aDimanche.get(l), n.aSamedi.get(l), quantite_restante_rdv});  // Ajouter les variables à la ligne du tableau
             System.out.println("");
-            log.debug(a + " le 1er dimanche = " + n.aDimanche.get(l) + "le 1er aSamedi = " + n.aSamedi.get(l));
+//            String squantite_restante_rdv = Integer.toString(quantite_restante_rdv);
         }
 
         tConvontion.setModel(md);
@@ -1990,32 +2457,66 @@ public class RDV extends javax.swing.JFrame {
     ///////////////////////////////////////
 
     private void tConvontionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tConvontionMouseClicked
-        boolean b = false;
-        if (bb == true) {
+        boolean bDebloqueAnglet = false; // boolean pour les anglet
+        
+        Rechercher_Unite_Convontion();
+        boolean f = false ;
+        if ("Semaine".equals(unite_c)) {
+            f = true;
+        } else {
+            f = false;
+        }
+
+        log.debug("bTypeSemaine = " + bTypeSemaine);
+        if (f == true) {
 //            pour "Semaine"
-            
+
             log.trace("Debut tRDVchoix1MouseClicked");
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             int row = tConvontion.getSelectedRow();
             String vDimanche = tConvontion.getModel().getValueAt(row, 1).toString();
             String vSamedi = tConvontion.getModel().getValueAt(row, 2).toString();
-            log.debug("Dimanche = " + vDimanche + " / Samedi = " + vSamedi);
+            vNumSemaine = tConvontion.getModel().getValueAt(row, 0).toString();
+            String quantite_semaine = tConvontion.getModel().getValueAt(row, 3).toString();
+            
+            boolean b53 = false;
+            
+             // diviser la date de debut  
+                String AnneeDimanche = vDimanche.substring(0, 4);
+//        log.debug(AnneeDimanche);
+// diviser la date de debut  
+                String AnneeSamedi = vSamedi.substring(0, 4);
+//        log.debug(AnneeSamedi);
 
-            Remplir_detail_date_tableau n = new Remplir_detail_date_tableau(vSamedi, vDimanche);
+            if (vNumSemaine.equals("53") && !(AnneeDimanche.equals(AnneeSamedi))) {
+                    JOptionPane.showMessageDialog(null, "Selectioner cette date dans le calendrier de la nouvelle annee");    
+            } else {
+                if (quantite_semaine.equals("0")) { // Si Num sem = Vendredi alors ERREUR
+                JOptionPane.showMessageDialog(null, "La Quantite = 0");
+            } else {
 
-            ArrayList z;
-            z = n.getArJour();  // récuperer les valeurs de la liste 
-            try {
-                Afficher_details_semaine(z);
-                b = true;
-            } catch (ParseException ex) {
-                Logger.getLogger(NewJFrame1.class.getName()).log(null, ex);
+//            les tableau et les array list commence par 0 
+                int zz = Integer.parseInt(vNumSemaine);
+                zz = zz - 1;
+                vNumSemaine = Integer.toString(zz);
+
+                Remplir_detail_date_tableau n = new Remplir_detail_date_tableau(vSamedi, vDimanche);
+
+                ArrayList z;
+                z = n.getArJour();  // récuperer les valeurs de la liste 
+                try {
+                    Afficher_details_semaine(z);
+                    bDebloqueAnglet = true;
+                } catch (ParseException ex) {
+                    Logger.getLogger(NewJFrame1.class.getName()).log(null, ex);
+                }
+                f = false;
+            }
             }
 
             log.trace("Fin tRDVchoix1MouseClicked");
 
-           
         } else {
             //            pour "Jours" et "Mois"
             log.trace("Debut tRDVchoix1MouseClicked else");
@@ -2032,7 +2533,7 @@ public class RDV extends javax.swing.JFrame {
             } else {
                 try {
                     afficher_la_date_dun_mois();
-                    b = true;
+                    bDebloqueAnglet = true;
                 } catch (ParseException ex) {
                     log.error(ex);
                 } finally {
@@ -2049,10 +2550,10 @@ public class RDV extends javax.swing.JFrame {
                 }
             }
         }
-         if (b == true) { // Debloquer les autres anglets
-                jTabbedPane1.setEnabledAt(2, true);
-                jTabbedPane1.setSelectedIndex(2);
-            }
+        if (bDebloqueAnglet == true) { // Debloquer les autres anglets
+            jTabbedPane1.setEnabledAt(2, true);
+            jTabbedPane1.setSelectedIndex(2);
+        }
 //        else {
 //            JOptionPane.showMessageDialog(null, "Erreur");
 //        }
@@ -2449,7 +2950,7 @@ public class RDV extends javax.swing.JFrame {
     protected javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     protected com.toedter.calendar.JYearChooser jYearChooser1;
-    private com.toedter.calendar.JYearChooser jYearChooser2;
+    protected com.toedter.calendar.JYearChooser jYearChooser2;
     private javax.swing.JPanel pChoisirDate;
     private javax.swing.JPanel pChoisirRDV;
     private javax.swing.JPanel pDemandeRDV;

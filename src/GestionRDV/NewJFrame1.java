@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,6 +32,9 @@ public class NewJFrame1 extends javax.swing.JFrame {
     ArrayList nomJour = new ArrayList(); // tableau des nom du jour
     ArrayList aSamedi = new ArrayList(); // tableau de Samedi
     ArrayList aDimanche = new ArrayList(); // tableau de Dimanche
+
+    List lSamedi = new LinkedList();
+    List lDimanche = new LinkedList();
 
     /**
      * Creates new form NewJFrame1
@@ -49,8 +54,6 @@ public class NewJFrame1 extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
         jYearChooser1 = new com.toedter.calendar.JYearChooser();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -61,10 +64,6 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel8.setText("Mois");
-
-        jMonthChooser1.setMonth(5);
 
         jLabel9.setText("Annee");
 
@@ -98,19 +97,14 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(201, 201, 201)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                        .addGap(104, 104, 104)
                         .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,22 +113,17 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(69, 69, 69)
-                        .addComponent(jButton1)
-                        .addGap(112, 112, 112))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addComponent(jButton1)
+                .addGap(112, 112, 112))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         jTabbedPane1.addTab("tab1", jPanel1);
@@ -164,7 +153,7 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(472, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -184,12 +173,16 @@ public class NewJFrame1 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public ArrayList getaDimanche() {
+        return aDimanche;
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -203,6 +196,7 @@ public class NewJFrame1 extends javax.swing.JFrame {
         }
 
         Calculer_sam_dim_annee();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tRDVchoix1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tRDVchoix1MouseClicked
@@ -269,7 +263,7 @@ public class NewJFrame1 extends javax.swing.JFrame {
         for (int i = 1; i < maxDay + 1; i++) {
 
             String day = myFormatter.format(i);
-            
+
             //            Ajouter le Nom du jour
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String n = jYearChooser1.getYear() + "-" + month + "-" + day;
@@ -284,6 +278,10 @@ public class NewJFrame1 extends javax.swing.JFrame {
         // Calculer le nombre de samedi et dimanche dans toute l'anner a partire du tableau "Date"
         // Verifier si le tableau de samedi > au tableau de dimanche et ajouter null pour équilibrer
 
+        if (log.isTraceEnabled()) {
+            log.trace("Debut Calculer_sam_dim_annee");
+        }
+        
         int cmp_dimanche = 0;
         int cmp_samedi = 0;
 
@@ -307,21 +305,84 @@ public class NewJFrame1 extends javax.swing.JFrame {
             }
         }
 
-        // AJouter null pour avoir le méme nombre dans le tableau
+        // AJouter le dernier Samedi pour avoir le méme nombre dans le tableau      
         if (cmp_samedi < cmp_dimanche) {
-            aSamedi.add(null);
-        } else if (cmp_dimanche < cmp_samedi) {
-            aDimanche.add(null);
+            log.trace("Si cmp_samedi < cmp_dimanche");
+
+            String date_fini_recu = Rechercher_Derniere_Date();
+            aSamedi.add(date_fini_recu); // ajouter le dernier Samedi à la Tableau du samedi
+
+        } else if (cmp_dimanche <= cmp_samedi) {
+            log.trace("Sinon cmp_dimanche < cmp_samedi");
+
+//            Transformer les Tableau en LinkedListe
+            for (int e = 0; e < aDimanche.size(); e++) {
+                lDimanche.add(aDimanche.get(e));
+            }
+            for (int e = 0; e < aSamedi.size(); e++) {
+                lSamedi.add(aSamedi.get(e));
+            }
+
+            String date_fini_recu = Rechercher_Derniere_Date();
+
+//            Ajouter des élément au List
+//            Ajouter un element au debut de lDimanche
+            String date_Debut_Decembre = Rechercher_Premiere_Date();
+            lDimanche.add(0, date_Debut_Decembre);
+
+//            Ajouter un élément a la fin de lSamedi
+            lSamedi.add(lSamedi.size(), date_fini_recu); // ajouter le dernier Samedi à la liste du samedi
+
+//            Vider les valeur de tableau 
+            aDimanche.removeAll(date);
+            aSamedi.removeAll(date);
+
+//            Ajouter tout les elements du tableau a la Liste
+            for (int e = 0; e < lDimanche.size(); e++) {
+                aDimanche.add(lDimanche.get(e));
+            }
+
+            for (int e = 0; e < lSamedi.size(); e++) {
+                aSamedi.add(lSamedi.get(e));
+            }
+            
+            lDimanche.clear();
+            lSamedi.clear();
         }
 
-        log.debug("le nombre de samedi =" + aSamedi.size() + "le nombre de dimanche = " + aDimanche.size());
         Afficher_la_liste_des_semaines();
+        
+        vider_tout_arraylsit();
 
+        if (log.isTraceEnabled()) {
+            log.trace("Fin Calculer_sam_dim_annee");
+        }
+    }
+
+    public String Rechercher_Derniere_Date() {
+        // Calculer la darniere date du Samedi (de la nouvelle annee)
+
+        int maxDate = aDimanche.size() - 1; // la max dans le tableau du Dimanche (-1 car le tableau commence de 0)
+        String vDernierDate = (String) aDimanche.get(maxDate); // Transformation maxdate en String
+
+        Date_Manquante d = new Date_Manquante();
+        String date_fini_recu = d.Date_Debut(vDernierDate);
+        return date_fini_recu;
+    }
+
+    public String Rechercher_Premiere_Date() {
+        // Calculer la Premiere date du Dimanche dans le tableau tRDVchoix
+
+        String vDateSamedi = (String) aSamedi.get(0); // la date du 1er samedi du tableau
+
+        Date_Manquante d = new Date_Manquante();
+        String date_Dimanche_recu = d.Date_Premier_Dimanche(vDateSamedi);
+        return date_Dimanche_recu;
     }
 
     public void Afficher_la_liste_des_semaines() {
 //              Ajouter et Afficher l'ordre de la semaine au tableau
-
+        log.trace("Debut Afficher_la_liste_des_semaines");
         int m = 0;
         int a = 0;
 
@@ -340,6 +401,25 @@ public class NewJFrame1 extends javax.swing.JFrame {
         }
 
         tRDVchoix1.setModel(md);
+
+        
+
+        log.debug("la des tableau : Dimanche = " + aDimanche.size() + "/ aSamedi = " + aSamedi.size());
+
+        log.trace("debut Afficher_la_liste_des_semaines");
+
+    }
+    
+    private void vider_tout_arraylsit(){
+        log.debug("vider les tableau");
+        aDimanche.clear();
+        aSamedi.clear();
+        date.clear();
+        nomJour.clear();
+    }
+
+    private void vider_Jtable1() {
+        tRDVchoix1.setModel(new DefaultTableModel(null, new String[]{"Numéro Semaine", "Dimanche", "Samedi"}));
     }
 
     /**
@@ -379,9 +459,7 @@ public class NewJFrame1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

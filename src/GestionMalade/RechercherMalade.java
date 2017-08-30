@@ -82,6 +82,9 @@ public class RechercherMalade extends javax.swing.JFrame {
         bRechercherMalade = new javax.swing.JButton();
         cWillaya = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        cAlphabet = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rechercher Malade");
@@ -117,13 +120,13 @@ public class RechercherMalade extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtInt);
-        txtInt.setBounds(200, 50, 100, 24);
+        txtInt.setBounds(160, 50, 100, 24);
         jPanel1.add(txtId_p3);
-        txtId_p3.setBounds(330, 50, 100, 24);
+        txtId_p3.setBounds(280, 50, 100, 24);
 
-        jLabel10.setText("ID :");
+        jLabel10.setText("Numero Dossier :");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(100, 60, 30, 16);
+        jLabel10.setBounds(40, 50, 120, 30);
 
         cEtatSocial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Asurer", "Non Asurer" }));
         cEtatSocial.setSelectedIndex(-1);
@@ -162,6 +165,19 @@ public class RechercherMalade extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
         jLabel7.setBounds(1170, 60, 70, 17);
 
+        cAlphabet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
+        cAlphabet.setSelectedIndex(-1);
+        jPanel1.add(cAlphabet);
+        cAlphabet.setBounds(500, 50, 80, 26);
+
+        jLabel1.setText("/");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(270, 50, 41, 16);
+
+        jLabel2.setText("Nom : ");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(450, 50, 60, 16);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1810, 550);
 
@@ -179,12 +195,10 @@ public class RechercherMalade extends javax.swing.JFrame {
                 && cEtatSocial.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
-                    + "\n     - Alphabet de l'ID seulement."
-                    + "\n     - ID compltet ou Willaya ou Etat Social."
+                    + "\n     - Numero du Dossier compltet ou Willaya ou Etat Social."
                     + "\n     - Willaya + Etat Social ."
-                    + "\n     - Willaya + Alphabet de l'ID ."
-                    + "\n     - Etat Social + Alphabet de l'ID .");
-        } else if (txtId_p3.getText().equals("")
+                    + "\n     - Willaya + Alphabet de l'ID .");
+        } else if (txtId_p3.getText().equals("") && cAlphabet.getSelectedIndex() == -1
                 && txtInt.getText().equals("") && cEtatSocial.getSelectedIndex() == -1) {
             // willaya
             try {
@@ -197,7 +211,7 @@ public class RechercherMalade extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
-        } else if ( txtId_p3.getText().equals("")
+        } else if ( txtId_p3.getText().equals("") && cAlphabet.getSelectedIndex() == -1
                 && txtInt.getText().equals("") && cWillaya.getSelectedIndex() == -1) {
             // etat social
             try {
@@ -210,7 +224,7 @@ public class RechercherMalade extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 log.error(e);
             }
-        }  else if (cEtatSocial.getSelectedIndex() == -1 && cWillaya.getSelectedIndex() == -1) {
+        }  else if (cEtatSocial.getSelectedIndex() == -1 && cWillaya.getSelectedIndex() == -1 && cAlphabet.getSelectedIndex() == -1) {
             // id malade
             
             if ( txtId_p3.getText().equals("") || txtInt.getText().equals("") ) {
@@ -232,11 +246,27 @@ public class RechercherMalade extends javax.swing.JFrame {
                 log.error(e);
             }
             }
-        } else if ( txtId_p3.getText().equals("") && txtInt.getText().equals("")) {
+        } else if ( txtId_p3.getText().equals("") && txtInt.getText().equals("") && cAlphabet.getSelectedIndex() == -1) {
             // willaya + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
                 String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
+                        + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
+                pst = con.prepareStatement(sql);
+                rst = pst.executeQuery(sql);
+                tMalade.setModel(DbUtils.resultSetToTableModel(rst));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
+            }
+        } else if ( txtId_p3.getText().equals("") && txtInt.getText().equals("") && cEtatSocial.getSelectedIndex() == -1 ) {
+            // willaya + Alphabet
+            try {
+                //1er requete pour identifier une erreur de redendence 
+                String s =  cAlphabet.getSelectedItem() + "%";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer "
+                        + "FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi "
+                        + "where nom_m  Like'" + s
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
@@ -368,10 +398,13 @@ public class RechercherMalade extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel2;
     private javax.swing.JButton bRechercherMalade;
+    private javax.swing.JComboBox<String> cAlphabet;
     private javax.swing.JComboBox cEtatSocial;
     protected javax.swing.JComboBox cWillaya;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

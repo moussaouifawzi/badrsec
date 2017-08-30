@@ -232,7 +232,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
             String id_m = output + c + txtId_p3.getText();
             try {
                 con = Connect.connect();
-                String sql = "SELECT id_date_depot,datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
+                String sql = "SELECT id_date_depot,datedepot, RemarqueDe, ExamenDe, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
                         + "INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m "
                         + "WHERE id_m = '" + id_m + "'";
                 pst = con.prepareStatement(sql);
@@ -248,7 +248,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
             log.debug("condition 02");
             try {
                 con = Connect.connect();
-                String sql = "SELECT id_date_depot,datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
+                String sql = "SELECT id_date_depot,datedepot , RemarqueDe, ExamenDe, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
                         + "INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m "
                         + "WHERE Etat_Demande='" + cEtatRDV.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
@@ -268,7 +268,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
             log.debug("le id malade = " + id_m);
             try {
                 con = Connect.connect();
-                String sql = "SELECT id_date_depot,datedepot, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
+                String sql = "SELECT id_date_depot, datedepot, RemarqueDe, ExamenDe, malade.id_m, nom_m, prenom_m, etat_demande FROM demande_de_rdv "
                         + "INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m "
                         + "WHERE  Etat_Demande='" + cEtatRDV.getSelectedItem()
                         + "' AND demande_de_rdv.id_m = '" + id_m + "'";
@@ -291,7 +291,7 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
         n = tDemandeRDV.getModel().getValueAt(row, 0).toString();
 
         try {
-            String sql = "SELECT id_date_depot, malade.id_m, DateDepot, Etat_Demande, nom_m, prenom_m  FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_date_depot = '" + n + "'";
+            String sql = "SELECT id_date_depot, malade.id_m, DateDepot, RemarqueDe, ExamenDe, Etat_Demande, nom_m, prenom_m  FROM demande_de_rdv INNER JOIN malade ON demande_de_rdv.id_m = malade.id_m WHERE id_date_depot = '" + n + "'";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery(sql);
 
@@ -323,6 +323,11 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 log.debug("cEtatDemandeRDV" + Etat_Demande);
                 s1.id_date_depot = rs.getInt("id_date_depot");
                 log.debug("id_date_depot" + rs.getInt("id_date_depot"));
+                
+                String textRemarqueDe = rs.getString("RemarqueDe");
+                s1.textRemarqueDe.setText(textRemarqueDe);
+                String textExamenDe = rs.getString("ExamenDe");
+                s1.textExamenDe.setText(textExamenDe);
 
                 s1.bModifierDemandeRDV.setEnabled(true);
                 s1.bAjouterDemandeRDV.setEnabled(false);
@@ -332,6 +337,9 @@ public class RechercherDemandeRDV extends javax.swing.JFrame {
                 s1.bRechercherRDV.setEnabled(false);
                 s1.bRechercherDemandeRDV.setEnabled(false);
                 s1.jDateDepot.setEnabled(false);
+                s1.textExamenDe.setEditable(false);
+                s1.textRemarqueDe.setEditable(false);
+                s1.bDdateDepot.setEnabled(false);
             }
 
         } catch (SQLException e) {

@@ -105,6 +105,8 @@ public class RDV extends javax.swing.JFrame {
         bModifierDemandeRDV.setEnabled(false);
         jDateRecuperation.setEnabled(false);
 
+        bDdateRecuperation.setEnabled(false);
+
         jMonthChooser1.setEnabled(false);
         jYearChooser1.setEnabled(false);
         bRechercherCotaParMois.setEnabled(false);
@@ -147,6 +149,8 @@ public class RDV extends javax.swing.JFrame {
         txtAdress.setEditable(false);
         txtAdress.setEditable(false);
         txtNumTel.setEditable(false);
+
+        bDdateRecuperation.setEnabled(false);
 
         jTabbedPane1.setEnabledAt(1, false);
         jTabbedPane1.setEnabledAt(2, false);
@@ -195,6 +199,16 @@ public class RDV extends javax.swing.JFrame {
         bAjouterDemandeRDV = new javax.swing.JButton();
         jDateDepot = new com.toedter.calendar.JDateChooser();
         bModifierDemandeRDV = new javax.swing.JButton();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        pRemarque1 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textExamenDe = new javax.swing.JTextArea();
+        bIRM = new javax.swing.JButton();
+        bSyntegraphie = new javax.swing.JButton();
+        pExamen1 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textRemarqueDe = new javax.swing.JTextArea();
+        bDdateDepot = new javax.swing.JButton();
         pChoisirRDV = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jYearChooser2 = new com.toedter.calendar.JYearChooser();
@@ -218,7 +232,11 @@ public class RDV extends javax.swing.JFrame {
             }
             public Component prepareRenderer(TableCellRenderer r, int rw,int col)
             {
-                //        // Colorier les ligne du tableau
+                // Colorier les ligne du tableau
+                if (log.isTraceEnabled()){
+                    log.trace("Debut Colorier les ligne du tableau");
+                }
+
                 Component c = super.prepareRenderer(r, rw, col);
                 c.setBackground(Color.WHITE);
                 c.setForeground(Color.BLACK);
@@ -229,758 +247,843 @@ public class RDV extends javax.swing.JFrame {
                     c.setForeground(Color.WHITE);
                 }
 
+                boolean verificateur_unite = Verification_par_unite_convontion();
+
+                Rechercher_Unite_Convontion();
+
                 String date_tester = tRDVchoix1.getModel().getValueAt(rw, 1).toString();
-                boolean k = Verifier_date_rdv_colorier(date_tester);
-                //        con = Connect.connect();
-                //        String sql = "select Etat_RDV,date_rdv from rdv where date_rdv ='" + date_tester + "'";
-                //        try {
-                    //            pst = con.prepareStatement(sql);
-                    //            ResultSet rst1 = pst.executeQuery(sql);
+                if ( verificateur_unite == true) {
+                    if (log.isDebugEnabled()){
+                        log.debug("Si  verificateur_unite == true");
+                    }
+                    boolean k = Verifier_date_rdv_colorier(date_tester);
 
-                    //            while (rst1.next()) {
-                        //                // Compare la valeur selectioner avec la valeur rechercher dans la BDD
-                        //                String Etat_rdv_pris = rst1.getString("Etat_RDV");
-                        //                Date date_rdv_pris = rst1.getDate("date_rdv");
-                        //                DateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
-                        //                String dateFormatee = fd.format(date_rdv_pris);
-                        //                System.out.println(Etat_rdv_pris + " | date bd: "+ dateFormatee + " | date tableau: "+ date_tester);
-                        if (k == true) {
-                            //                    //                     si la date est prise afficher ERREUR
-                            t = true;
-                            //  System.out.println("Rouge");
-                            c.setBackground(Color.RED);
-                            c.setForeground(Color.WHITE);
-                            //                    //                    JOptionPane.showMessageDialog(null, "c'est une date prise");
-                        }
-                        //else if ((((Etat_rdv_pris.equals("Pris") || Etat_rdv_pris.equals("En Attente")))
-                            //                    && (Etat_rdv_pris.equals("Annuler") || Etat_rdv_pris.equals("Reporter")))
-                        //                && dateFormatee.equals(date_tester)) {
-                        //                //                     si la date est prise afficher ERREUR
-                        //                t = true;
-                        //                c.setBackground(Color.RED);
-                        //                c.setForeground(Color.WHITE);
-                        //            }
-                    //        }
-                //        else {
-                    //            t = false;
-                    //            //        }
-                //    } catch (SQLException | NumberFormatException e) {
-                //        JOptionPane.showMessageDialog(null, e.getMessage());
-                //    }finally{
-                //        /*This block should be added to your code
-                //        * You need to release the resources like connections
-                //        */
-                //        if(con!=null)
-                //        try {
-                    //            con.close();
-                    //        } catch (SQLException ex) {
-                    //            Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
-                    //        }
-                //    }
-            return c;
-        }
-    };
-    jLabel8 = new javax.swing.JLabel();
-    jLabel9 = new javax.swing.JLabel();
-    jYearChooser1 = new com.toedter.calendar.JYearChooser();
-    jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
-    bRechercherCotaParMois = new javax.swing.JButton();
-    jLabel16 = new javax.swing.JLabel();
-    txtNomConvontion = new javax.swing.JTextField();
-    pValidationRDV = new javax.swing.JPanel();
-    jLabel11 = new javax.swing.JLabel();
-    jLabel12 = new javax.swing.JLabel();
-    jLabel13 = new javax.swing.JLabel();
-    cEtatValidation = new javax.swing.JComboBox();
-    bAjouterValidation = new javax.swing.JButton();
-    bModifierValidation = new javax.swing.JButton();
-    jLabel14 = new javax.swing.JLabel();
-    jDateValidation = new com.toedter.calendar.JDateChooser();
-    jDateRecuperation = new com.toedter.calendar.JDateChooser();
-    jTabbedPane2 = new javax.swing.JTabbedPane();
-    pExamen = new javax.swing.JPanel();
-    jScrollPane3 = new javax.swing.JScrollPane();
-    textExamen = new javax.swing.JTextArea();
-    pRemarque = new javax.swing.JPanel();
-    jScrollPane2 = new javax.swing.JScrollPane();
-    textRemarque = new javax.swing.JTextArea();
-    bAppeler = new javax.swing.JButton();
-    bPasDeReponse = new javax.swing.JButton();
-    bARepondu = new javax.swing.JButton();
-    jPanel2 = new javax.swing.JPanel();
-    bRechercherMalade = new javax.swing.JButton();
-    jLabel3 = new javax.swing.JLabel();
-    txtNumTel = new javax.swing.JTextField();
-    jLabel4 = new javax.swing.JLabel();
-    txtAdress = new javax.swing.JTextField();
-    txtInt = new javax.swing.JTextField();
-    jLabel10 = new javax.swing.JLabel();
-    jLabel1 = new javax.swing.JLabel();
-    txtNom = new javax.swing.JTextField();
-    txtId_p3 = new javax.swing.JTextField();
-    txtPrenom = new javax.swing.JTextField();
-    jLabel2 = new javax.swing.JLabel();
-    bRechercherMaladeRDV = new javax.swing.JButton();
-    bRechercherDemandeRDV = new javax.swing.JButton();
-    bRechercherRDV = new javax.swing.JButton();
-    bResetID = new javax.swing.JButton();
-    jSeparator1 = new javax.swing.JSeparator();
-    bannuler = new javax.swing.JButton();
+                    if (k == true) {
+                        //                    //                     si la date est prise afficher ERREUR
+                        t = true;
+                        //  System.out.println("Rouge");
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.WHITE);
+                    }
+                }
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    setTitle("Ajouter RDV");
-    setResizable(false);
+                if (log.isTraceEnabled()){
+                    log.trace("Fin Colorier les ligne du tableau");
+                }
+                return c;
+            }
+        };
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
+        bRechercherCotaParMois = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        txtNomConvontion = new javax.swing.JTextField();
+        pValidationRDV = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cEtatValidation = new javax.swing.JComboBox();
+        bAjouterValidation = new javax.swing.JButton();
+        bModifierValidation = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jDateValidation = new com.toedter.calendar.JDateChooser();
+        jDateRecuperation = new com.toedter.calendar.JDateChooser();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        pExamen = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textExamen = new javax.swing.JTextArea();
+        pRemarque = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textRemarque = new javax.swing.JTextArea();
+        bAppeler = new javax.swing.JButton();
+        bPasDeReponse = new javax.swing.JButton();
+        bARepondu = new javax.swing.JButton();
+        bDdateRecuperation = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        bRechercherMalade = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtNumTel = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtAdress = new javax.swing.JTextField();
+        txtInt = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtNom = new javax.swing.JTextField();
+        txtId_p3 = new javax.swing.JTextField();
+        txtPrenom = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        bRechercherMaladeRDV = new javax.swing.JButton();
+        bRechercherDemandeRDV = new javax.swing.JButton();
+        bRechercherRDV = new javax.swing.JButton();
+        bResetID = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        bannuler = new javax.swing.JButton();
 
-    bCancel.setText("Cancel");
-    bCancel.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bCancelActionPerformed(evt);
-        }
-    });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ajouter RDV");
+        setResizable(false);
 
-    jLabel5.setText("Date Depot:");
+        bCancel.setText("Cancel");
+        bCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelActionPerformed(evt);
+            }
+        });
 
-    jLabel7.setText("Etat du RDV:");
+        jLabel5.setText("Date Depot:");
 
-    cEtatDemandeRDV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Valider", "En Attente" }));
-    cEtatDemandeRDV.setSelectedIndex(-1);
+        jLabel7.setText("Etat du RDV:");
 
-    bAjouterDemandeRDV.setText("Ajouter");
-    bAjouterDemandeRDV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bAjouterDemandeRDVActionPerformed(evt);
-        }
-    });
+        cEtatDemandeRDV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Valider", "En Attente" }));
+        cEtatDemandeRDV.setSelectedIndex(-1);
 
-    jDateDepot.setDateFormatString("yyyy-MM-dd");
-    jDateDepot.setMaxSelectableDate(new java.util.Date(253370764886000L));
+        bAjouterDemandeRDV.setText("Ajouter");
+        bAjouterDemandeRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAjouterDemandeRDVActionPerformed(evt);
+            }
+        });
 
-    bModifierDemandeRDV.setText("Modifier");
-    bModifierDemandeRDV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bModifierDemandeRDVActionPerformed(evt);
-        }
-    });
+        jDateDepot.setDateFormatString("yyyy-MM-dd");
+        jDateDepot.setMaxSelectableDate(new java.util.Date(253370764886000L));
 
-    javax.swing.GroupLayout pDemandeRDVLayout = new javax.swing.GroupLayout(pDemandeRDV);
-    pDemandeRDV.setLayout(pDemandeRDVLayout);
-    pDemandeRDVLayout.setHorizontalGroup(
-        pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pDemandeRDVLayout.createSequentialGroup()
-            .addGap(40, 40, 40)
-            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pDemandeRDVLayout.createSequentialGroup()
-                    .addComponent(jLabel5)
-                    .addGap(67, 67, 67)
-                    .addComponent(jDateDepot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDemandeRDVLayout.createSequentialGroup()
-                    .addComponent(jLabel7)
-                    .addGap(63, 63, 63)
-                    .addComponent(cEtatDemandeRDV, 0, 185, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDemandeRDVLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(bModifierDemandeRDV)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bAjouterDemandeRDV)))
-            .addGap(411, 411, 411))
-    );
-    pDemandeRDVLayout.setVerticalGroup(
-        pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pDemandeRDVLayout.createSequentialGroup()
-            .addGap(34, 34, 34)
-            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel5)
-                .addComponent(jDateDepot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel7)
-                .addComponent(cEtatDemandeRDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(18, 18, 18)
-            .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(bAjouterDemandeRDV)
-                .addComponent(bModifierDemandeRDV))
-            .addContainerGap(405, Short.MAX_VALUE))
-    );
+        bModifierDemandeRDV.setText("Modifier");
+        bModifierDemandeRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModifierDemandeRDVActionPerformed(evt);
+            }
+        });
 
-    jTabbedPane1.addTab("Demande de RDV", pDemandeRDV);
+        textExamenDe.setColumns(20);
+        textExamenDe.setRows(5);
+        jScrollPane5.setViewportView(textExamenDe);
 
-    jLabel17.setText("Annee");
+        bIRM.setText("IRM");
+        bIRM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bIRMActionPerformed(evt);
+            }
+        });
 
-    tConvontion.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null}
-        },
-        new String [] {
-            "Mois", "Annee", "Quantite"
-        }
-    ));
-    tConvontion.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            tConvontionMouseClicked(evt);
-        }
-    });
-    jScrollPane1.setViewportView(tConvontion);
+        bSyntegraphie.setText("Syntegraphie");
+        bSyntegraphie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSyntegraphieActionPerformed(evt);
+            }
+        });
 
-    jLabel15.setText("Convontion");
+        javax.swing.GroupLayout pRemarque1Layout = new javax.swing.GroupLayout(pRemarque1);
+        pRemarque1.setLayout(pRemarque1Layout);
+        pRemarque1Layout.setHorizontalGroup(
+            pRemarque1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRemarque1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pRemarque1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bIRM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bSyntegraphie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pRemarque1Layout.setVerticalGroup(
+            pRemarque1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRemarque1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pRemarque1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pRemarque1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(pRemarque1Layout.createSequentialGroup()
+                        .addComponent(bIRM)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bSyntegraphie)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
 
-    cConvontion.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-        public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-        }
-        public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            cConvontionPopupMenuWillBecomeInvisible(evt);
-        }
-        public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-        }
-    });
-    cConvontion.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            cConvontionActionPerformed(evt);
-        }
-    });
+        jTabbedPane3.addTab("Examen", pRemarque1);
 
-    bRechercherCotaParAns.setText("Rechercher");
-    bRechercherCotaParAns.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bRechercherCotaParAnsActionPerformed(evt);
-        }
-    });
+        textRemarqueDe.setColumns(20);
+        textRemarqueDe.setRows(5);
+        jScrollPane4.setViewportView(textRemarqueDe);
 
-    jButton3.setText("Consulter Convontion");
-    jButton3.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
-        }
-    });
+        javax.swing.GroupLayout pExamen1Layout = new javax.swing.GroupLayout(pExamen1);
+        pExamen1.setLayout(pExamen1Layout);
+        pExamen1Layout.setHorizontalGroup(
+            pExamen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pExamen1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        pExamen1Layout.setVerticalGroup(
+            pExamen1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pExamen1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
-    javax.swing.GroupLayout pChoisirRDVLayout = new javax.swing.GroupLayout(pChoisirRDV);
-    pChoisirRDV.setLayout(pChoisirRDVLayout);
-    pChoisirRDVLayout.setHorizontalGroup(
-        pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pChoisirRDVLayout.createSequentialGroup()
-            .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pChoisirRDVLayout.createSequentialGroup()
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel15))
-                        .addGroup(pChoisirRDVLayout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pChoisirRDVLayout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jButton3)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pChoisirRDVLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel17)
-                        .addGap(29, 29, 29)
-                        .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pChoisirRDVLayout.createSequentialGroup()
-                    .addGap(52, 52, 52)
-                    .addComponent(bRechercherCotaParAns)))
-            .addGap(18, 18, 18)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
-    pChoisirRDVLayout.setVerticalGroup(
-        pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pChoisirRDVLayout.createSequentialGroup()
-            .addGap(18, 18, 18)
-            .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pChoisirRDVLayout.createSequentialGroup()
+        jTabbedPane3.addTab("Remarque", pExamen1);
+
+        bDdateDepot.setText("D");
+        bDdateDepot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDdateDepotActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pDemandeRDVLayout = new javax.swing.GroupLayout(pDemandeRDV);
+        pDemandeRDV.setLayout(pDemandeRDVLayout);
+        pDemandeRDVLayout.setHorizontalGroup(
+            pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateDepot, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bDdateDepot)
+                        .addGap(17, 17, 17))
+                    .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                                .addComponent(cEtatDemandeRDV, 0, 172, Short.MAX_VALUE)
+                                .addGap(57, 57, 57))
+                            .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                                .addComponent(bModifierDemandeRDV)
+                                .addGap(18, 18, 18)
+                                .addComponent(bAjouterDemandeRDV)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        pDemandeRDVLayout.setVerticalGroup(
+            pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bDdateDepot)
+                            .addGroup(pDemandeRDVLayout.createSequentialGroup()
+                                .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jDateDepot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(cEtatDemandeRDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pDemandeRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(bAjouterDemandeRDV)
+                                    .addComponent(bModifierDemandeRDV))))))
+                .addContainerGap(299, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Demande de RDV", pDemandeRDV);
+
+        jLabel17.setText("Annee");
+
+        tConvontion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tConvontion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Mois", "Annee", "Quantite"
+            }
+        ));
+        tConvontion.setRowHeight(22);
+        tConvontion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tConvontionMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tConvontion);
+
+        jLabel15.setText("Convontion");
+
+        cConvontion.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                cConvontionPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        cConvontion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cConvontionActionPerformed(evt);
+            }
+        });
+
+        bRechercherCotaParAns.setText("Rechercher");
+        bRechercherCotaParAns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechercherCotaParAnsActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Consulter Convontion");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pChoisirRDVLayout = new javax.swing.GroupLayout(pChoisirRDV);
+        pChoisirRDV.setLayout(pChoisirRDVLayout);
+        pChoisirRDVLayout.setHorizontalGroup(
+            pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pChoisirRDVLayout.createSequentialGroup()
-                            .addComponent(jLabel15)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel17))
-                    .addGap(29, 29, 29)
-                    .addComponent(bRechercherCotaParAns)
-                    .addGap(18, 18, 18)
-                    .addComponent(jButton3))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(186, Short.MAX_VALUE))
-    );
+                        .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel15))
+                            .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jButton3)))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pChoisirRDVLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jLabel17)
+                            .addGap(29, 29, 29)
+                            .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(bRechercherCotaParAns)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pChoisirRDVLayout.setVerticalGroup(
+            pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                        .addGroup(pChoisirRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pChoisirRDVLayout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel17))
+                        .addGap(29, 29, 29)
+                        .addComponent(bRechercherCotaParAns)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(186, Short.MAX_VALUE))
+        );
 
-    jTabbedPane1.addTab("Choisir une Convontion", pChoisirRDV);
+        jTabbedPane1.addTab("Choisir une Convontion", pChoisirRDV);
 
-    tRDVchoix1.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-            {null, null},
-            {null, null},
-            {null, null},
-            {null, null}
-        },
-        new String [] {
-            "Jour", "Date"
-        }
-    ));
-    tRDVchoix1.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            tRDVchoix1MouseClicked(evt);
-        }
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            tRDVchoix1MouseEntered(evt);
-        }
-    });
-    tDateParConvontion.setViewportView(tRDVchoix1);
+        tRDVchoix1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tRDVchoix1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Jour", "Date"
+            }
+        ));
+        tRDVchoix1.setRowHeight(22);
+        tRDVchoix1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tRDVchoix1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tRDVchoix1MouseEntered(evt);
+            }
+        });
+        tDateParConvontion.setViewportView(tRDVchoix1);
 
-    jLabel8.setText("Mois");
+        jLabel8.setText("Mois");
 
-    jLabel9.setText("Annee");
+        jLabel9.setText("Annee");
 
-    jMonthChooser1.setMonth(5);
+        jMonthChooser1.setMonth(5);
 
-    bRechercherCotaParMois.setText("Rechercher");
-    bRechercherCotaParMois.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bRechercherCotaParMoisActionPerformed(evt);
-        }
-    });
+        bRechercherCotaParMois.setText("Rechercher");
+        bRechercherCotaParMois.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechercherCotaParMoisActionPerformed(evt);
+            }
+        });
 
-    jLabel16.setText("Nom de la convontion:");
+        jLabel16.setText("Nom de la convontion:");
 
-    javax.swing.GroupLayout pChoisirDateLayout = new javax.swing.GroupLayout(pChoisirDate);
-    pChoisirDate.setLayout(pChoisirDateLayout);
-    pChoisirDateLayout.setHorizontalGroup(
-        pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pChoisirDateLayout.createSequentialGroup()
-            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addGap(29, 29, 29)
-                    .addComponent(jLabel16))
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pChoisirDateLayout.createSequentialGroup()
-                            .addGap(33, 33, 33)
-                            .addComponent(jLabel8))
-                        .addGroup(pChoisirDateLayout.createSequentialGroup()
-                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9)
-                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(pChoisirDateLayout.createSequentialGroup()
-                            .addGap(70, 70, 70)
-                            .addComponent(bRechercherCotaParMois)))))
-            .addGap(18, 18, 18)
-            .addComponent(tDateParConvontion, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
-            .addGap(28, 28, 28))
-    );
-    pChoisirDateLayout.setVerticalGroup(
-        pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pChoisirDateLayout.createSequentialGroup()
-            .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addGap(22, 22, 22)
-                    .addComponent(jLabel16)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(33, 33, 33)
-                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bRechercherCotaParMois))
-                .addGroup(pChoisirDateLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(17, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout pChoisirDateLayout = new javax.swing.GroupLayout(pChoisirDate);
+        pChoisirDate.setLayout(pChoisirDateLayout);
+        pChoisirDateLayout.setHorizontalGroup(
+            pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pChoisirDateLayout.createSequentialGroup()
+                .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pChoisirDateLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel16))
+                    .addGroup(pChoisirDateLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pChoisirDateLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pChoisirDateLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel8))
+                            .addGroup(pChoisirDateLayout.createSequentialGroup()
+                                .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pChoisirDateLayout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(bRechercherCotaParMois)))))
+                .addGap(18, 18, 18)
+                .addComponent(tDateParConvontion, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
+        );
+        pChoisirDateLayout.setVerticalGroup(
+            pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pChoisirDateLayout.createSequentialGroup()
+                .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pChoisirDateLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pChoisirDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMonthChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bRechercherCotaParMois))
+                    .addGroup(pChoisirDateLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tDateParConvontion, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
 
-    jTabbedPane1.addTab("Choisir une Date", pChoisirDate);
+        jTabbedPane1.addTab("Choisir une Date", pChoisirDate);
 
-    jLabel11.setText("Date Valider du RDV:");
+        jLabel11.setText("Date Valider du RDV:");
 
-    jLabel12.setText("Date de Récupération:");
+        jLabel12.setText("Date de Récupération:");
 
-    jLabel13.setText("Etat du RDV:");
+        jLabel13.setText("Etat du RDV:");
 
-    cEtatValidation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Annuler", "Reporter", "Pris", "En Attente" }));
-    cEtatValidation.setSelectedIndex(-1);
-    cEtatValidation.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-        public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-        }
-        public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            cEtatValidationPopupMenuWillBecomeInvisible(evt);
-        }
-        public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-        }
-    });
-    cEtatValidation.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            cEtatValidationActionPerformed(evt);
-        }
-    });
+        cEtatValidation.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Annuler", "Reporter", "Pris", "En Attente" }));
+        cEtatValidation.setSelectedIndex(-1);
+        cEtatValidation.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                cEtatValidationPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        cEtatValidation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cEtatValidationActionPerformed(evt);
+            }
+        });
 
-    bAjouterValidation.setText("Ajouter");
-    bAjouterValidation.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bAjouterValidationActionPerformed(evt);
-        }
-    });
+        bAjouterValidation.setText("Ajouter");
+        bAjouterValidation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAjouterValidationActionPerformed(evt);
+            }
+        });
 
-    bModifierValidation.setText("Modifier");
-    bModifierValidation.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bModifierValidationActionPerformed(evt);
-        }
-    });
+        bModifierValidation.setText("Modifier");
+        bModifierValidation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModifierValidationActionPerformed(evt);
+            }
+        });
 
-    jDateValidation.setDateFormatString("yyyy-MM-dd");
-    jDateValidation.setMaxSelectableDate(new java.util.Date(253370764886000L));
+        jDateValidation.setDateFormatString("yyyy-MM-dd");
+        jDateValidation.setMaxSelectableDate(new java.util.Date(253370764886000L));
 
-    jDateRecuperation.setDateFormatString("yyyy-MM-dd");
-    jDateRecuperation.setMaxSelectableDate(new java.util.Date(253370764886000L));
+        jDateRecuperation.setDateFormatString("yyyy-MM-dd");
+        jDateRecuperation.setMaxSelectableDate(new java.util.Date(253370764886000L));
 
-    textExamen.setColumns(20);
-    textExamen.setRows(5);
-    jScrollPane3.setViewportView(textExamen);
+        textExamen.setColumns(20);
+        textExamen.setRows(5);
+        jScrollPane3.setViewportView(textExamen);
 
-    javax.swing.GroupLayout pExamenLayout = new javax.swing.GroupLayout(pExamen);
-    pExamen.setLayout(pExamenLayout);
-    pExamenLayout.setHorizontalGroup(
-        pExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pExamenLayout.createSequentialGroup()
-            .addGap(16, 16, 16)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(25, Short.MAX_VALUE))
-    );
-    pExamenLayout.setVerticalGroup(
-        pExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pExamenLayout.createSequentialGroup()
-            .addGap(14, 14, 14)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(15, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout pExamenLayout = new javax.swing.GroupLayout(pExamen);
+        pExamen.setLayout(pExamenLayout);
+        pExamenLayout.setHorizontalGroup(
+            pExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pExamenLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        pExamenLayout.setVerticalGroup(
+            pExamenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pExamenLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
-    jTabbedPane2.addTab("Examen", pExamen);
+        jTabbedPane2.addTab("Examen", pExamen);
 
-    textRemarque.setColumns(20);
-    textRemarque.setRows(5);
-    jScrollPane2.setViewportView(textRemarque);
+        textRemarque.setColumns(20);
+        textRemarque.setRows(5);
+        jScrollPane2.setViewportView(textRemarque);
 
-    bAppeler.setText("Appeler");
-    bAppeler.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bAppelerActionPerformed(evt);
-        }
-    });
+        bAppeler.setText("Appeler");
+        bAppeler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAppelerActionPerformed(evt);
+            }
+        });
 
-    bPasDeReponse.setText("Pas de reponse");
-    bPasDeReponse.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bPasDeReponseActionPerformed(evt);
-        }
-    });
+        bPasDeReponse.setText("Pas de reponse");
+        bPasDeReponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPasDeReponseActionPerformed(evt);
+            }
+        });
 
-    bARepondu.setText("A Repondu");
-    bARepondu.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bAReponduActionPerformed(evt);
-        }
-    });
+        bARepondu.setText("A Repondu");
+        bARepondu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAReponduActionPerformed(evt);
+            }
+        });
 
-    javax.swing.GroupLayout pRemarqueLayout = new javax.swing.GroupLayout(pRemarque);
-    pRemarque.setLayout(pRemarqueLayout);
-    pRemarqueLayout.setHorizontalGroup(
-        pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pRemarqueLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addGroup(pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pRemarqueLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(bPasDeReponse))
-                .addComponent(bAppeler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bARepondu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap())
-    );
-    pRemarqueLayout.setVerticalGroup(
-        pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pRemarqueLayout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pRemarqueLayout.createSequentialGroup()
-                    .addComponent(jScrollPane2)
-                    .addContainerGap())
-                .addGroup(pRemarqueLayout.createSequentialGroup()
-                    .addComponent(bAppeler)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bPasDeReponse)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bARepondu)
-                    .addGap(0, 107, Short.MAX_VALUE))))
-    );
+        javax.swing.GroupLayout pRemarqueLayout = new javax.swing.GroupLayout(pRemarque);
+        pRemarque.setLayout(pRemarqueLayout);
+        pRemarqueLayout.setHorizontalGroup(
+            pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRemarqueLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pRemarqueLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bPasDeReponse))
+                    .addComponent(bAppeler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bARepondu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pRemarqueLayout.setVerticalGroup(
+            pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRemarqueLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pRemarqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pRemarqueLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addGroup(pRemarqueLayout.createSequentialGroup()
+                        .addComponent(bAppeler)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bPasDeReponse)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bARepondu)
+                        .addGap(0, 107, Short.MAX_VALUE))))
+        );
 
-    jTabbedPane2.addTab("Remarque", pRemarque);
+        jTabbedPane2.addTab("Remarque", pRemarque);
 
-    javax.swing.GroupLayout pValidationRDVLayout = new javax.swing.GroupLayout(pValidationRDV);
-    pValidationRDV.setLayout(pValidationRDVLayout);
-    pValidationRDVLayout.setHorizontalGroup(
-        pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pValidationRDVLayout.createSequentialGroup()
-            .addGap(18, 18, 18)
-            .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel12)
-                        .addComponent(jLabel13))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDateRecuperation, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cEtatValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addComponent(bModifierValidation)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bAjouterValidation))
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addComponent(jLabel11)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jDateValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
-                    .addComponent(jLabel14)
-                    .addContainerGap(234, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pValidationRDVLayout.createSequentialGroup()
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(14, 14, 14))))
-    );
-    pValidationRDVLayout.setVerticalGroup(
-        pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pValidationRDVLayout.createSequentialGroup()
-            .addGap(23, 23, 23)
-            .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel14)
-                    .addGap(184, 184, 184))
-                .addGroup(pValidationRDVLayout.createSequentialGroup()
-                    .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        bDdateRecuperation.setText("D");
+        bDdateRecuperation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDdateRecuperationActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pValidationRDVLayout = new javax.swing.GroupLayout(pValidationRDV);
+        pValidationRDV.setLayout(pValidationRDVLayout);
+        pValidationRDVLayout.setHorizontalGroup(
+            pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pValidationRDVLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pValidationRDVLayout.createSequentialGroup()
+                        .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pValidationRDVLayout.createSequentialGroup()
+                                .addComponent(jDateRecuperation, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bDdateRecuperation))
+                            .addComponent(cEtatValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pValidationRDVLayout.createSequentialGroup()
+                        .addComponent(bModifierValidation)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bAjouterValidation))
+                    .addGroup(pValidationRDVLayout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addComponent(jDateValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(cEtatValidation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(13, 13, 13)
-                    .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel12)
-                        .addComponent(jDateRecuperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bAjouterValidation)
-                        .addComponent(bModifierValidation))
-                    .addGap(78, 374, Short.MAX_VALUE))))
-    );
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pValidationRDVLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
+                        .addComponent(jLabel14)
+                        .addContainerGap(207, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pValidationRDVLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
+        );
+        pValidationRDVLayout.setVerticalGroup(
+            pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pValidationRDVLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pValidationRDVLayout.createSequentialGroup()
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addComponent(jLabel14)
+                        .addGap(184, 184, 184))
+                    .addGroup(pValidationRDVLayout.createSequentialGroup()
+                        .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(jDateValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(cEtatValidation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel12)
+                                .addComponent(jDateRecuperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bDdateRecuperation))
+                        .addGap(18, 18, 18)
+                        .addGroup(pValidationRDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bAjouterValidation)
+                            .addComponent(bModifierValidation))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
 
-    jTabbedPane1.addTab("Validation du DRV", pValidationRDV);
+        jTabbedPane1.addTab("Validation du DRV", pValidationRDV);
 
-    jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Information Malade"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Information Malade"));
 
-    bRechercherMalade.setText("Rechercher");
-    bRechercherMalade.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bRechercherMaladeActionPerformed(evt);
-        }
-    });
+        bRechercherMalade.setText("Rechercher");
+        bRechercherMalade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechercherMaladeActionPerformed(evt);
+            }
+        });
 
-    jLabel3.setText("Numero de Tel :");
+        jLabel3.setText("Numero de Tel :");
 
-    jLabel4.setText("Adress");
+        jLabel4.setText("Adress");
 
-    txtInt.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtIntActionPerformed(evt);
-        }
-    });
+        txtInt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIntActionPerformed(evt);
+            }
+        });
 
-    jLabel10.setText("ID :");
+        jLabel10.setText("ID :");
 
-    jLabel1.setText("Nom :");
+        jLabel1.setText("Nom :");
 
-    jLabel2.setText("Prenom :");
+        jLabel2.setText("Prenom :");
 
-    bRechercherMaladeRDV.setText("Rechercher Malade");
-    bRechercherMaladeRDV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bRechercherMaladeRDVActionPerformed(evt);
-        }
-    });
+        bRechercherMaladeRDV.setText("Rechercher Malade");
+        bRechercherMaladeRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechercherMaladeRDVActionPerformed(evt);
+            }
+        });
 
-    bRechercherDemandeRDV.setText("Demande RDV");
-    bRechercherDemandeRDV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bRechercherDemandeRDVActionPerformed(evt);
-        }
-    });
+        bRechercherDemandeRDV.setText("Demande RDV");
+        bRechercherDemandeRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechercherDemandeRDVActionPerformed(evt);
+            }
+        });
 
-    bRechercherRDV.setText("RDV");
-    bRechercherRDV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bRechercherRDVActionPerformed(evt);
-        }
-    });
+        bRechercherRDV.setText("RDV");
+        bRechercherRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechercherRDVActionPerformed(evt);
+            }
+        });
 
-    bResetID.setText("R");
-    bResetID.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bResetIDActionPerformed(evt);
-        }
-    });
+        bResetID.setText("R");
+        bResetID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bResetIDActionPerformed(evt);
+            }
+        });
 
-    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-    jPanel2.setLayout(jPanel2Layout);
-    jPanel2Layout.setHorizontalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bRechercherRDV)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(bRechercherDemandeRDV))
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addGap(50, 50, 50)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtNom)
-                                .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(66, 66, 66)
-                            .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(bResetID)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(36, 36, 36)))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtAdress)
-                                .addComponent(txtNumTel, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(bRechercherMaladeRDV, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(bRechercherMalade)))))
-            .addGap(32, 32, 32))
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jSeparator1)
-            .addContainerGap())
-    );
-    jPanel2Layout.setVerticalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGap(11, 11, 11)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel10)
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bRechercherRDV)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bRechercherDemandeRDV))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNom)
+                                    .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)
+                                .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(bResetID)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(36, 36, 36)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtAdress)
+                                    .addComponent(txtNumTel, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(bRechercherMaladeRDV, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bRechercherMalade)))))
+                .addGap(32, 32, 32))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bResetID)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtId_p3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bResetID)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(txtNumTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
-                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bRechercherMalade)
-                        .addComponent(bRechercherMaladeRDV))))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(bRechercherDemandeRDV)
-                .addComponent(bRechercherRDV))
-            .addGap(0, 5, Short.MAX_VALUE))
-    );
+                            .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNumTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bRechercherMalade)
+                            .addComponent(bRechercherMaladeRDV))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bRechercherDemandeRDV)
+                    .addComponent(bRechercherRDV))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
 
-    bannuler.setText("Anuler");
-    bannuler.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bannulerActionPerformed(evt);
-        }
-    });
+        bannuler.setText("Anuler");
+        bannuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bannulerActionPerformed(evt);
+            }
+        });
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1))
-            .addContainerGap())
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(bannuler)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(40, 40, 40))
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jTabbedPane1)
-            .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(bCancel)
-                .addComponent(bannuler))
-            .addGap(14, 14, 14))
-    );
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bannuler)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCancel)
+                    .addComponent(bannuler))
+                .addGap(14, 14, 14))
+        );
 
-    setSize(new java.awt.Dimension(800, 912));
-    setLocationRelativeTo(null);
+        setSize(new java.awt.Dimension(800, 912));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -1107,9 +1210,9 @@ public class RDV extends javax.swing.JFrame {
             con = Connect.connect();
             try {
                 //2eme requete pour ajouter les donné à la table
-                String sql2 = "insert into demande_de_rdv (id_m, DateDepot, Etat_Demande) values ('"
+                String sql2 = "insert into demande_de_rdv (id_m, DateDepot, Etat_Demande, RemarqueDe, ExamenDe) values ('"
                         + id_m + "','" + date_depot
-                        + "','" + cEtatDemandeRDV.getSelectedItem() + "')";
+                        + "','" + cEtatDemandeRDV.getSelectedItem() + "','" + textRemarqueDe.getText() + "','" + textExamenDe.getText() + "')";
 
                 pst = con.prepareStatement(sql2);
                 pst.execute();
@@ -1142,6 +1245,11 @@ public class RDV extends javax.swing.JFrame {
                 cEtatDemandeRDV.setEnabled(false);
                 jDateDepot.setEnabled(false);
                 Configurer_Partie_Malade();
+                textExamenDe.setEditable(false);
+                textRemarqueDe.setEditable(false);
+                bSyntegraphie.setEnabled(false);
+                bIRM.setEnabled(false);
+                bDdateDepot.setEnabled(false);
 
                 bResetID.setEnabled(false);
                 bRechercherRDV.setEnabled(false);
@@ -1150,6 +1258,8 @@ public class RDV extends javax.swing.JFrame {
 
             } else if (b == true && cEtatDemandeRDV.getSelectedItem().equals("En Attente")) {
                 Reset_Demande_RDV();
+                textExamenDe.setText("");
+                textRemarqueDe.setText("");
             }
         }
     }//GEN-LAST:event_bAjouterDemandeRDVActionPerformed
@@ -1168,6 +1278,13 @@ public class RDV extends javax.swing.JFrame {
         cEtatDemandeRDV.setSelectedIndex(-1);
         bAjouterDemandeRDV.setEnabled(true);
         bModifierDemandeRDV.setEnabled(false);
+
+        bResetID.setEnabled(true);
+        bRechercherRDV.setEnabled(true);
+        bRechercherRDV.setEnabled(true);
+        bRechercherMaladeRDV.setEnabled(true);
+        bRechercherMalade.setEnabled(true);
+        bannuler.setEnabled(true);
 
     }
 
@@ -1208,6 +1325,14 @@ public class RDV extends javax.swing.JFrame {
         textExamen.setText("");
         textRemarque.setText("");
 
+        textExamenDe.setEditable(true);
+        textRemarqueDe.setEditable(true);
+        textExamenDe.setText("");
+        textRemarqueDe.setText("");
+        bSyntegraphie.setEnabled(true);
+        bIRM.setEnabled(true);
+        bDdateDepot.setEnabled(true);
+
     }
 
     private void Vider_Tableau_Convontion() {
@@ -1237,6 +1362,7 @@ public class RDV extends javax.swing.JFrame {
             try {
                 con = Connect.connect();
                 String sql = "update demande_de_rdv set Etat_Demande='" + cEtatDemandeRDV.getSelectedItem()
+                        + "' , RemarqueDe ='" + textRemarqueDe.getText() + "', ExamenDe = '" + textExamenDe.getText()
                         + "' WHERE id_date_depot = '" + id_demande_rdv + "' And id_m ='" + id_m + "'";
 
                 pst = con.prepareStatement(sql);
@@ -1326,6 +1452,8 @@ public class RDV extends javax.swing.JFrame {
     }
 
     public void Rechercher_Unite_Convontion() {
+        // Recherche les information lier à la convontion à partir du Nom de la convontion Selectionnner
+
         String sql = "select partenaire_id_p,id_conv, nbr_RDv , unite from  convontion where nom_convontion ='"
                 + cConvontion.getSelectedItem() + "'";
         con = Connect.connect();
@@ -1333,10 +1461,12 @@ public class RDV extends javax.swing.JFrame {
             pst = con.prepareStatement(sql);
             ResultSet rec2 = pst.executeQuery(sql);
             rec2.next();
+
             id_p = Integer.parseInt(rec2.getString("partenaire_id_p"));
             id_conv = Integer.parseInt(rec2.getString("id_conv"));
             nbr_RDv = rec2.getString("nbr_RDv");
             unite_c = rec2.getString("unite");
+
         } catch (SQLException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             log.error(e);
@@ -1599,49 +1729,53 @@ public class RDV extends javax.swing.JFrame {
 //        et affiche un message d'erreur si l'utilisateur choisit une date prise
 
         Rechercher_Unite_Convontion();
+        boolean verificateur_unite = Verification_par_unite_convontion();
+
         int row = tRDVchoix1.getSelectedRow();
         ArrayList date = new ArrayList(); // tableau de ma date
         ArrayList etat = new ArrayList(); // tableau des etat des date
         boolean h = false; // etat des date
 
-        String date_tester = tRDVchoix1.getModel().getValueAt(row, 1).toString();
-        con = Connect.connect();
-        String sql = "select Etat_RDV,date_rdv from rdv where convontion_id_conv='" + id_conv + "'";
-        try {
-            pst = con.prepareStatement(sql);
-            ResultSet rst1 = pst.executeQuery(sql);
-            while (rst1.next()) {
-                // Remplire ArrayList "Etat" et "Date"
-                String Etat_rdv_pris = rst1.getString("Etat_RDV");
-                Date date_rdv_pris = rst1.getDate("date_rdv");
-                DateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
-                String dateFormatee = fd.format(date_rdv_pris);
-                etat.add(Etat_rdv_pris);
-                date.add(dateFormatee);
-            }
-        } catch (SQLException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            log.error(e);
-        } finally {
-            /*This block should be added to your code
+        if (verificateur_unite == true) {
+            String date_tester = tRDVchoix1.getModel().getValueAt(row, 1).toString();
+            con = Connect.connect();
+            String sql = "select Etat_RDV,date_rdv from rdv where convontion_id_conv='" + id_conv + "'";
+            try {
+                pst = con.prepareStatement(sql);
+                ResultSet rst1 = pst.executeQuery(sql);
+                while (rst1.next()) {
+                    // Remplire ArrayList "Etat" et "Date"
+                    String Etat_rdv_pris = rst1.getString("Etat_RDV");
+                    Date date_rdv_pris = rst1.getDate("date_rdv");
+                    DateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateFormatee = fd.format(date_rdv_pris);
+                    etat.add(Etat_rdv_pris);
+                    date.add(dateFormatee);
+                }
+            } catch (SQLException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
+            } finally {
+                /*This block should be added to your code
              * You need to release the resources like connections
-             */
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    log.error(ex);
+                 */
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        log.error(ex);
+                    }
                 }
             }
-        }
 
-        for (int i = 0; i < etat.size(); i++) {
-            // Parcourt tout le tableau
-            if (date.get(i).equals(date_tester)) {
-                // verifie si la date existe dans la tableau
-                if (etat.get(i).equals("Pris") || etat.get(i).equals("En Attente")) {
-                    // verifie l'etat si pris ou en attent puis h = true 
-                    h = true;
+            for (int i = 0; i < etat.size(); i++) {
+                // Parcourt tout le tableau
+                if (date.get(i).equals(date_tester)) {
+                    // verifie si la date existe dans la tableau
+                    if (etat.get(i).equals("Pris") || etat.get(i).equals("En Attente")) {
+                        // verifie l'etat si pris ou en attent puis h = true 
+                        h = true;
+                    }
                 }
             }
         }
@@ -1653,10 +1787,16 @@ public class RDV extends javax.swing.JFrame {
 //      Cette methode Verifie si la date de RDv a été Pris ou existe Sur TOute l'année
 //        puis elle colorie le tableau
 
+        if (log.isTraceEnabled()) {
+            log.trace("Debut Verifier_date_rdv_colorier");
+        }
+
+        boolean h = false; // l'etat du RDV
+
         Rechercher_Unite_Convontion();
+
         ArrayList date = new ArrayList(); // tableau des date
         ArrayList etat = new ArrayList(); // tableau des etat des date
-        boolean h = false; // l'etat du RDV
 
         con = Connect.connect();
         String sql = "select Etat_RDV,date_rdv from rdv where convontion_id_conv='" + id_conv + "'";
@@ -1698,7 +1838,38 @@ public class RDV extends javax.swing.JFrame {
                 }
             }
         }
+
+        if (log.isTraceEnabled()) {
+            log.trace("Fin Verifier_date_rdv_colorier");
+        }
         return h;
+    }
+
+    private boolean Verification_par_unite_convontion() {
+        // Verifie si l'unite = Mois et desactive la verification de la date prise par click ou par couleur
+
+        Rechercher_Unite_Convontion();
+
+        boolean verificateur_unite = false;
+
+        if (unite_c.equals("Mois")) {
+            verificateur_unite = false;
+            if (log.isDebugEnabled()) {
+                log.debug("Mois : verificateur_unite = false;");
+            }
+        } else if (unite_c.equals("Semaine")) {
+            verificateur_unite = true;
+            if (log.isDebugEnabled()) {
+                log.debug("Semaine : verificateur_unite = false;");
+            }
+        } else if (unite_c.equals("Jours")) {
+            verificateur_unite = true;
+            if (log.isDebugEnabled()) {
+                log.debug("Jours : verificateur_unite = false;");
+            }
+        }
+
+        return verificateur_unite;
     }
 
     private void bAjouterValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAjouterValidationActionPerformed
@@ -2292,59 +2463,165 @@ public class RDV extends javax.swing.JFrame {
         String n = tRDVchoix1.getModel().getValueAt(row, 1).toString();
         String nomJour = tRDVchoix1.getModel().getValueAt(row, 0).toString();
 
-        if (nomJour.equals("vendredi")) { // Si Jour = Vendredi alors ERREUR
-            JOptionPane.showMessageDialog(null, "c'est un week end");
+        // diviser la date de debut  
+        String AnneeSelected = n.substring(0, 4);
+        int iAnneeSelected = Integer.parseInt(AnneeSelected);
+
+        String MoisSelected = n.substring(5, 7);
+        int iMoisSelected = Integer.parseInt(MoisSelected);
+
+        String JoursSelected = n.substring(8, 10);
+        int iJoursSelected = Integer.parseInt(JoursSelected);
+
+        String MoisActuel = Verification_de_Mois_actuel();
+        int iMoisActuel = Integer.parseInt(MoisActuel);
+
+        String AnneeActuel = Verification_de_annee_actuel();
+        int iAnneeActuel = Integer.parseInt(AnneeActuel);
+
+        String JoursActuel = Verification_de_Jours_actuel();
+        int iJourActuel = Integer.parseInt(JoursActuel);
+
+        boolean etat_Jous = false;
+
+        if (iAnneeSelected == iAnneeActuel) {
+            log.debug("iAnnee == iAnneeActuel");
+            if (iMoisSelected == iMoisActuel) {
+                log.debug("iMois == iMoisActuel");
+                if (iJoursSelected == iJourActuel || iJoursSelected > iJourActuel) {
+                    etat_Jous = true;
+                }
+            } else if (iMoisSelected > iMoisActuel) {
+                log.debug("iMois > iMoisActuel");
+                etat_Jous = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Verifier le mois");
+            }
+        } else if (iAnneeSelected > iAnneeActuel) {
+            log.debug("il n'est pas nesséssaire de verifier l'etat du mois ");
+            etat_Jous = true;
         } else {
-            Boolean k = Verifier_date_rdv();
+            JOptionPane.showMessageDialog(null, "Verifier l'annee");
+        }
+
+        if (etat_Jous == true) {
+
+            if (nomJour.equals("vendredi")) { // Si Jour = Vendredi alors ERREUR
+                JOptionPane.showMessageDialog(null, "c'est un week end");
+            } else {
+                Boolean k = Verifier_date_rdv();
 //            System.out.println("Table else t =" + t);
 
 //            if (t == false) { // Si la Date a était prise alos
-            if (k == false) { // Si la Date a était prise alos
+                if (k == false) { // Si la Date a était prise alos
 //                System.out.println("Table else if t =" + t);
-                try {
-                    Date dateValidation = formatter.parse(n);   // foramter la date
-                    jDateValidation.setDate(dateValidation);
-                    v = true;
-                } catch (ParseException e) {
-                    log.error(e);
-                    v = false;
-                } finally {
-                    /*This block should be added to your code
+                    try {
+                        Date dateValidation = formatter.parse(n);   // foramter la date
+                        jDateValidation.setDate(dateValidation);
+                        v = true;
+                    } catch (ParseException e) {
+                        log.error(e);
+                        v = false;
+                    } finally {
+                        /*This block should be added to your code
                      * You need to release the resources like connections
-                     */
-                    if (con != null) {
-                        try {
-                            con.close();
-                        } catch (SQLException ex) {
-                            log.error(ex);
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
                         }
                     }
-                }
 
-                if (v == true) {
-                    // Débloquer les autres anglets et affecter la date prise
+                    if (v == true) {
+                        // Débloquer les autres anglets et affecter la date prise
 //                    System.out.println("Table if v =" + v);
-                    jTabbedPane1.setEnabledAt(3, true);
-                    jTabbedPane1.setSelectedIndex(3);
+                        jTabbedPane1.setEnabledAt(3, true);
+                        jTabbedPane1.setSelectedIndex(3);
 
-                    jDateValidation.setEnabled(false);
-                    bAjouterValidation.setEnabled(true);
-                    bModifierValidation.setEnabled(false);
-                } else {
+                        jDateValidation.setEnabled(false);
+                        bAjouterValidation.setEnabled(true);
+                        bModifierValidation.setEnabled(false);
+                    } else {
 //                    System.out.println("Table Erreur");
-                    JOptionPane.showMessageDialog(null, "Erreur");
+                        JOptionPane.showMessageDialog(null, "Erreur");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "c'est une date prise");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "c'est une date prise");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "La date Choisit est inferieure a la date actuel");
         }
 
     }//GEN-LAST:event_tRDVchoix1MouseClicked
     private void bRechercherCotaParAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechercherCotaParAnsActionPerformed
-        bRechercherCota();
+
+        String anneActuel = Verification_de_annee_actuel();
+        int ianneActuel = Integer.parseInt(anneActuel);
+        int anneeJyearChooser = jYearChooser2.getYear();
+
+        if (anneeJyearChooser == ianneActuel || anneeJyearChooser > ianneActuel) {
+            log.debug("l'anne est = ou > a lannee actuel ");
+            bRechercherCota();
+        } else {
+            JOptionPane.showMessageDialog(null, "Corriger l'annee de la convontion");
+        }
+
+
     }//GEN-LAST:event_bRechercherCotaParAnsActionPerformed
 
-    public  void bRechercherCota() {
+    private String Verification_de_annee_actuel() {
+        // Verifie si la date
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        log.debug("la date (Date) = " + dateFormat.format(date));
+
+        String reportDate = dateFormat.format(date);
+        log.debug("la date (String) = " + reportDate);
+        return reportDate;
+
+    }
+
+    private String Verification_de_Mois_actuel() {
+        // Verifie si la date
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        log.debug("la date (Date) = " + dateFormat.format(date));
+
+        String reportDate = dateFormat.format(date);
+        log.debug("la date (String) = " + reportDate);
+        return reportDate;
+
+    }
+
+    private String Verification_de_Jours_actuel() {
+        // Verifie si la date
+        DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        log.debug("la date (Date) = " + dateFormat.format(date));
+
+        String reportDate = dateFormat.format(date);
+        log.debug("la date (String) = " + reportDate);
+        return reportDate;
+
+    }
+
+    private String Verification_de_Date_actuel() {
+        // Verifie si la date
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        log.debug("la date (Date) = " + dateFormat.format(date));
+
+        String reportDate = dateFormat.format(date);
+        log.debug("la date (String) = " + reportDate);
+        return reportDate;
+
+    }
+
+    public void bRechercherCota() {
         if (log.isTraceEnabled()) {
             log.trace("Debut bRechercherCotaParAnsActionPerformed");
         }
@@ -2389,6 +2666,7 @@ public class RDV extends javax.swing.JFrame {
             log.trace("Fin bRechercherCotaParAnsActionPerformed");
         }
     }
+
     ////////////////////////////////////////
     public void Afficher_la_liste_des_semaines() {
 //              Ajouter et Afficher l'ordre de la semaine au tableau
@@ -2458,9 +2736,9 @@ public class RDV extends javax.swing.JFrame {
 
     private void tConvontionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tConvontionMouseClicked
         boolean bDebloqueAnglet = false; // boolean pour les anglet
-        
+
         Rechercher_Unite_Convontion();
-        boolean f = false ;
+        boolean f = false;
         if ("Semaine".equals(unite_c)) {
             f = true;
         } else {
@@ -2479,40 +2757,40 @@ public class RDV extends javax.swing.JFrame {
             String vSamedi = tConvontion.getModel().getValueAt(row, 2).toString();
             vNumSemaine = tConvontion.getModel().getValueAt(row, 0).toString();
             String quantite_semaine = tConvontion.getModel().getValueAt(row, 3).toString();
-            
+
             boolean b53 = false;
-            
-             // diviser la date de debut  
-                String AnneeDimanche = vDimanche.substring(0, 4);
+
+            // diviser la date de debut  
+            String AnneeDimanche = vDimanche.substring(0, 4);
 //        log.debug(AnneeDimanche);
 // diviser la date de debut  
-                String AnneeSamedi = vSamedi.substring(0, 4);
+            String AnneeSamedi = vSamedi.substring(0, 4);
 //        log.debug(AnneeSamedi);
 
             if (vNumSemaine.equals("53") && !(AnneeDimanche.equals(AnneeSamedi))) {
-                    JOptionPane.showMessageDialog(null, "Selectioner cette date dans le calendrier de la nouvelle annee");    
+                JOptionPane.showMessageDialog(null, "Selectioner cette date dans le calendrier de la nouvelle annee");
             } else {
                 if (quantite_semaine.equals("0")) { // Si Num sem = Vendredi alors ERREUR
-                JOptionPane.showMessageDialog(null, "La Quantite = 0");
-            } else {
+                    JOptionPane.showMessageDialog(null, "La Quantite = 0");
+                } else {
 
 //            les tableau et les array list commence par 0 
-                int zz = Integer.parseInt(vNumSemaine);
-                zz = zz - 1;
-                vNumSemaine = Integer.toString(zz);
+                    int zz = Integer.parseInt(vNumSemaine);
+                    zz = zz - 1;
+                    vNumSemaine = Integer.toString(zz);
 
-                Remplir_detail_date_tableau n = new Remplir_detail_date_tableau(vSamedi, vDimanche);
+                    Remplir_detail_date_tableau n = new Remplir_detail_date_tableau(vSamedi, vDimanche);
 
-                ArrayList z;
-                z = n.getArJour();  // récuperer les valeurs de la liste 
-                try {
-                    Afficher_details_semaine(z);
-                    bDebloqueAnglet = true;
-                } catch (ParseException ex) {
-                    Logger.getLogger(NewJFrame1.class.getName()).log(null, ex);
+                    ArrayList z;
+                    z = n.getArJour();  // récuperer les valeurs de la liste 
+                    try {
+                        Afficher_details_semaine(z);
+                        bDebloqueAnglet = true;
+                    } catch (ParseException ex) {
+                        Logger.getLogger(NewJFrame1.class.getName()).log(null, ex);
+                    }
+                    f = false;
                 }
-                f = false;
-            }
             }
 
             log.trace("Fin tRDVchoix1MouseClicked");
@@ -2528,26 +2806,51 @@ public class RDV extends javax.swing.JFrame {
             int Month = Integer.parseInt(Mois) - 1;
             jMonthChooser1.setMonth(Month);
 
-            if (Integer.parseInt(quantite_rdv) == 0) {  // Si quantite de RDV = 0 alors ERREUR
-                JOptionPane.showMessageDialog(null, "Erreur: La Quantite est = 0. ");
-            } else {
-                try {
-                    afficher_la_date_dun_mois();
-                    bDebloqueAnglet = true;
-                } catch (ParseException ex) {
-                    log.error(ex);
-                } finally {
-                    /*This block should be added to your code
+            int iMois = Integer.parseInt(Mois);
+            String MoisActuel = Verification_de_Mois_actuel();
+            int iMoisActuel = Integer.parseInt(MoisActuel);
+
+            int iAnnee = Integer.parseInt(Annee);
+            String AnneeActuel = Verification_de_annee_actuel();
+            int iAnneeActuel = Integer.parseInt(AnneeActuel);
+
+            boolean etat_Mois = false;
+
+            if (iAnnee == iAnneeActuel) {
+                log.debug("iAnnee == iAnneeActuel");
+                if (iMois == iMoisActuel || iMois > iMoisActuel) {
+                    log.debug("iMois == iMoisActuel  || iMois > iMoisActuel");
+                    etat_Mois = true;
+                }
+            } else if (iAnnee > iAnneeActuel) {
+                log.debug("il n'est pas nesséssaire de verifier l'etat du mois ");
+                etat_Mois = true;
+            }
+
+            if (etat_Mois == true) {
+                if (Integer.parseInt(quantite_rdv) == 0) {  // Si quantite de RDV = 0 alors ERREUR
+                    JOptionPane.showMessageDialog(null, "Erreur: La Quantite est = 0. ");
+                } else {
+                    try {
+                        afficher_la_date_dun_mois();
+                        bDebloqueAnglet = true;
+                    } catch (ParseException ex) {
+                        log.error(ex);
+                    } finally {
+                        /*This block should be added to your code
                  * You need to release the resources like connections
-                     */
-                    if (con != null) {
-                        try {
-                            con.close();
-                        } catch (SQLException ex) {
-                            log.error(ex);
+                         */
+                        if (con != null) {
+                            try {
+                                con.close();
+                            } catch (SQLException ex) {
+                                log.error(ex);
+                            }
                         }
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Le mois selectionner est inferieure au mois actuelle ");
             }
         }
         if (bDebloqueAnglet == true) { // Debloquer les autres anglets
@@ -2726,6 +3029,7 @@ public class RDV extends javax.swing.JFrame {
 
             if (l.equals("Pris")) {
                 jDateRecuperation.setEnabled(true);
+                bDdateRecuperation.setEnabled(true);
             } else if (l.equals("Annuler") || l.equals("Reporter") || l.equals("En Attente")) {
                 jDateRecuperation.setDate(null);
                 jDateRecuperation.setEnabled(false);
@@ -2777,6 +3081,46 @@ public class RDV extends javax.swing.JFrame {
         //        reset tout les champs
         Reset_RDV_Pris();
     }//GEN-LAST:event_bannulerActionPerformed
+
+    private void bIRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIRMActionPerformed
+        if (textExamenDe.getText().equals("")) {
+            textExamenDe.setText("IRM");
+        } else {
+            textExamenDe.setText(textExamenDe.getText() + "IRM");
+        }
+    }//GEN-LAST:event_bIRMActionPerformed
+
+    private void bSyntegraphieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSyntegraphieActionPerformed
+        if (textExamenDe.getText().equals("")) {
+            textExamenDe.setText("Syntegraphie");
+        } else {
+            textExamenDe.setText(textExamenDe.getText() + "Syntegraphie");
+        }
+    }//GEN-LAST:event_bSyntegraphieActionPerformed
+
+    private void bDdateDepotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDdateDepotActionPerformed
+        try {
+            String date = Verification_de_Date_actuel();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateValidation = formatter.parse(date);
+            jDateDepot.setDate(dateValidation);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bDdateDepotActionPerformed
+
+    private void bDdateRecuperationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDdateRecuperationActionPerformed
+        try {
+            String date = Verification_de_Date_actuel();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateValidation = formatter.parse(date);
+            jDateRecuperation.setDate(dateValidation);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bDdateRecuperationActionPerformed
 
     private void Remplir_Tableau_Convontion() {
 //            Remplir le Tableau tConvontion des Convontion par Raport au Cota des mois d'une annee
@@ -2907,6 +3251,9 @@ public class RDV extends javax.swing.JFrame {
     protected javax.swing.JButton bAjouterValidation;
     private javax.swing.JButton bAppeler;
     private javax.swing.JButton bCancel;
+    protected javax.swing.JButton bDdateDepot;
+    protected javax.swing.JButton bDdateRecuperation;
+    private javax.swing.JButton bIRM;
     protected javax.swing.JButton bModifierDemandeRDV;
     protected javax.swing.JButton bModifierValidation;
     private javax.swing.JButton bPasDeReponse;
@@ -2917,6 +3264,7 @@ public class RDV extends javax.swing.JFrame {
     protected javax.swing.JButton bRechercherMaladeRDV;
     protected javax.swing.JButton bRechercherRDV;
     protected javax.swing.JButton bResetID;
+    private javax.swing.JButton bSyntegraphie;
     private javax.swing.JButton bannuler;
     private javax.swing.JComboBox cConvontion;
     protected javax.swing.JComboBox cEtatDemandeRDV;
@@ -2946,22 +3294,29 @@ public class RDV extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     protected javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     protected com.toedter.calendar.JYearChooser jYearChooser1;
     protected com.toedter.calendar.JYearChooser jYearChooser2;
     private javax.swing.JPanel pChoisirDate;
     private javax.swing.JPanel pChoisirRDV;
     private javax.swing.JPanel pDemandeRDV;
     private javax.swing.JPanel pExamen;
+    private javax.swing.JPanel pExamen1;
     private javax.swing.JPanel pRemarque;
+    private javax.swing.JPanel pRemarque1;
     private javax.swing.JPanel pValidationRDV;
     protected javax.swing.JTable tConvontion;
     private javax.swing.JScrollPane tDateParConvontion;
     protected javax.swing.JTable tRDVchoix1;
     protected javax.swing.JTextArea textExamen;
+    protected javax.swing.JTextArea textExamenDe;
     protected javax.swing.JTextArea textRemarque;
+    protected javax.swing.JTextArea textRemarqueDe;
     protected javax.swing.JTextField txtAdress;
     protected javax.swing.JTextField txtId_p3;
     protected javax.swing.JTextField txtInt;

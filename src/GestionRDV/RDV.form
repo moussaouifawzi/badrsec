@@ -94,44 +94,66 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                              <Component id="jDateDepot" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                              <Component id="cEtatDemandeRDV" pref="185" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="bModifierDemandeRDV" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="bAjouterDemandeRDV" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDateDepot" pref="172" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="bDdateDepot" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="cEtatDemandeRDV" pref="172" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="bModifierDemandeRDV" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="bAjouterDemandeRDV" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="411" max="-2" attributes="0"/>
+                      <Component id="jTabbedPane3" min="-2" pref="406" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jDateDepot" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="jTabbedPane3" min="-2" pref="247" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="bDdateDepot" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jDateDepot" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cEtatDemandeRDV" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="bAjouterDemandeRDV" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="bModifierDemandeRDV" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cEtatDemandeRDV" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bAjouterDemandeRDV" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bModifierDemandeRDV" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="405" max="32767" attributes="0"/>
+                      <EmptySpace pref="299" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -189,6 +211,154 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bModifierDemandeRDVActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+              </AuxValues>
+            </Component>
+            <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="pRemarque1">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="Examen">
+                        <Property name="tabTitle" type="java.lang.String" value="Examen"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane5" min="-2" pref="257" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="bIRM" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="bSyntegraphie" alignment="1" pref="117" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jScrollPane5" pref="209" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="bIRM" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="bSyntegraphie" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="textExamenDe">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+                          </AuxValues>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JButton" name="bIRM">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="IRM"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bIRMActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="bSyntegraphie">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Syntegraphie"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSyntegraphieActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="pExamen1">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="Remarque">
+                        <Property name="tabTitle" type="java.lang.String" value="Remarque"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" pref="363" max="-2" attributes="0"/>
+                              <EmptySpace pref="25" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" pref="192" max="-2" attributes="0"/>
+                              <EmptySpace pref="15" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="textRemarqueDe">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+                          </AuxValues>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="bDdateDepot">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="D"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDdateDepotActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
@@ -293,6 +463,9 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tConvontion">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="18" style="0"/>
+                    </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="4">
                         <Column editable="true" title="Mois" type="java.lang.Object"/>
@@ -300,6 +473,7 @@
                         <Column editable="true" title="Quantite" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="rowHeight" type="int" value="22"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tConvontionMouseClicked"/>
@@ -437,19 +611,23 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tRDVchoix1">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="18" style="0"/>
+                    </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="4">
                         <Column editable="true" title="Jour" type="java.lang.Object"/>
                         <Column editable="true" title="Date" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="rowHeight" type="int" value="22"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tRDVchoix1MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tRDVchoix1MouseEntered"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public boolean isCellEditable (int d, int c){&#xa;        // Rendre les cellule non Editable&#xa;        return false;&#xa;    }&#xa;    public Component prepareRenderer(TableCellRenderer r, int rw,int col)&#xa;    {&#xa;        //        // Colorier les ligne du tableau&#xa;        Component c = super.prepareRenderer(r, rw, col);&#xa;        c.setBackground(Color.WHITE);&#xa;        c.setForeground(Color.BLACK);&#xa;        String nomJour = tRDVchoix1.getModel().getValueAt(rw, 0).toString();&#xa;&#xa;        if (nomJour.equals(&quot;vendredi&quot;)) { // Si Jour = Vendredi alors ERREUR&#xa;            c.setBackground(Color.RED);&#xa;            c.setForeground(Color.WHITE);&#xa;        }&#xa;&#xa;        String date_tester = tRDVchoix1.getModel().getValueAt(rw, 1).toString();&#xa;        boolean k = Verifier_date_rdv_colorier(date_tester);&#xa;        //        con = Connect.connect();&#xa;        //        String sql = &quot;select Etat_RDV,date_rdv from rdv where date_rdv =&apos;&quot; + date_tester + &quot;&apos;&quot;;&#xa;        //        try {&#xa;            //            pst = con.prepareStatement(sql);&#xa;            //            ResultSet rst1 = pst.executeQuery(sql);&#xa;&#xa;            //            while (rst1.next()) {&#xa;                //                // Compare la valeur selectioner avec la valeur rechercher dans la BDD&#xa;                //                String Etat_rdv_pris = rst1.getString(&quot;Etat_RDV&quot;);&#xa;                //                Date date_rdv_pris = rst1.getDate(&quot;date_rdv&quot;);&#xa;                //                DateFormat fd = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);&#xa;                //                String dateFormatee = fd.format(date_rdv_pris);&#xa;                //                System.out.println(Etat_rdv_pris + &quot; | date bd: &quot;+ dateFormatee + &quot; | date tableau: &quot;+ date_tester);&#xa;                if (k == true) {&#xa;                    //                    //                     si la date est prise afficher ERREUR&#xa;                    t = true;&#xa;                    //  System.out.println(&quot;Rouge&quot;);&#xa;                    c.setBackground(Color.RED);&#xa;                    c.setForeground(Color.WHITE);&#xa;                    //                    //                    JOptionPane.showMessageDialog(null, &quot;c&apos;est une date prise&quot;);&#xa;                }&#xa;                //else if ((((Etat_rdv_pris.equals(&quot;Pris&quot;) || Etat_rdv_pris.equals(&quot;En Attente&quot;)))&#xa;                    //                    &amp;&amp; (Etat_rdv_pris.equals(&quot;Annuler&quot;) || Etat_rdv_pris.equals(&quot;Reporter&quot;)))&#xa;                //                &amp;&amp; dateFormatee.equals(date_tester)) {&#xa;                //                //                     si la date est prise afficher ERREUR&#xa;                //                t = true;&#xa;                //                c.setBackground(Color.RED);&#xa;                //                c.setForeground(Color.WHITE);&#xa;                //            }&#xa;            //        }&#xa;        //        else {&#xa;            //            t = false;&#xa;            //            //        }&#xa;        //    } catch (SQLException | NumberFormatException e) {&#xa;        //        JOptionPane.showMessageDialog(null, e.getMessage());&#xa;        //    }finally{&#xa;        //        /*This block should be added to your code&#xa;        //        * You need to release the resources like connections&#xa;        //        */&#xa;        //        if(con!=null)&#xa;        //        try {&#xa;            //            con.close();&#xa;            //        } catch (SQLException ex) {&#xa;            //            Logger.getLogger(RDV.class.getName()).log(Level.SEVERE, null, ex);&#xa;            //        }&#xa;        //    }&#xa;    return c;&#xa;}&#xa;}"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public boolean isCellEditable (int d, int c){&#xa;        // Rendre les cellule non Editable&#xa;        return false;&#xa;    }&#xa;    public Component prepareRenderer(TableCellRenderer r, int rw,int col)&#xa;    {&#xa;        // Colorier les ligne du tableau&#xa;        if (log.isTraceEnabled()){&#xa;            log.trace(&quot;Debut Colorier les ligne du tableau&quot;);&#xa;        }&#xa;&#xa;        Component c = super.prepareRenderer(r, rw, col);&#xa;        c.setBackground(Color.WHITE);&#xa;        c.setForeground(Color.BLACK);&#xa;        String nomJour = tRDVchoix1.getModel().getValueAt(rw, 0).toString();&#xa;&#xa;        if (nomJour.equals(&quot;vendredi&quot;)) { // Si Jour = Vendredi alors ERREUR&#xa;            c.setBackground(Color.RED);&#xa;            c.setForeground(Color.WHITE);&#xa;        }&#xa;&#xa;        boolean verificateur_unite = Verification_par_unite_convontion();&#xa;&#xa;        Rechercher_Unite_Convontion();&#xa;        &#xa;&#xa;        String date_tester = tRDVchoix1.getModel().getValueAt(rw, 1).toString();&#xa;        if ( verificateur_unite == true) {&#xa;            if (log.isDebugEnabled()){&#xa;                log.debug(&quot;Si  verificateur_unite == true&quot;);&#xa;            }&#xa;            boolean k = Verifier_date_rdv_colorier(date_tester);&#xa;&#xa;            if (k == true) {&#xa;                //                    //                     si la date est prise afficher ERREUR&#xa;                t = true;&#xa;                //  System.out.println(&quot;Rouge&quot;);&#xa;                c.setBackground(Color.RED);&#xa;                c.setForeground(Color.WHITE);&#xa;            }&#xa;        }&#xa;&#xa;        if (log.isTraceEnabled()){&#xa;            log.trace(&quot;Fin Colorier les ligne du tableau&quot;);&#xa;        }&#xa;        return c;&#xa;    }&#xa;}"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
                   </AuxValues>
                 </Component>
@@ -516,7 +694,11 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jDateRecuperation" min="-2" pref="142" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jDateRecuperation" min="-2" pref="142" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="bDdateRecuperation" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="cEtatValidation" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -535,7 +717,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace pref="228" max="32767" attributes="0"/>
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="234" max="32767" attributes="0"/>
+                              <EmptySpace pref="207" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
@@ -553,7 +735,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jTabbedPane2" min="-2" pref="247" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="108" max="32767" attributes="0"/>
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
                           </Group>
@@ -568,16 +750,19 @@
                                   <Component id="cEtatValidation" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jDateRecuperation" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDateRecuperation" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="bDdateRecuperation" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="bAjouterValidation" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="bModifierValidation" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="78" pref="374" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -817,6 +1002,17 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="bDdateRecuperation">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="D"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDdateRecuperationActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

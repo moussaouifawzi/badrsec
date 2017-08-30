@@ -84,7 +84,6 @@ char id;
                 return false;
             }
         };
-        jLabel10 = new javax.swing.JLabel();
         txtInt = new javax.swing.JTextField();
         txtId_p3 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -94,6 +93,9 @@ char id;
         cWillaya = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        cAlphabet = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulter Malade");
@@ -122,19 +124,15 @@ char id;
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(10, 90, 1740, 390);
 
-        jLabel10.setText("ID :");
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(70, 40, 27, 16);
-
         txtInt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntActionPerformed(evt);
             }
         });
         jPanel1.add(txtInt);
-        txtInt.setBounds(160, 30, 75, 24);
+        txtInt.setBounds(160, 50, 75, 24);
         jPanel1.add(txtId_p3);
-        txtId_p3.setBounds(240, 30, 70, 24);
+        txtId_p3.setBounds(250, 50, 70, 24);
 
         jLabel11.setText("Etat Sociale :");
         jPanel1.add(jLabel11);
@@ -166,14 +164,27 @@ char id;
         cWillaya.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Béjaïa", "Biskra", "Béchar", "Blida", "Bouira", "Tamanrasset", "Tébessa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saïda", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Médéa", "Mostaganem", "M'Sila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bordj Bou Arreridj", "Boumerdès", "El Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenchela", "Souk Ahras", "Tipaza", "Mila", "Aïn Defla", "Naàma", "Aïn Témouchent", "Ghardaïa", "Relizane", " " }));
         cWillaya.setSelectedIndex(-1);
         jPanel1.add(cWillaya);
-        cWillaya.setBounds(630, 30, 160, 30);
+        cWillaya.setBounds(810, 30, 160, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Willaya :");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(540, 40, 70, 17);
+        jLabel7.setBounds(720, 40, 70, 17);
         jPanel1.add(jLabel1);
         jLabel1.setBounds(20, -50, 1760, 610);
+
+        cAlphabet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z" }));
+        cAlphabet.setSelectedIndex(-1);
+        jPanel1.add(cAlphabet);
+        cAlphabet.setBounds(500, 50, 80, 26);
+
+        jLabel2.setText("Nom : ");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(450, 50, 60, 16);
+
+        jLabel10.setText("Numero Dossier :");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(40, 50, 120, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,79 +215,85 @@ char id;
                 && cEtatSocial.getSelectedIndex() == -1 && txtId_p3.getText().equals("")
                 && txtInt.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter Une des combinaison suivante:"
-                    + "\n     - Alphabet de l'ID seulement."
-                    + "\n     - ID compltet ou Willaya ou Etat Social."
+                    + "\n     - Numero du Dossier compltet ou Willaya ou Etat Social."
                     + "\n     - Willaya + Etat Social ."
-                    + "\n     - Willaya + Alphabet de l'ID ."
-                    + "\n     - Etat Social + Alphabet de l'ID .");
-        }else if (txtId_p3.getText().equals("")
+                    + "\n     - Willaya + Alphabet de l'ID .");
+        } else if (txtId_p3.getText().equals("") && cAlphabet.getSelectedIndex() == -1
                 && txtInt.getText().equals("") && cEtatSocial.getSelectedIndex() == -1) {
             // willaya
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, "
-                        + "type_cancer FROM `malade`"
-                        + "INNER JOIN maladies ON maladies_id_maladi1 = id_maladi "
-                        + "where willaya_m='" + cWillaya.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error("bRechercherMaladeActionPerformed : ", e);
+                log.error(e);
             }
-        } else if (txtId_p3.getText().equals("")
+        } else if ( txtId_p3.getText().equals("") && cAlphabet.getSelectedIndex() == -1
                 && txtInt.getText().equals("") && cWillaya.getSelectedIndex() == -1) {
             // etat social
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, "
-                        + "sexe_m, type_cancer FROM `malade`"
-                        + "INNER JOIN maladies ON maladies_id_maladi1 = id_maladi "
-                        + "where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social='" + cEtatSocial.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error("bRechercherMaladeActionPerformed : ", e);
+                log.error(e);
             }
-        } else if (cEtatSocial.getSelectedIndex() == -1 && cWillaya.getSelectedIndex() == -1) {
+        }  else if (cEtatSocial.getSelectedIndex() == -1 && cWillaya.getSelectedIndex() == -1 && cAlphabet.getSelectedIndex() == -1) {
             // id malade
+            
+            if ( txtId_p3.getText().equals("") || txtInt.getText().equals("") ) {
+                JOptionPane.showMessageDialog(null, "Il faut remplire les deux champs");
+            } else {
             String c = "/";
             DecimalFormat myFormatter = new DecimalFormat("0000");
             String output = myFormatter.format(Integer.parseInt(txtInt.getText()));
-            
-            String id_m = output+ c + txtId_p3.getText();
+           // String output2 = myFormatter.format(Integer.parseInt(txtId_p3.getText()));
+            String id_m = output + c + txtId_p3.getText();
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, "
-                        + "sexe_m, type_cancer FROM `malade`"
-                        + "INNER JOIN maladies ON maladies_id_maladi1 = id_maladi"
-                        + " where id_m='" + id_m + "'";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where id_m='" + id_m + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error("bRechercherMaladeActionPerformed : ", e);
+                log.error(e);
             }
-        } else if (txtId_p3.getText().equals("")
-                && txtInt.getText().equals("")) {
+            }
+        } else if ( txtId_p3.getText().equals("") && txtInt.getText().equals("") && cAlphabet.getSelectedIndex() == -1) {
             // willaya + etat
             try {
                 //1er requete pour identifier une erreur de redendence 
-                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, "
-                        + "sexe_m, type_cancer FROM `malade`"
-                        + "INNER JOIN maladies ON maladies_id_maladi1 = id_maladi "
-                        + "where Etat_social ='" + cEtatSocial.getSelectedItem()
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi where Etat_social ='" + cEtatSocial.getSelectedItem()
                         + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
                 pst = con.prepareStatement(sql);
                 rst = pst.executeQuery(sql);
                 tMalade.setModel(DbUtils.resultSetToTableModel(rst));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                log.error("bRechercherMaladeActionPerformed : ", e);
+                log.error(e);
+            }
+        } else if ( txtId_p3.getText().equals("") && txtInt.getText().equals("") && cEtatSocial.getSelectedIndex() == -1 ) {
+            // willaya + Alphabet
+            try {
+                //1er requete pour identifier une erreur de redendence 
+                String s =  cAlphabet.getSelectedItem() + "%";
+                String sql = "SELECT id_m, prenom_m, nom_m, adr_m, ville_m, willaya_m, Etat_social, Medecin_m, date_n_m, num_tel_m , tel_famille_m, sexe_m, type_cancer "
+                        + "FROM `malade`INNER JOIN maladies ON maladies_id_maladi1 = id_maladi "
+                        + "where nom_m  Like'" + s
+                        + "'AND willaya_m='" + cWillaya.getSelectedItem() + "'";
+                pst = con.prepareStatement(sql);
+                rst = pst.executeQuery(sql);
+                tMalade.setModel(DbUtils.resultSetToTableModel(rst));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                log.error(e);
             }
         }
       
@@ -331,11 +348,13 @@ char id;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel2;
     private javax.swing.JButton bRechercherMalade;
+    private javax.swing.JComboBox<String> cAlphabet;
     protected javax.swing.JComboBox cEtatSocial;
     protected javax.swing.JComboBox cWillaya;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
